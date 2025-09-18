@@ -1,0 +1,23 @@
+{
+  "name": "viveroApp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Enterprise Agricultural Management System",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter ./src/frontend run dev\" \"pnpm --filter ./src/backend run dev\"",
+    "dev:frontend": "pnpm --filter ./src/frontend run dev",
+    "dev:backend": "pnpm --filter ./src/backend run dev",
+    "build": "pnpm run build:frontend && pnpm run build:backend",
+    "build:frontend": "pnpm --filter ./src/frontend run build",
+    "build:backend": "pnpm --filter ./src/backend run build",
+    "lint": "pnpm --filter ./src/frontend run lint && pnpm --filter ./src/backend run lint",
+    "test": "pnpm --filter ./src/frontend run test && pnpm --filter ./src/backend run test"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

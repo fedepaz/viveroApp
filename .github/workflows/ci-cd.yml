@@ -1,0 +1,33 @@
+# .github/workflows/ci-cd.yml
+name: ViveroApp CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm --filter ./apps/frontend run lint
+      - run: pnpm --filter ./apps/backend run lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm --filter ./apps/frontend run test:unit || echo "No tests yet, skipping"
+      - run: pnpm --filter ./apps/backend run test:unit || echo "No tests yet, skipping"

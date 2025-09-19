@@ -45,71 +45,106 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0.028 261.692);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.028 261.692);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.21 0.034 264.665);
-  --primary-foreground: oklch(0.985 0.002 247.839);
-  --secondary: oklch(0.967 0.003 264.542);
-  --secondary-foreground: oklch(0.21 0.034 264.665);
-  --muted: oklch(0.967 0.003 264.542);
-  --muted-foreground: oklch(0.551 0.027 264.364);
-  --accent: oklch(0.967 0.003 264.542);
-  --accent-foreground: oklch(0.21 0.034 264.665);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.928 0.006 264.531);
-  --input: oklch(0.928 0.006 264.531);
-  --ring: oklch(0.707 0.022 261.325);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0.002 247.839);
-  --sidebar-foreground: oklch(0.13 0.028 261.692);
-  --sidebar-primary: oklch(0.21 0.034 264.665);
-  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-accent: oklch(0.967 0.003 264.542);
-  --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
-  --sidebar-border: oklch(0.928 0.006 264.531);
-  --sidebar-ring: oklch(0.707 0.022 261.325);
+
+  /* Agricultural Palette - Light Theme */
+  --ag-earth-brown: 34 10% 20%; /* #8B4513 */
+  --ag-leaf-green: 140 15% 50%; /* #228B22 */
+  --ag-sky-blue: 200 50% 85%; /* #87CEEB */
+  --ag-sun-gold: 50 100% 70%; /* #FFD700 */
+
+  --ag-healthy: 140 70% 46%; /* #22C55E */
+  --ag-warning: 39 92% 50%; /* #F59E0B */
+  --ag-critical: 0 84% 57%; /* #EF4444 */
+  --ag-info: 214 89% 52%; /* #3B82F6 */
+
+  /* Shadcn/ui mapping to Agricultural Palette - Light Theme */
+  --background: 0 0% 98%; /* Very light grey */
+  --foreground: var(--ag-earth-brown);
+  --card: 0 0% 100%;
+  --card-foreground: var(--ag-earth-brown);
+  --popover: 0 0% 100%;
+  --popover-foreground: var(--ag-earth-brown);
+  --primary: var(--ag-leaf-green);
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 10% 90%; /* Light beige */
+  --secondary-foreground: var(--ag-earth-brown);
+  --muted: 0 0% 95%;
+  --muted-foreground: 210 10% 40%;
+  --accent: var(--ag-sun-gold);
+  --accent-foreground: var(--ag-earth-brown);
+  --destructive: var(--ag-critical);
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 10% 90%;
+  --input: 0 0% 95%;
+  --ring: 140 15% 60%; /* Slightly darker green */
+
+  /* Chart colors - using agricultural palette */
+  --chart-1: var(--ag-leaf-green);
+  --chart-2: var(--ag-sun-gold);
+  --chart-3: var(--ag-sky-blue);
+  --chart-4: var(--ag-earth-brown);
+  --chart-5: var(--ag-healthy);
+
+  /* Sidebar colors - using agricultural palette */
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
 }
 
 .dark {
-  --background: oklch(0.13 0.028 261.692);
-  --foreground: oklch(0.985 0.002 247.839);
-  --card: oklch(0.21 0.034 264.665);
-  --card-foreground: oklch(0.985 0.002 247.839);
-  --popover: oklch(0.21 0.034 264.665);
-  --popover-foreground: oklch(0.985 0.002 247.839);
-  --primary: oklch(0.928 0.006 264.531);
-  --primary-foreground: oklch(0.21 0.034 264.665);
-  --secondary: oklch(0.278 0.033 256.848);
-  --secondary-foreground: oklch(0.985 0.002 247.839);
-  --muted: oklch(0.278 0.033 256.848);
-  --muted-foreground: oklch(0.707 0.022 261.325);
-  --accent: oklch(0.278 0.033 256.848);
-  --accent-foreground: oklch(0.985 0.002 247.839);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.034 264.665);
-  --sidebar-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-accent: oklch(0.278 0.033 256.848);
-  --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  /* Agricultural Palette - Dark Theme */
+  --ag-earth-brown: 34 10% 15%; /* Darker #8B4513 */
+  --ag-leaf-green: 140 15% 40%; /* Darker #228B22 */
+  --ag-sky-blue: 200 50% 75%; /* Darker #87CEEB */
+  --ag-sun-gold: 50 100% 60%; /* Darker #FFD700 */
+
+  --ag-healthy: 140 70% 36%; /* Darker #22C55E */
+  --ag-warning: 39 92% 40%; /* Darker #F59E0B */
+  --ag-critical: 0 84% 47%; /* Darker #EF4444 */
+  --ag-info: 214 89% 42%; /* Darker #3B82F6 */
+
+  /* Shadcn/ui mapping to Agricultural Palette - Dark Theme */
+  --background: 210 10% 15%; /* Dark blue-grey */
+  --foreground: 210 10% 90%; /* Light blue-grey */
+  --card: 210 10% 20%;
+  --card-foreground: 210 10% 90%;
+  --popover: 210 10% 20%;
+  --popover-foreground: 210 10% 90%;
+  --primary: var(--ag-leaf-green);
+  --primary-foreground: 210 10% 15%;
+  --secondary: 30 10% 25%; /* Dark brown */
+  --secondary-foreground: 210 10% 90%;
+  --muted: 210 10% 20%;
+  --muted-foreground: 210 10% 70%;
+  --accent: var(--ag-sun-gold);
+  --accent-foreground: 210 10% 15%;
+  --destructive: var(--ag-critical);
+  --destructive-foreground: 0 0% 100%;
+  --border: 210 10% 25%;
+  --input: 210 10% 20%;
+  --ring: 140 15% 70%; /* Lighter green */
+
+  /* Chart colors - using agricultural palette */
+  --chart-1: var(--ag-leaf-green);
+  --chart-2: var(--ag-sun-gold);
+  --chart-3: var(--ag-sky-blue);
+  --chart-4: var(--ag-earth-brown);
+  --chart-5: var(--ag-healthy);
+
+  /* Sidebar colors - using agricultural palette */
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
 }
 
 @layer base {

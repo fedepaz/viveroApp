@@ -1,3 +1,38 @@
 {
-  "pages": {}
+  "pages": {
+    "/[locale]/page": [
+      "static/chunks/05d5a_next_dist_9b70183c._.js",
+      "static/chunks/05d5a_next_dist_client_components_builtin_not-found_e5f3b0a0.js",
+      "static/chunks/05d5a_next_dist_client_components_builtin_global-error_e5f3b0a0.js",
+      "static/chunks/_a3092b42._.css",
+      "static/chunks/node_modules__pnpm_28df73ea._.js",
+      "static/chunks/apps_frontend_src_0365d721._.js",
+      "static/chunks/apps_frontend_src_app_[locale]_layout_tsx_e5f3b0a0._.js",
+      "static/chunks/apps_frontend_src_b6e17f1a._.js",
+      "static/chunks/node_modules__pnpm_3b37d7e9._.js",
+      "static/chunks/apps_frontend_src_app_[locale]_page_tsx_39a49e97._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_582279a2._.js",
+      "static/chunks/05d5a_next_dist_compiled_react-dom_b0887cf2._.js",
+      "static/chunks/05d5a_next_dist_compiled_next-devtools_index_c25960e9.js",
+      "static/chunks/05d5a_next_dist_compiled_4e7795c4._.js",
+      "static/chunks/05d5a_next_dist_client_f20c90b1._.js",
+      "static/chunks/05d5a_next_dist_3aac09b9._.js",
+      "static/chunks/69652_@swc_helpers_cjs_77b72907._.js",
+      "static/chunks/apps_frontend_a0ff3932._.js",
+      "static/chunks/turbopack-apps_frontend_0c50ff61._.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/05d5a_next_dist_9b70183c._.js",
+      "static/chunks/05d5a_next_dist_client_components_builtin_layout_e5f3b0a0.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_582279a2._.js",
+      "static/chunks/05d5a_next_dist_compiled_react-dom_b0887cf2._.js",
+      "static/chunks/05d5a_next_dist_compiled_next-devtools_index_c25960e9.js",
+      "static/chunks/05d5a_next_dist_compiled_4e7795c4._.js",
+      "static/chunks/05d5a_next_dist_client_f20c90b1._.js",
+      "static/chunks/05d5a_next_dist_3aac09b9._.js",
+      "static/chunks/69652_@swc_helpers_cjs_77b72907._.js",
+      "static/chunks/apps_frontend_a0ff3932._.js",
+      "static/chunks/turbopack-apps_frontend_0c50ff61._.js"
+    ]
+  }
 }

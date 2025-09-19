@@ -1,0 +1,19 @@
+{
+  "dashboard": {
+    "notifications": "Notifications",
+    "preferences": "System Preferences",
+    "profile": "Profile Settings",
+    "search": "Search plants, locations, or alerts...",
+    "settings": "Settings",
+    "signout": "Sign Out",
+    "team": "Team Management",
+    "title": "AgriManage",
+    "userRole": "Greenhouse  Manager"
+  },
+  "metrics": {
+    "criticalAlerts": "Critical Alerts",
+    "healthyPlants": "Healthy Plants",
+    "needAttention": "Need Attention",
+    "totalPlants": "Total Plants"
+  }
+}

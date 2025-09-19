@@ -1,0 +1,19 @@
+{
+  "dashboard": {
+    "notifications": "Notificaciones",
+    "preferences": "Preferencias del Sistema",
+    "profile": "Configuración del perfil",
+    "search": "Buscar plantas, ubicaciones o alertas...",
+    "settings": "Configuración",
+    "signout": "Cerrar sesión",
+    "team": "Gestión de Equipos",
+    "title": "AgriManage",
+    "userRole": "Gerente de Invernadero"
+  },
+  "metrics": {
+    "criticalAlerts": "Alertas Críticas",
+    "healthyPlants": "Plantas saludables",
+    "needAttention": "Necesita Atención",
+    "totalPlants": "Total de Plantas"
+  }
+}

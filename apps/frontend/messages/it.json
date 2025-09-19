@@ -1,0 +1,19 @@
+{
+  "dashboard": {
+    "notifications": "Notifiche",
+    "preferences": "Preferenze di Sistema",
+    "profile": "Impostazioni del profilo",
+    "search": "Cerca piante, luoghi o avvisi...",
+    "settings": "Impostazioni",
+    "signout": "Disconnetti",
+    "team": "Gestione del Team",
+    "title": "AgriManage",
+    "userRole": "Gestore della serra"
+  },
+  "metrics": {
+    "criticalAlerts": "Avvisi Critici",
+    "healthyPlants": "Piante Sane",
+    "needAttention": "Necessita di attenzione",
+    "totalPlants": "Piante Totali"
+  }
+}

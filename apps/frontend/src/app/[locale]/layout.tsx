@@ -1,34 +1,62 @@
-import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
-import { routing } from "@/i18n/routing";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
 import type React from "react";
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
+import { ThemeProvider } from "next-themes";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
-interface LocaleLayoutProps {
-  children: React.ReactNode;
-  params: { locale: string };
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function LocaleLayout({
+export const metadata: Metadata = {
+  title: "AgriManage - Agricultural Management System",
+  description: "Professional agricultural plant management dashboard",
+  generator: "v0.app",
+};
+
+interface RootLayoutProps {
+  children: React.ReactNode;
+  params: Promise<{
+    locale: string;
+  }>;
+}
+
+export default async function RootLayout({
   children,
   params,
-}: LocaleLayoutProps) {
+}: RootLayoutProps) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!hasLocale(routing.locales, locale as any)) {
     notFound();
   }
 
-  const messages = await getMessages();
-
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <LayoutWrapper>{children}</LayoutWrapper>
-      </Suspense>
-    </NextIntlClientProvider>
+    <html
+      lang={locale}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider>
+            <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
+            <Analytics />
+          </NextIntlClientProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

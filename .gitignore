@@ -1,9 +1,93 @@
-node_modules/
-.pnpm/
-dist/
-.next/
-coverage/
-*.log
-.env
-.env.local
+# =========================
+# OS & System Files
+# =========================
 .DS_Store
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Dependencies & Package Managers
+# =========================
+/node_modules
+/.pnp
+.pnp.*
+.pnpm/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# =========================
+# Build & Compiled Output
+# =========================
+/dist
+/build
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# =========================
+# Logs & Debug Files
+# =========================
+# General logs
+logs
+*.log
+
+# Node.js debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# =========================
+# Environment Variables
+# =========================
+# Ignoring all .env files by default (opt-in to commit if needed)
+.env*
+# Alternatively, if you want to ignore specific ones but allow others:
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# =========================
+# Testing & Coverage
+# =========================
+/coverage
+/.nyc_output
+
+# =========================
+# IDEs & Editors
+# =========================
+# General
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# VSCode (preserve workspace settings)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# =========================
+# Misc & Temporary Files
+# =========================
+.vercel
+*.pem
+.temp
+.tmp

@@ -5,10 +5,11 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type React from "react";
 import { Suspense } from "react";
+import { LoadingSpinner } from "@/components/common/loading-spinner";
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 }
 
 export default async function LocaleLayout({
@@ -24,8 +25,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <Suspense fallback={<div>Loading Crear Uno Cheto...</div>}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <Suspense fallback={<LoadingSpinner />}>
         <LayoutWrapper>{children}</LayoutWrapper>
       </Suspense>
     </NextIntlClientProvider>

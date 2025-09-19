@@ -1,4 +1,5 @@
 import { PlantGrid } from "@/components/agricultural/plant-grid";
+
 import { DashboardHeader } from "@/components/agricultural/dashboard-header";
 
 export default function PlantsPage() {

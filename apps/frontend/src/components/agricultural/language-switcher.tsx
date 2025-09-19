@@ -19,7 +19,9 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
-  const switchLanguage = (newLocale: string) => {
+  const switchLanguage = (newLocale: "en" | "es") => {
+    console.log("Switching language to:", newLocale);
+    console.log("Current pathname:", pathname);
     startTransition(() => {
       router.replace(pathname, { locale: newLocale });
     });
@@ -32,6 +34,7 @@ export function LanguageSwitcher() {
           variant="ghost"
           size="icon"
           className="agricultural-touch-target"
+          aria-label={t("switch")}
           disabled={isPending}
         >
           <Languages className="h-5 w-5" />
@@ -41,14 +44,20 @@ export function LanguageSwitcher() {
         <DropdownMenuItem
           onClick={() => switchLanguage("en")}
           className={locale === "en" ? "bg-accent" : ""}
+          disabled={isPending}
         >
-          🇺🇸 {t("english")}
+          <span className="mr-2">🇺🇸</span>
+          {t("english")}
+          {locale === "en" && <span className="ml-auto">✓</span>}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => switchLanguage("es")}
           className={locale === "es" ? "bg-accent" : ""}
+          disabled={isPending}
         >
-          🇪🇸 {t("spanish")}
+          <span className="mr-2">🇪🇸</span>
+          {t("spanish")}
+          {locale === "es" && <span className="ml-auto">✓</span>}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Suspense } from "react";
+import { LoadingSpinner } from "@/components/common/loading-spinner";
 
 export const metadata: Metadata = {
   title: "AgriManage - Agricultural Management System",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="font-sans">
-        <Suspense fallback={<div>Loading hace una cheta...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           {children}
         </Suspense>
         <Analytics />

@@ -14,10 +14,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { MobileNavigation } from "./mobile-navigation";
 import { LanguageSwitcher } from "./language-switcher";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export function DashboardHeader() {
+  const locale = useLocale();
+  console.log("Current locale:", locale);
+
   const t = useTranslations("dashboard");
+  console.log("Translation function:", typeof t);
+  console.log("Translation function:", t);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

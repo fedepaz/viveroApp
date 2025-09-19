@@ -2,14 +2,14 @@ import type React from "react";
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { ThemeProvider } from "next-themes";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
-import { notFound } from "next/navigation";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
+import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -33,16 +33,14 @@ export default async function RootLayout({
   params,
 }: RootLayoutProps) {
   const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale as any)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
   return (
     <html
-      lang={locale}
       className={`${GeistSans.variable} ${GeistMono.variable}`}
       suppressHydrationWarning
+      lang={locale}
     >
       <body className="font-sans">
         <ThemeProvider
@@ -52,8 +50,9 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider>
-            <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
-            <Analytics />
+            <Suspense fallback={<LoadingSpinner />}>
+              <LayoutWrapper>{children}</LayoutWrapper>
+            </Suspense>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

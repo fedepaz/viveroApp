@@ -4,11 +4,8 @@ import { EnvironmentalOverview } from "@/components/agricultural/environmental-o
 import { PlantStatusOverview } from "@/components/agricultural/plant-status-overview";
 import { CriticalAlerts } from "@/components/agricultural/critical-alerts";
 import { QuickActions } from "@/components/agricultural/quick-actions";
-import { routing } from "@/i18n/routing";
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
 
 // Mock data - in production this would come from your API
 const mockDashboardData = {
@@ -87,7 +84,14 @@ const mockDashboardData = {
   ],
 };
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default function DashboardPage({ params }: DashboardPageProps) {
+  const { locale } = use(params);
+  setRequestLocale(locale);
+
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />

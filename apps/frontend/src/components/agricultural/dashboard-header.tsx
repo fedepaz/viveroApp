@@ -15,24 +15,10 @@ import { Badge } from "@/components/ui/badge";
 import { MobileNavigation } from "./mobile-navigation";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeToggle } from "../common/theme-toggle";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export function DashboardHeader() {
-  const locale = useLocale();
-  console.log("Current locale:", locale);
-
   const t = useTranslations("dashboard");
-  console.log("Translation function:", typeof t);
-  console.log("Translation function:", t);
-  console.log("Translation function:", t("title"));
-  console.log("Translation function:", t("search"));
-  console.log("Translation function:", t("notifications"));
-  console.log("Translation function:", t("settings"));
-  console.log("Translation function:", t("profile"));
-  console.log("Translation function:", t("team"));
-  console.log("Translation function:", t("preferences"));
-  console.log("Translation function:", t("signOut"));
-  console.log("Translation function:", t("userRole"));
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -111,7 +97,7 @@ export function DashboardHeader() {
                 <DropdownMenuItem>{t("team")}</DropdownMenuItem>
                 <DropdownMenuItem>{t("preferences")}</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{t("signOut")}</DropdownMenuItem>
+                <DropdownMenuItem>{t("signout")}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

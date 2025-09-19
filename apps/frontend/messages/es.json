@@ -1,19 +1,92 @@
 {
   "dashboard": {
-    "notifications": "Notificaciones",
-    "preferences": "Preferencias del Sistema",
-    "profile": "Configuración del perfil",
-    "search": "Buscar plantas, ubicaciones o alertas...",
-    "settings": "Configuración",
-    "signout": "Cerrar sesión",
-    "team": "Gestión de Equipos",
     "title": "AgriManage",
+    "search": "Buscar plantas, ubicaciones o alertas...",
+    "notifications": "Notificaciones",
+    "settings": "Configuración",
+    "profile": "Configuración del perfil",
+    "team": "Gestión de Equipos",
+    "preferences": "Preferencias del Sistema",
+    "signout": "Cerrar Sesión",
     "userRole": "Gerente de Invernadero"
   },
   "metrics": {
-    "criticalAlerts": "Alertas Críticas",
+    "totalPlants": "Total de plantas",
     "healthyPlants": "Plantas saludables",
-    "needAttention": "Necesita Atención",
-    "totalPlants": "Total de Plantas"
+    "needAttention": "Necesitan atención",
+    "criticalAlerts": "Alertas críticas",
+    "avgTemperature": "Temperatura promedio",
+    "avgHumidity": "Humedad promedio",
+    "harvestReady": "Listas para cosecha",
+    "efficiency": "Eficiencia",
+    "activePlants": "Plantas activas en el sistema",
+    "ofTotal": "del total",
+    "plantsRequiringCare": "Plantas que requieren cuidado",
+    "immediateAttention": "Requiere atención inmediata",
+    "acrossGreenhouses": "En todos los invernaderos",
+    "optimalRange": "Rango óptimo: 60-75%",
+    "readyForHarvest": "Listas para cosecha",
+    "productionEfficiency": "Eficiencia de producción",
+    "stable": "estable"
+  },
+  "alerts": {
+    "title": "Alertas críticas",
+    "view": "Ver",
+    "viewAll": "Ver todas las {count} alertas",
+    "plantsAffected": "plantas afectadas",
+    "severity": {
+      "low": "BAJA",
+      "medium": "MEDIA",
+      "high": "ALTA",
+      "critical": "CRÍTICA"
+    },
+    "messages": {
+      "temperatureHigh": "La temperatura excede los límites seguros en {location}",
+      "pestInfestation": "Infestación de pulgones detectada en área de cultivo de tulipanes",
+      "humidityHigh": "Los niveles de humedad se acercan al umbral superior"
+    }
+  },
+  "navigation": {
+    "dashboard": "Panel",
+    "plants": "Plantas",
+    "monitoring": "Monitoreo",
+    "reports": "Reportes",
+    "settings": "Configuración"
+  },
+  "environmental": {
+    "title": "Resumen ambiental",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
+    "lightLevel": "Nivel de luz",
+    "optimal": "Óptimo",
+    "current": "Actual",
+    "trend": "Tendencia",
+    "rising": "Subiendo",
+    "falling": "Bajando",
+    "stable": "Estable"
+  },
+  "plants": {
+    "title": "Resumen del estado de plantas",
+    "healthy": "Saludables",
+    "warning": "Advertencia",
+    "critical": "Crítico",
+    "growth": "Etapa de crecimiento",
+    "lastWatered": "Último riñón",
+    "nextHarvest": "Próxima cosecha"
+  },
+  "actions": {
+    "addPlant": "Agregar planta",
+    "scheduleTask": "Programar tarea",
+    "generateReport": "Generar reporte",
+    "systemCheck": "Verificación del sistema"
+  },
+  "language": {
+    "switch": "Cambiar idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "italian": "Italiano"
+  },
+  "common": {
+    "loading": "Cargando..."
   }
 }

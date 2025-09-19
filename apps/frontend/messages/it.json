@@ -11,9 +11,82 @@
     "userRole": "Gestore della serra"
   },
   "metrics": {
-    "criticalAlerts": "Avvisi Critici",
-    "healthyPlants": "Piante Sane",
-    "needAttention": "Necessita di attenzione",
-    "totalPlants": "Piante Totali"
+    "totalPlants": "Piante totali",
+    "healthyPlants": "Piante sante",
+    "needAttention": "Serve attenzione",
+    "criticalAlerts": "Allarmi critici",
+    "avgTemperature": "Temperatura media",
+    "avgHumidity": "Umidità media",
+    "harvestReady": "Raccolta pronta",
+    "efficiency": "Efficienza",
+    "activePlants": "Piante attive nel sistema",
+    "ofTotal": "di totale",
+    "plantsRequiringCare": "Piante che richiedono cura",
+    "immediateAttention": "Richiesta di attenzione immediata",
+    "acrossGreenhouses": "Tra tutte le serre",
+    "optimalRange": "Intervallo ottimale: 60-75%",
+    "readyForHarvest": "Pronto per la raccolta",
+    "productionEfficiency": "Efficienza di produzione",
+    "stable": "stabile"
+  },
+  "alerts": {
+    "title": "Allarmi critici",
+    "view": "Visualizza",
+    "viewAll": "Visualizza tutti i {count} avvisi",
+    "plantsAffected": "piante interessate",
+    "severity": {
+      "low": "BASSO",
+      "medium": "MEDIO",
+      "high": "ALTO",
+      "critical": "CRITICO"
+    },
+    "messages": {
+      "temperatureHigh": "La temperatura supera i limiti sicuri in {location}",
+      "pestInfestation": "Infestazione di peste rilevata nell'area di cultivo di tulipani",
+      "humidityHigh": "I livelli di umidità si avvicinano al soglia superiore"
+    }
+  },
+  "navigation": {
+    "dashboard": "Cruscotto",
+    "plants": "Piante",
+    "monitoring": "Monitoraggio",
+    "reports": "Rapporti",
+    "settings": "Impostazioni"
+  },
+  "environmental": {
+    "title": "Panoramica ambientale",
+    "temperature": "Temperatura",
+    "humidity": "Umidità",
+    "lightLevel": "Livello di luce",
+    "optimal": "Ottimale",
+    "current": "Corrente",
+    "trend": "Tendenza",
+    "rising": "Crescente",
+    "falling": "Decrescente",
+    "stable": "Stabile"
+  },
+  "plants": {
+    "title": "Panoramica dello stato delle piante",
+    "healthy": "Sano",
+    "warning": "Avviso",
+    "critical": "Critico",
+    "growth": "Fase di crescita",
+    "lastWatered": "Ultima riposa",
+    "nextHarvest": "Prossima raccolta"
+  },
+  "actions": {
+    "addPlant": "Aggiungi pianta",
+    "scheduleTask": "Pianifica attività",
+    "generateReport": "Genera rapporto",
+    "systemCheck": "Controllo del sistema"
+  },
+  "language": {
+    "switch": "Cambia lingua",
+    "english": "Inglese",
+    "spanish": "Spagnolo",
+    "italian": "Italiano"
+  },
+  "common": {
+    "loading": "Caricamento in corso..."
   }
 }

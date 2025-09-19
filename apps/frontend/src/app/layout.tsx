@@ -4,12 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
 import { Suspense } from "react";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "AgriManage - Agricultural Management System",
@@ -19,32 +14,15 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: RootLayoutProps) {
-  const { locale } = await params;
-
-  // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
-    notFound();
-  }
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
-
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang={locale}>
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <NextIntlClientProvider messages={messages}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <LayoutWrapper>{children}</LayoutWrapper>
-          </Suspense>
-        </NextIntlClientProvider>
+    <html className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="font-sans">
+        <Suspense fallback={<div>Loading hace una cheta...</div>}>
+          {children}
+        </Suspense>
         <Analytics />
       </body>
     </html>

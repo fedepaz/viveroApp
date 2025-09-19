@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Agricultural SaaS Platform Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Defined Tech Stack
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+- **Frontend**: Next.js 14 App Router + Tailwind + shadcn/ui + MUI theme
+- **Backend**: NestJS + Prisma + MariaDB 10.9+
+- **Authentication**: Clerk/Keycloak
+- **Infrastructure**: Terraform + Helm, S3 for storage
+- **Async Tasks**: Redis, BullMQ
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Test-Driven Development (TDD)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- TDD is mandatory. Tests must be written before feature code.
+- The Red-Green-Refactor cycle is strictly enforced.
+- Minimum 80% test coverage is required.
+- **Testing Tools**: Vitest, Jest, Playwright.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Monorepo Architecture
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- The project uses a pnpm monorepo with `apps/` and `packages/` layout.
+- Shared contracts (Zod schemas, DTOs, API definitions) are located in `packages/shared`.
+- Infrastructure as Code is located in `packages/infra`.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. CI/CD
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- All code suggestions must include CI/CD pipelines (GitHub Actions).
+- Pipelines must include build, lint, test, coverage, and deploy stages.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Enterprise Workflows
+
+- All features must adhere to the enterprise workflows defined in `product-manager-agent.md`.
+- This includes multi-tenancy, supply chain, financial ops, and compliance.
+
+## Agent Behavior
+
+- Agents must always cite the source document for their decisions (e.g., "Per `tech_stack_guide.md`, the backend must use NestJS").
+- In case of conflicting documentation, the priority is:
+  1. `tech_stack_guide.md`
+  2. `tdd_cicd_guide.md`
+  3. `product-manager-agent.md`
+- If uncertain, agents must ask for clarification.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- This constitution supersedes all other practices.
+- All PRs and reviews must verify compliance with this constitution.
+- Any complexity must be justified.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-09-19 | **Last Amended**: 2025-09-19

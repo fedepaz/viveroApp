@@ -1,6 +1,11 @@
 import { PlantGrid } from "@/components/agricultural/plant-grid";
+import { routing } from "@/i18n/routing";
 
 import { DashboardHeader } from "@/components/agricultural/dashboard-header";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export default function PlantsPage() {
   return (

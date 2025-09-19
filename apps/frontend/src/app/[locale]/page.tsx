@@ -4,6 +4,11 @@ import { EnvironmentalOverview } from "@/components/agricultural/environmental-o
 import { PlantStatusOverview } from "@/components/agricultural/plant-status-overview";
 import { CriticalAlerts } from "@/components/agricultural/critical-alerts";
 import { QuickActions } from "@/components/agricultural/quick-actions";
+import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 // Mock data - in production this would come from your API
 const mockDashboardData = {

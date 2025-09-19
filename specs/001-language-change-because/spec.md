@@ -72,8 +72,8 @@ As a user, I want to be able to change the display language of the application s
 - **FR-002**: System MUST support at least English, Spanish, and Italian.
 - **FR-003**: The user's language preference MUST be persisted across sessions.
 - **FR-004**: All user-facing text MUST be internationalized to support the selected languages.
-- **FR-005**: [NEEDS CLARIFICATION: What is the default language for new users?]
-- **FR-006**: [NEEDS CLARIFICATION: Should the language be detected from the browser's settings automatically on first visit?]
+- **FR-005**: System MUST use English as the default language for new users.
+- **FR-006**: System MUST NOT automatically detect the language from the browser's settings.
 
 ### Key Entities *(include if feature involves data)*
 - **UserPreferences**: Represents user-specific settings, including `languageCode` (e.g., 'en', 'es', 'it').

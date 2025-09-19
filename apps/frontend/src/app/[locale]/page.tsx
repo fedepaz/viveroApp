@@ -56,27 +56,27 @@ const mockDashboardData = {
       id: "alert-001",
       type: "temperature" as const,
       severity: "critical" as const,
-      message: "Temperature exceeds safe limits in Greenhouse B, Section 3",
-      timestamp: new Date(),
+      messageKey: "temperatureHigh",
       location: "Greenhouse B - Section 3",
+      timestamp: new Date(),
       plantCount: 45,
     },
     {
       id: "alert-002",
       type: "pest" as const,
       severity: "high" as const,
-      message: "Aphid infestation detected in tulip cultivation area",
-      timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
+      messageKey: "pestInfestation",
       location: "Greenhouse A - Section 1",
+      timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
       plantCount: 120,
     },
     {
       id: "alert-003",
       type: "humidity" as const,
       severity: "medium" as const,
-      message: "Humidity levels approaching upper threshold",
-      timestamp: new Date(Date.now() - 3600000), // 1 hour ago
+      messageKey: "humidityHigh",
       location: "Greenhouse C - Section 2",
+      timestamp: new Date(Date.now() - 3600000), // 1 hour ago
       plantCount: 78,
     },
   ],

@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,6 +52,20 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "ag-earth-brown": "var(--ag-earth-brown)",
+        "ag-leaf-green": "var(--ag-leaf-green)",
+        "ag-sky-blue": "var(--ag-sky-blue)",
+        "ag-sun-gold": "var(--ag-sun-gold)",
+        "ag-healthy": "var(--ag-healthy)",
+        "ag-warning": "var(--ag-warning)",
+        "ag-critical": "var(--ag-critical)",
+        "ag-info": "var(--ag-info)",
+        "ag-temp-optimal": "var(--ag-temp-optimal)",
+        "ag-temp-warning": "var(--ag-temp-warning)",
+        "ag-temp-critical": "var(--ag-temp-critical)",
+        "ag-humidity-low": "var(--ag-humidity-low)",
+        "ag-humidity-optimal": "var(--ag-humidity-optimal)",
+        "ag-humidity-high": "var(--ag-humidity-high)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -75,6 +89,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

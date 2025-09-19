@@ -14,6 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { MobileNavigation } from "./mobile-navigation";
 import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "../common/theme-toggle";
 import { useLocale, useTranslations } from "next-intl";
 
 export function DashboardHeader() {
@@ -23,6 +24,15 @@ export function DashboardHeader() {
   const t = useTranslations("dashboard");
   console.log("Translation function:", typeof t);
   console.log("Translation function:", t);
+  console.log("Translation function:", t("title"));
+  console.log("Translation function:", t("search"));
+  console.log("Translation function:", t("notifications"));
+  console.log("Translation function:", t("settings"));
+  console.log("Translation function:", t("profile"));
+  console.log("Translation function:", t("team"));
+  console.log("Translation function:", t("preferences"));
+  console.log("Translation function:", t("signOut"));
+  console.log("Translation function:", t("userRole"));
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,6 +68,9 @@ export function DashboardHeader() {
           <div className="flex items-center space-x-2">
             {/* Language Switcher */}
             <LanguageSwitcher />
+
+            {/* Theme Toggle */}
+            <ThemeToggle />
 
             {/* Notifications */}
             <Button

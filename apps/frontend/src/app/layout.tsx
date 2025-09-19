@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { NextIntlClientProvider } from "next-intl";
 import getRequestConfig from "../i18n/request";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "AgriManage - Agricultural Management System",
@@ -35,12 +36,20 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${GeistSans.variable} ${GeistMono.variable}`}
+      suppressHydrationWarning
     >
       <body className="font-sans">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
-          <Analytics />
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
+            <Analytics />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

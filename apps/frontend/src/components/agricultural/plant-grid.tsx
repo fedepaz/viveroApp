@@ -14,8 +14,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Search, Grid3X3, List, SortAsc, Plus } from "lucide-react";
 import type { Plant } from "@/lib/types";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
-// Mock plant data
+// Mock plant data (will remain hardcoded for now, as it's mock data)
 const mockPlants: Plant[] = [
   {
     id: "plant-001",
@@ -119,6 +120,8 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<string>("name");
 
+  const t = useTranslations("plantGrid"); // Initialize useTranslations
+
   // Filter and sort plants
   const filteredPlants = plants
     .filter((plant) => {
@@ -177,19 +180,22 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
         <div>
-          <h2 className="text-2xl font-bold">Plant Management</h2>
-          <p className="text-muted-foreground">
-            {filteredPlants.length} of {plants.length} plants
+          <h2 className="text-2xl font-bold">{t("plantManagement")}</h2>
+          <div>
+            {t("ofPlants", {
+              filtered: filteredPlants.length,
+              total: plants.length,
+            })}
             {getCriticalCount() > 0 && (
-              <Badge variant="destructive" className="ml-2">
-                {getCriticalCount()} critical
+              <Badge className="ml-2">
+                {t("criticalAlertsCount", { count: getCriticalCount() })}
               </Badge>
             )}
-          </p>
+          </div>
         </div>
         <Button className="agricultural-touch-target">
           <Plus className="h-4 w-4 mr-2" />
-          Add Plant
+          {t("addPlant")}
         </Button>
       </div>
 
@@ -199,7 +205,7 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search plants..."
+            placeholder={t("searchPlants")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 agricultural-touch-target"
@@ -210,43 +216,45 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
         <div className="flex space-x-2">
           <Select value={filterStatus} onValueChange={setFilterStatus}>
             <SelectTrigger className="w-40 agricultural-touch-target">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder={t("status")} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">
-                All Status ({getStatusCount("all")})
+                {t("allStatus", { count: getStatusCount("all") })}
               </SelectItem>
               <SelectItem value="planted">
-                Planted ({getStatusCount("planted")})
+                {t("plantedStatus", { count: getStatusCount("planted") })}
               </SelectItem>
               <SelectItem value="germinating">
-                Germinating ({getStatusCount("germinating")})
+                {t("germinatingStatus", {
+                  count: getStatusCount("germinating"),
+                })}
               </SelectItem>
               <SelectItem value="growing">
-                Growing ({getStatusCount("growing")})
+                {t("growingStatus", { count: getStatusCount("growing") })}
               </SelectItem>
               <SelectItem value="flowering">
-                Flowering ({getStatusCount("flowering")})
+                {t("floweringStatus", { count: getStatusCount("flowering") })}
               </SelectItem>
               <SelectItem value="harvesting">
-                Harvesting ({getStatusCount("harvesting")})
+                {t("harvestingStatus", { count: getStatusCount("harvesting") })}
               </SelectItem>
               <SelectItem value="harvested">
-                Harvested ({getStatusCount("harvested")})
+                {t("harvestedStatus", { count: getStatusCount("harvested") })}
               </SelectItem>
             </SelectContent>
           </Select>
 
           <Select value={filterType} onValueChange={setFilterType}>
             <SelectTrigger className="w-32 agricultural-touch-target">
-              <SelectValue placeholder="Type" />
+              <SelectValue placeholder={t("type")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="tulip">Tulips</SelectItem>
-              <SelectItem value="daffodil">Daffodils</SelectItem>
-              <SelectItem value="hyacinth">Hyacinths</SelectItem>
-              <SelectItem value="crocus">Crocuses</SelectItem>
+              <SelectItem value="all">{t("allTypes")}</SelectItem>
+              <SelectItem value="tulip">{t("tulips")}</SelectItem>
+              <SelectItem value="daffodil">{t("daffodils")}</SelectItem>
+              <SelectItem value="hyacinth">{t("hyacinths")}</SelectItem>
+              <SelectItem value="crocus">{t("crocuses")}</SelectItem>
             </SelectContent>
           </Select>
 
@@ -256,10 +264,10 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="health">Health Score</SelectItem>
-              <SelectItem value="planted">Planted Date</SelectItem>
-              <SelectItem value="harvest">Harvest Date</SelectItem>
+              <SelectItem value="name">{t("name")}</SelectItem>
+              <SelectItem value="health">{t("healthScore")}</SelectItem>
+              <SelectItem value="planted">{t("plantedDate")}</SelectItem>
+              <SelectItem value="harvest">{t("harvestDate")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -288,9 +296,7 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
       {/* Plant Grid/List */}
       {filteredPlants.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-muted-foreground">
-            No plants found matching your criteria.
-          </p>
+          <p className="text-muted-foreground">{t("noPlantsFound")}</p>
         </div>
       ) : (
         <div

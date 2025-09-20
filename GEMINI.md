@@ -32,8 +32,8 @@ Agents must **always read and apply** the following project guides before respon
 ## ⚖️ Rules of Engagement
 
 - **Do not invent tech.** Only use frameworks, libraries, and tools explicitly defined in `tech_stack_guide.md`.
-- **Default backend stack** = `NestJS + Prisma + MariaDB 10.9+`, with Redis, BullMQ, S3, and Clerk/Keycloak for auth.
-- **Default frontend stack** = `Next.js 14 App Router + Tailwind + shadcn/ui + MUI theme`.
+- **Default backend stack** = `NestJS + Prisma + MariaDB 10.9+`, with Redis, BullMQ, S3, and Clerk/Keycloak for auth. (Note: Prisma setup, including `schema.prisma` and `PrismaService`, is part of this stack's implementation.)
+- **Default frontend stack** = `Next.js 14 App Router + Tailwind + shadcn/ui`.
 - **Frontend implementations** must follow `frontend-agent-guide.md` (Next.js 14, Tailwind, shadcn/ui, TanStack, etc.)
 - **Product requirements** must follow `product-manager-agent.md` (multi-tenant, enterprise workflows).
 - **Testing must follow TDD** as outlined in `tdd_cicd_guide.md` (Vitest, Jest, Playwright, 80%+ coverage).

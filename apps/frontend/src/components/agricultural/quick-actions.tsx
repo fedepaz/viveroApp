@@ -1,50 +1,55 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+
 import {
   Plus,
   Thermometer,
   Camera,
   ClipboardList,
   AlertTriangle,
-  AirVent as Harvest,
+  Tractor,
 } from "lucide-react";
+import { useTranslations } from "next-intl"; // Import useTranslations
+import { Button } from "../ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 
 export function QuickActions() {
+  const t = useTranslations("quickActions"); // Initialize useTranslations
+
   const actions = [
     {
       icon: Plus,
-      label: "Add Plant",
-      description: "Register new plants",
+      label: t("addPlantLabel"),
+      description: t("addPlantDescription"),
       color: "bg-green-500 hover:bg-green-600",
     },
     {
       icon: Thermometer,
-      label: "Log Temperature",
-      description: "Record environmental data",
+      label: t("logTemperatureLabel"),
+      description: t("logTemperatureDescription"),
       color: "bg-blue-500 hover:bg-blue-600",
     },
     {
       icon: Camera,
-      label: "Photo Inspection",
-      description: "Document plant conditions",
+      label: t("photoInspectionLabel"),
+      description: t("photoInspectionDescription"),
       color: "bg-purple-500 hover:bg-purple-600",
     },
     {
       icon: ClipboardList,
-      label: "Daily Tasks",
-      description: "View assigned tasks",
+      label: t("dailyTasksLabel"),
+      description: t("dailyTasksDescription"),
       color: "bg-orange-500 hover:bg-orange-600",
     },
     {
       icon: AlertTriangle,
-      label: "Report Issue",
-      description: "Log plant problems",
+      label: t("reportIssueLabel"),
+      description: t("reportIssueDescription"),
       color: "bg-red-500 hover:bg-red-600",
     },
     {
-      icon: Harvest,
-      label: "Mark Harvest",
-      description: "Record harvest completion",
+      icon: Tractor,
+      label: t("markHarvestLabel"),
+      description: t("markHarvestDescription"),
       color: "bg-yellow-500 hover:bg-yellow-600",
     },
   ];
@@ -52,7 +57,7 @@ export function QuickActions() {
   return (
     <Card className="md:hidden">
       <CardHeader>
-        <CardTitle>Quick Actions</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-3">

@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Localization API
+  version: 1.0.0
+paths:
+  /messages/{locale}:
+    get:
+      summary: Get localized messages for a specific locale
+      parameters:
+        - in: path
+          name: locale
+          schema:
+            type: string
+          required: true
+          description: The locale code (e.g., 'en', 'es')
+      responses:
+        '200':
+          description: Successfully retrieved localized messages
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Locale not found

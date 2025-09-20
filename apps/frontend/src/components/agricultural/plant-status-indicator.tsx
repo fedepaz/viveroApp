@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { CheckIcon, AlertTriangleIcon, XIcon, StarIcon } from "lucide-react";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 interface PlantStatusIndicatorProps {
   status: "healthy" | "warning" | "critical" | "harvest-ready";
@@ -12,6 +13,8 @@ export function PlantStatusIndicator({
   size = "md",
   showIcon = true,
 }: PlantStatusIndicatorProps) {
+  const t = useTranslations("plants"); // Initialize useTranslations
+
   const sizeClasses = {
     sm: "w-4 h-4 text-xs",
     md: "w-6 h-6 text-sm",
@@ -22,22 +25,22 @@ export function PlantStatusIndicator({
     healthy: {
       className: "status-healthy",
       icon: CheckIcon,
-      label: "Healthy",
+      label: t("healthy"),
     },
     warning: {
       className: "status-warning",
       icon: AlertTriangleIcon,
-      label: "Needs Attention",
+      label: t("needsAttention"),
     },
     critical: {
       className: "status-critical",
       icon: XIcon,
-      label: "Critical",
+      label: t("critical"),
     },
     "harvest-ready": {
       className: "bg-yellow-500",
       icon: StarIcon,
-      label: "Ready for Harvest",
+      label: t("nextHarvest"),
     },
   };
 

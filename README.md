@@ -49,8 +49,7 @@ Una aplicación de software para gestión agrícola. El código fuente está alm
 
 ### **Paso 1️⃣** - Obtener el Código Fuente
 
-<details>
-<summary><b>📥 Descargar los archivos de la aplicación</b></summary>
+**📥 Descargar los archivos de la aplicación**
 
 1. **Descarga el ZIP**
    - Busca el botón verde **`< > Code`** en esta página
@@ -66,14 +65,11 @@ Una aplicación de software para gestión agrícola. El código fuente está alm
    
 > 📁 **¿Qué hay dentro?** Verás carpetas como `apps`, `docs`, `packages` y archivos como `package.json`. ¡Todo normal!
 
-</details>
-
 ---
 
 ### **Paso 2️⃣** - Instalar Node.js (El Motor de la Aplicación)
 
-<details>
-<summary><b>⚡ ¿Qué es Node.js?</b></summary>
+**⚡ ¿Qué es Node.js?**
 
 Imagina que el código de la aplicación es una **receta escrita en un idioma especial**. Node.js es el **"chef traductor"** que tu computadora necesita para entender y ejecutar esa receta.
 
@@ -81,8 +77,6 @@ Imagina que el código de la aplicación es una **receta escrita en un idioma es
 > - Creado en **2009** por Ryan Dahl
 > - Usado por **Netflix, Uber, PayPal, LinkedIn, Walmart**
 > - **Millones** de desarrolladores lo usan diariamente
-
-</details>
 
 **🔗 Proceso de instalación:**
 
@@ -96,8 +90,7 @@ Imagina que el código de la aplicación es una **receta escrita en un idioma es
 
 ### **Paso 3️⃣** - Instalar pnpm (Gestor de Componentes)
 
-<details>
-<summary><b>🧩 ¿Qué es un gestor de paquetes?</b></summary>
+**🧩 ¿Qué es un gestor de paquetes?**
 
 Piénsalo como **construir con Legos**:
 - En lugar de fabricar cada pieza, tomas las que ya existen
@@ -111,8 +104,6 @@ Piénsalo como **construir con Legos**:
 | `npm` | 📦 El original (viene con Node.js) |
 | `yarn` | 🚀 Creado por Facebook para ser más rápido |
 | `pnpm` | ⚡ **Nuestra elección** - Ultra eficiente con el espacio |
-
-</details>
 
 **💻 Instalación:**
 

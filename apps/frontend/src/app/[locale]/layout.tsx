@@ -6,13 +6,15 @@ import "./globals.css";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { ThemeProvider } from "next-themes";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { routing } from "@/i18n/routing";
+import { NextIntlClientProvider } from "next-intl";
+import {
+  generateLocaleStaticParams,
+  getLocaleFromParams,
+} from "@/i18n/routing";
 import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
-import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return generateLocaleStaticParams();
 }
 
 export const metadata: Metadata = {
@@ -28,14 +30,8 @@ interface RootLayoutProps {
   }>;
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: RootLayoutProps) {
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+export default function RootLayout({ children, params }: RootLayoutProps) {
+  const locale = getLocaleFromParams(params);
   return (
     <html
       className={`${GeistSans.variable} ${GeistMono.variable}`}

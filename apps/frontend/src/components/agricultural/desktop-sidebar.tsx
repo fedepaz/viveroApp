@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -20,68 +18,73 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-
-const navigationItems = [
-  {
-    title: "Dashboard",
-    href: "/",
-    icon: Home,
-    description: "Overview and alerts",
-  },
-  {
-    title: "Plants",
-    href: "/plants",
-    icon: Leaf,
-    description: "Plant management",
-    badge: "2.3k",
-  },
-  {
-    title: "Environment",
-    href: "/environment",
-    icon: Thermometer,
-    description: "Climate monitoring",
-    badge: "3",
-    badgeVariant: "destructive" as const,
-  },
-  {
-    title: "Tasks",
-    href: "/tasks",
-    icon: Calendar,
-    description: "Daily operations",
-    badge: "12",
-  },
-];
-
-const secondaryItems = [
-  {
-    title: "Clients",
-    href: "/clients",
-    icon: Users,
-    description: "Client management",
-  },
-  {
-    title: "Inventory",
-    href: "/inventory",
-    icon: Package,
-    description: "Supply tracking",
-  },
-  {
-    title: "Analytics",
-    href: "/analytics",
-    icon: BarChart3,
-    description: "Performance metrics",
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
-    description: "System configuration",
-  },
-];
+import { useTranslations } from "next-intl"; // Import useTranslations
+import { Link, usePathname } from "@/i18n/navigation";
 
 export function DesktopSidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("navigation"); // Use 'navigation' namespace for menu items
+  const tCommon = useTranslations("common"); // Use 'common' namespace for general terms
+  const tAlerts = useTranslations("alerts"); // Use 'alerts' namespace for alert messages
+
+  const navigationItems = [
+    {
+      title: t("dashboard"),
+      href: "/",
+      icon: Home,
+      description: t("overviewAndAlerts"),
+    },
+    {
+      title: t("plants"),
+      href: "/plants",
+      icon: Leaf,
+      description: t("plantManagement"),
+      badge: "2.3k",
+    },
+    {
+      title: t("environment"),
+      href: "/environment",
+      icon: Thermometer,
+      description: t("climateMonitoring"),
+      badge: "3",
+      badgeVariant: "destructive" as const,
+    },
+    {
+      title: t("tasks"),
+      href: "/tasks",
+      icon: Calendar,
+      description: t("dailyOperations"),
+      badge: "12",
+    },
+  ];
+
+  const secondaryItems = [
+    {
+      title: t("clients"),
+      href: "/clients",
+      icon: Users,
+      description: t("clientManagement"),
+    },
+    {
+      title: t("inventory"),
+      href: "/inventory",
+      icon: Package,
+      description: t("supplyTracking"),
+    },
+    {
+      title: t("analytics"),
+      href: "/analytics",
+      icon: BarChart3,
+      description: t("performanceMetrics"),
+    },
+    {
+      title: t("settings"),
+      href: "/settings",
+      icon: Settings,
+      description: t("systemConfiguration"),
+    },
+  ];
 
   return (
     <aside
@@ -99,9 +102,9 @@ export function DesktopSidebar() {
                 <span className="text-white font-bold text-sm">AG</span>
               </div>
               <div>
-                <h2 className="font-bold">AgriManage</h2>
+                <h2 className="font-bold">{tCommon("agriManage")}</h2>
                 <p className="text-xs text-muted-foreground">
-                  Plant Management
+                  {tCommon("plantManagement")}
                 </p>
               </div>
             </div>
@@ -126,10 +129,12 @@ export function DesktopSidebar() {
         <div className="p-3 bg-red-50 border-b border-red-200">
           <div className="flex items-center space-x-2 text-red-700">
             <AlertTriangle className="h-4 w-4" />
-            <span className="text-sm font-medium">3 Critical Alerts</span>
+            <span className="text-sm font-medium">
+              {tAlerts("criticalAlerts", { count: 3 })}
+            </span>
           </div>
           <p className="text-xs text-red-600 mt-1">
-            Temperature issues in Greenhouse B
+            {tAlerts("temperatureIssues", { location: "Greenhouse B" })}
           </p>
         </div>
       )}
@@ -225,9 +230,9 @@ export function DesktopSidebar() {
               <span className="text-white text-sm font-medium">JD</span>
             </div>
             <div>
-              <p className="text-sm font-medium">John Doe</p>
+              <p className="text-sm font-medium">{tCommon("johnDoe")}</p>
               <p className="text-xs text-muted-foreground">
-                Greenhouse Manager
+                {tCommon("greenhouseManager")}
               </p>
             </div>
           </div>

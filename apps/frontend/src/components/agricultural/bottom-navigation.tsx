@@ -6,40 +6,43 @@ import { Badge } from "@/components/ui/badge";
 import { Home, Leaf, Thermometer, Calendar, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const bottomNavItems = [
-  {
-    title: "Dashboard",
-    href: "/",
-    icon: Home,
-  },
-  {
-    title: "Plants",
-    href: "/plants",
-    icon: Leaf,
-    badge: "2.3k",
-  },
-  {
-    title: "Environment",
-    href: "/environment",
-    icon: Thermometer,
-    badge: "3",
-    badgeVariant: "destructive" as const,
-  },
-  {
-    title: "Tasks",
-    href: "/tasks",
-    icon: Calendar,
-    badge: "12",
-  },
-  {
-    title: "Analytics",
-    href: "/analytics",
-    icon: BarChart3,
-  },
-];
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 export function BottomNavigation() {
   const pathname = usePathname();
+  const t = useTranslations("navigation"); // Initialize useTranslations with 'navigation' namespace
+
+  const bottomNavItems = [
+    {
+      title: t("dashboard"), // Use translation key
+      href: "/",
+      icon: Home,
+    },
+    {
+      title: t("plants"), // Use translation key
+      href: "/plants",
+      icon: Leaf,
+      badge: "2.3k",
+    },
+    {
+      title: t("environment"), // Use translation key
+      href: "/environment",
+      icon: Thermometer,
+      badge: "3",
+      badgeVariant: "destructive" as const,
+    },
+    {
+      title: t("tasks"), // Use translation key
+      href: "/tasks",
+      icon: Calendar,
+      badge: "12",
+    },
+    {
+      title: t("analytics"), // Use translation key
+      href: "/analytics",
+      icon: BarChart3,
+    },
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t md:hidden">

@@ -1,22 +1,24 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { PlantStatusIndicator } from "./plant-status-indicator";
+import { Plant } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import {
+  Badge,
   MapPin,
   Thermometer,
   Droplets,
-  Calendar,
   AlertTriangle,
-  Eye,
+  Calendar,
   Edit,
+  Eye,
   Camera,
 } from "lucide-react";
-import { format } from "date-fns";
-import type { Plant } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl"; // Import useTranslations
+import { format } from "path";
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+import { PlantStatusIndicator } from "./plant-status-indicator";
+import { formatDate } from "date-fns";
 
 interface PlantCardProps {
   plant: Plant;
@@ -31,6 +33,8 @@ export function PlantCard({
   onViewDetails,
   viewMode = "detailed",
 }: PlantCardProps) {
+  const t = useTranslations("plantGrid");
+
   const getStatusClass = () => {
     if (plant.alerts.some((alert) => alert.severity === "critical"))
       return "critical";
@@ -49,11 +53,9 @@ export function PlantCard({
       case "tulip":
         return "🌷";
       case "daffodil":
-        return "🌼";
       case "hyacinth":
-        return "🌸";
       case "crocus":
-        return "🌺";
+        return "🌸";
       default:
         return "🌱";
     }
@@ -93,9 +95,7 @@ export function PlantCard({
             <div className="flex items-center space-x-2">
               <PlantStatusIndicator status={statusClass as any} size="sm" />
               {plant.alerts.length > 0 && (
-                <Badge variant="destructive" className="text-xs">
-                  {plant.alerts.length}
-                </Badge>
+                <Badge className="text-xs">{plant.alerts.length}</Badge>
               )}
             </div>
           </div>
@@ -117,8 +117,8 @@ export function PlantCard({
               <div className="flex items-center space-x-1 mt-1">
                 <MapPin className="h-3 w-3 text-muted-foreground" />
                 <span className="text-xs text-muted-foreground">
-                  {plant.location.greenhouse} - {plant.location.section} - Row{" "}
-                  {plant.location.row}
+                  {plant.location.greenhouse} - {plant.location.section} -{" "}
+                  {t("row", { row: plant.location.row })}
                 </span>
               </div>
             </div>
@@ -126,18 +126,14 @@ export function PlantCard({
           <div className="flex items-center space-x-2">
             <PlantStatusIndicator status={statusClass as any} />
             {plant.alerts.length > 0 && (
-              <Badge variant="destructive" className="text-xs">
-                {plant.alerts.length}
-              </Badge>
+              <Badge className="text-xs">{plant.alerts.length}</Badge>
             )}
           </div>
         </div>
 
         {/* Status Badge */}
         <div className="mb-4">
-          <Badge variant="outline" className="text-xs capitalize">
-            {plant.status.replace("-", " ")}
-          </Badge>
+          <Badge className="text-xs capitalize">{t(plant.status)}</Badge>
         </div>
 
         {/* Environmental Data */}
@@ -154,7 +150,9 @@ export function PlantCard({
               <p className="text-sm font-medium">
                 {plant.currentTemperature}°C
               </p>
-              <p className="text-xs text-muted-foreground">Temperature</p>
+              <p className="text-xs text-muted-foreground">
+                {t("temperature")}
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -167,7 +165,7 @@ export function PlantCard({
             />
             <div>
               <p className="text-sm font-medium">{plant.humidity}%</p>
-              <p className="text-xs text-muted-foreground">Humidity</p>
+              <p className="text-xs text-muted-foreground">{t("humidity")}</p>
             </div>
           </div>
         </div>
@@ -175,7 +173,7 @@ export function PlantCard({
         {/* Health Score */}
         <div className="mb-4">
           <div className="flex items-center justify-between text-sm mb-1">
-            <span>Health Score</span>
+            <span>{t("healthScore")}</span>
             <span className="font-medium">{plant.healthScore}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -197,12 +195,12 @@ export function PlantCard({
             <div className="flex items-center space-x-2 mb-2">
               <AlertTriangle className="h-4 w-4 text-red-500" />
               <span className="text-sm font-medium text-red-700">
-                {plant.alerts.length} Alert{plant.alerts.length > 1 ? "s" : ""}
+                {t("alerts", { count: plant.alerts.length })}
               </span>
             </div>
             {plant.alerts.slice(0, 2).map((alert, index) => (
               <div key={index} className="text-xs text-red-600 mb-1">
-                <Badge className="mr-2 text-xs" variant="destructive">
+                <Badge className="mr-2 text-xs">
                   {alert.severity.toUpperCase()}
                 </Badge>
                 {alert.message}
@@ -210,7 +208,7 @@ export function PlantCard({
             ))}
             {plant.alerts.length > 2 && (
               <p className="text-xs text-red-600">
-                +{plant.alerts.length - 2} more alerts
+                {t("moreAlerts", { count: plant.alerts.length - 2 })}
               </p>
             )}
           </div>
@@ -221,18 +219,18 @@ export function PlantCard({
           <div className="flex items-center space-x-1">
             <Calendar className="h-3 w-3" />
             <div>
-              <p>Planted</p>
+              <p>{t("planted")}</p>
               <p className="font-medium">
-                {format(plant.plantedDate, "MMM dd")}
+                {formatDate(plant.plantedDate, "MMM dd")}
               </p>
             </div>
           </div>
           <div className="flex items-center space-x-1">
             <Calendar className="h-3 w-3" />
             <div>
-              <p>Harvest Expected</p>
+              <p>{t("harvestExpected")}</p>
               <p className="font-medium">
-                {format(plant.expectedHarvestDate, "MMM dd")}
+                {formatDate(plant.expectedHarvestDate, "MMM dd")}
               </p>
             </div>
           </div>
@@ -247,7 +245,7 @@ export function PlantCard({
             onClick={() => onUpdate(plant.id)}
           >
             <Edit className="h-3 w-3 mr-1" />
-            Update
+            {t("update")}
           </Button>
           <Button
             variant="outline"
@@ -256,7 +254,7 @@ export function PlantCard({
             onClick={() => onViewDetails(plant.id)}
           >
             <Eye className="h-3 w-3 mr-1" />
-            Details
+            {t("details")}
           </Button>
           <Button
             variant="outline"

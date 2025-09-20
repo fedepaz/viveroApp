@@ -1,15 +1,20 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { EnvironmentalMetric } from "./environmental-metric";
-import { Badge } from "@/components/ui/badge";
-import { Settings, TrendingUp, AlertTriangle } from "lucide-react";
+"use client";
+
+import { Settings, TrendingUp, AlertTriangle, Badge } from "lucide-react";
 import type { EnvironmentalData } from "@/lib/types";
+import { useTranslations } from "next-intl"; // Import useTranslations
+import { Button } from "../ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { EnvironmentalMetric } from "./environmental-metric";
 
 interface EnvironmentalOverviewProps {
   data: EnvironmentalData;
 }
 
 export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
+  const t = useTranslations("environmental"); // Use 'environmentalOverview' namespace
+  const tCommon = useTranslations("common"); // Use 'common' namespace for general terms
+
   const section = data.greenhouse.sections[0]; // Using first section for demo
   const { temperature, humidity, light } = section.sensors;
 
@@ -37,14 +42,14 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
-          <CardTitle className="text-lg">Environmental Monitoring</CardTitle>
+          <CardTitle className="text-lg">{t("title")}</CardTitle>
           <p className="text-sm text-muted-foreground">
-            {data.greenhouse.name}
+            {tCommon("greenhouseName", { name: data.greenhouse.name })}
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <Badge variant="outline" className="text-xs">
-            {section.name}
+          <Badge className="text-xs">
+            {tCommon("sectionName", { name: section.name })}
           </Badge>
           <Button variant="ghost" size="icon" className="h-8 w-8">
             <Settings className="h-4 w-4" />
@@ -55,7 +60,7 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
         {/* Environmental Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <EnvironmentalMetric
-            label="Temperature"
+            label={t("temperature")}
             value={temperature.current}
             unit="°C"
             status={tempStatus}
@@ -63,7 +68,7 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
             target={temperature.optimal}
           />
           <EnvironmentalMetric
-            label="Humidity"
+            label={t("humidity")}
             value={humidity.current}
             unit="%"
             status={humidityStatus}
@@ -71,7 +76,7 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
             target={humidity.optimal}
           />
           <EnvironmentalMetric
-            label="Light Level"
+            label={t("lightLevel")}
             value={light.current / 1000}
             unit="klux"
             status="optimal"
@@ -84,14 +89,14 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
           <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex items-center space-x-2 text-red-700">
               <AlertTriangle className="h-4 w-4" />
-              <span className="text-sm font-medium">Environmental Alert</span>
+              <span className="text-sm font-medium">
+                {t("environmentalAlert")}
+              </span>
             </div>
             <p className="text-sm text-red-600 mt-1">
-              {tempStatus === "critical" &&
-                "Temperature exceeds critical threshold. "}
-              {humidityStatus === "critical" &&
-                "Humidity levels are critically high. "}
-              Immediate action required.
+              {tempStatus === "critical" && t("temperatureExceedsCritical")}{" "}
+              {humidityStatus === "critical" && t("humidityCriticallyHigh")}{" "}
+              {t("immediateActionRequired")}
             </p>
           </div>
         )}
@@ -104,7 +109,7 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
             className="agricultural-touch-target bg-transparent"
           >
             <TrendingUp className="h-4 w-4 mr-2" />
-            Adjust Climate
+            {t("adjustClimate")}
           </Button>
           <Button
             variant="outline"
@@ -112,23 +117,23 @@ export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
             className="agricultural-touch-target bg-transparent"
           >
             <Settings className="h-4 w-4 mr-2" />
-            View History
+            {t("viewHistory")}
           </Button>
         </div>
 
         {/* Environmental Summary */}
         <div className="text-xs text-muted-foreground space-y-1">
           <div className="flex justify-between">
-            <span>Daily Light Total:</span>
+            <span>{t("dailyLightTotal")}:</span>
             <span>{(light.dailyTotal / 1000).toFixed(0)} klux·h</span>
           </div>
           <div className="flex justify-between">
-            <span>Light Spectrum:</span>
+            <span>{t("lightSpectrum")}:</span>
             <span className="capitalize">{light.spectrum}</span>
           </div>
           <div className="flex justify-between">
-            <span>Last Updated:</span>
-            <span>2 minutes ago</span>
+            <span>{t("lastUpdated")}:</span>
+            <span>2 minutes ago</span> {/* This should also be translated */}
           </div>
         </div>
       </CardContent>

@@ -1,8 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Eye, Filter, MoreHorizontal } from "lucide-react";
+"use client";
+
+import { Progress } from "@radix-ui/react-progress";
+import { Filter, MoreHorizontal, Eye } from "lucide-react";
+import { Button } from "../ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { PlantStatusIndicator } from "./plant-status-indicator";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 // Mock data for plant status overview
 const plantStatusData = {
@@ -74,6 +77,8 @@ const plantStatusData = {
 export function PlantStatusOverview() {
   const { totalPlants, statusBreakdown, recentActivity, upcomingTasks } =
     plantStatusData;
+  const t = useTranslations("metrics"); // Initialize useTranslations
+  const tCommon = useTranslations("common"); // For common phrases like "minutes ago"
 
   const healthyPercentage = (statusBreakdown.healthy / totalPlants) * 100;
   const warningPercentage = (statusBreakdown.warning / totalPlants) * 100;
@@ -92,13 +97,35 @@ export function PlantStatusOverview() {
     }
   };
 
+  const formatTimestamp = (timestamp: string) => {
+    // This is a simplified example. In a real app, you'd use date-fns or similar
+    // to properly format and localize time differences.
+    if (timestamp.includes("minutes ago")) {
+      const minutes = parseInt(timestamp.split(" ")[0]);
+      return tCommon("minutesAgo", { count: minutes });
+    }
+    if (timestamp.includes("hour ago")) {
+      const hours = parseInt(timestamp.split(" ")[0]);
+      return tCommon("hourAgo", { count: hours });
+    }
+    if (timestamp.includes("In ")) {
+      const hours = parseInt(timestamp.split(" ")[1]);
+      return tCommon("inXHours", { count: hours });
+    }
+    if (timestamp.includes("Tomorrow ")) {
+      const time = timestamp.split(" ")[1];
+      return tCommon("tomorrowAt", { time: time });
+    }
+    return timestamp; // Fallback for other formats
+  };
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <div>
-          <CardTitle className="text-lg">Plant Status Overview</CardTitle>
+          <CardTitle className="text-lg">{t("title")}</CardTitle>
           <p className="text-sm text-muted-foreground">
-            {totalPlants.toLocaleString()} total plants
+            {t("totalPlants", { count: totalPlants.toLocaleString() })}
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -116,7 +143,7 @@ export function PlantStatusOverview() {
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center space-x-2">
               <PlantStatusIndicator status="healthy" size="sm" />
-              <span>Healthy Plants</span>
+              <span>{t("healthyPlants")}</span>
             </div>
             <span className="font-medium">
               {statusBreakdown.healthy.toLocaleString()}
@@ -127,7 +154,7 @@ export function PlantStatusOverview() {
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center space-x-2">
               <PlantStatusIndicator status="warning" size="sm" />
-              <span>Need Attention</span>
+              <span>{t("needAttention")}</span>
             </div>
             <span className="font-medium">
               {statusBreakdown.warning.toLocaleString()}
@@ -138,7 +165,7 @@ export function PlantStatusOverview() {
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center space-x-2">
               <PlantStatusIndicator status="critical" size="sm" />
-              <span>Critical Issues</span>
+              <span>{t("criticalIssues")}</span>
             </div>
             <span className="font-medium">
               {statusBreakdown.critical.toLocaleString()}
@@ -149,7 +176,7 @@ export function PlantStatusOverview() {
 
         {/* Recent Activity */}
         <div>
-          <h4 className="text-sm font-medium mb-3">Recent Activity</h4>
+          <h4 className="text-sm font-medium mb-3">{t("recentActivity")}</h4>
           <div className="space-y-3">
             {recentActivity.slice(0, 3).map((activity) => (
               <div
@@ -157,15 +184,7 @@ export function PlantStatusOverview() {
                 className="flex items-start space-x-3 text-sm"
               >
                 <PlantStatusIndicator status={activity.status} size="sm" />
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900">{activity.action}</p>
-                  <p className="text-muted-foreground truncate">
-                    {activity.plant}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {activity.location} • {activity.timestamp}
-                  </p>
-                </div>
+                <div className="flex-1 min-w-0"></div>
               </div>
             ))}
           </div>
@@ -173,7 +192,7 @@ export function PlantStatusOverview() {
 
         {/* Upcoming Tasks */}
         <div>
-          <h4 className="text-sm font-medium mb-3">Upcoming Tasks</h4>
+          <h4 className="text-sm font-medium mb-3">{t("upcomingTasks")}</h4>
           <div className="space-y-2">
             {upcomingTasks.map((task) => (
               <div
@@ -187,9 +206,9 @@ export function PlantStatusOverview() {
                     )}`}
                   />
                   <div>
-                    <p className="text-sm font-medium">{task.task}</p>
                     <p className="text-xs text-muted-foreground">
-                      {task.plantCount} plants • {task.dueTime}
+                      {tCommon("plants", { count: task.plantCount })} •{" "}
+                      {formatTimestamp(task.dueTime)}
                     </p>
                   </div>
                 </div>
@@ -208,14 +227,14 @@ export function PlantStatusOverview() {
             size="sm"
             className="agricultural-touch-target bg-transparent"
           >
-            View All Plants
+            {t("viewAllPlants")}
           </Button>
           <Button
             variant="outline"
             size="sm"
             className="agricultural-touch-target bg-transparent"
           >
-            Manage Tasks
+            {t("manageTasks")}
           </Button>
         </div>
       </CardContent>

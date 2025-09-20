@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { TrendingUpIcon, TrendingDownIcon, MinusIcon } from "lucide-react";
+import { useTranslations } from "next-intl"; // Import useTranslations
 
 interface EnvironmentalMetricProps {
   label: string;
@@ -18,6 +19,8 @@ export function EnvironmentalMetric({
   trend,
   target,
 }: EnvironmentalMetricProps) {
+  const t = useTranslations("environmental"); // Use 'environmentalMetric' namespace
+
   const getTrendIcon = () => {
     switch (trend) {
       case "rising":
@@ -54,8 +57,7 @@ export function EnvironmentalMetric({
       <div className="metric-label">{label}</div>
       {target && (
         <div className="text-xs text-muted-foreground mt-1">
-          Target: {target.min}-{target.max}
-          {unit}
+          {t("target", { min: target.min, max: target.max, unit: unit })}
         </div>
       )}
     </div>

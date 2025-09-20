@@ -23,6 +23,7 @@ interface CriticalAlertsProps {
 
 export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
   const t = useTranslations("alerts");
+  const tCommon = useTranslations("common"); // Assuming a common namespace for general terms
 
   if (alerts.length === 0) {
     return null;
@@ -41,7 +42,7 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
     }
   };
 
-  const getTypeIcon = (type: string) => {
+  const getTypeIcon = (type: Alert["type"]) => { // Use Alert["type"] for type safety
     switch (type) {
       case "temperature":
         return "🌡️";
@@ -51,6 +52,8 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
         return "🐛";
       case "disease":
         return "🦠";
+      case "growth": // Added growth type
+        return "🌱";
       default:
         return "⚠️";
     }
@@ -94,11 +97,11 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
               <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                 <div className="flex items-center">
                   <MapPin className="h-3 w-3 mr-1" />
-                  {alert.location}
+                  {tCommon("location", { location: alert.location })} {/* Use common translation for location */}
                 </div>
                 <div className="flex items-center">
                   <Users className="h-3 w-3 mr-1" />
-                  {alert.plantCount} {t("plantsAffected")}
+                  {tCommon("plantsAffected", { count: alert.plantCount })} {/* Use common translation for plantsAffected */}
                 </div>
               </div>
             </div>
@@ -108,7 +111,7 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
                 variant="outline"
                 className="h-8 px-2 bg-transparent"
               >
-                {t("view")}
+                {tCommon("view")} {/* Use common translation for view */}
               </Button>
               <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
                 <X className="h-3 w-3" />

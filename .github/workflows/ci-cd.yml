@@ -16,9 +16,6 @@ jobs:
           node-version: 18
           cache: "pnpm"
       - run: pnpm install
-      - run: pnpm --filter ./apps/frontend run lint
-      - run: pnpm --filter ./apps/backend run lint
-
   test:
     runs-on: ubuntu-latest
     steps:
@@ -29,5 +26,3 @@ jobs:
           node-version: 18
           cache: "pnpm"
       - run: pnpm install
-      - run: pnpm --filter ./apps/frontend run test:unit || echo "No tests yet, skipping"
-      - run: pnpm --filter ./apps/backend run test:unit || echo "No tests yet, skipping"

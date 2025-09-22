@@ -51,6 +51,15 @@ Agents must **always read and apply** the following project guides before respon
 
 ---
 
+## 🌊 Git Workflow
+
+- **Branching Strategy**: All new features should be developed in a feature branch (e.g., `feat/new-feature`).
+- **Pull Requests**: Pull requests should be made to the `frontendDev` or `backendDev` branches. 
+- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are not allowed. 
+- **Merging to `main`**: Merges to the `main` branch should only be done through the GitHub UI after a pull request has been reviewed and approved.
+
+---
+
 ## 📌 Agent Behavior
 
 - Always **cite which doc** a decision comes from (example: “Per `tech_stack_guide.md`, backend must use NestJS”).

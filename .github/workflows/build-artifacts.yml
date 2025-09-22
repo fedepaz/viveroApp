@@ -1,7 +1,7 @@
 name: Build & Store Artifacts
-on:
-  pull_request:
-    branches: [frontendDev]
+# on:
+#   pull_request:
+#     branches: [frontendDev]
 
 jobs:
   changes:

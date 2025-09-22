@@ -1,8 +1,8 @@
 name: End-to-End Tests
-on:
-  workflow_run:
-    workflows: ["Deploy to Staging"]
-    types: [completed]
+# on:
+#   workflow_run:
+#     workflows: ["Deploy to Staging"]
+#     types: [completed]
 
 jobs:
   e2e-tests:

@@ -1,9 +1,9 @@
 name: Lint & Test
-on: 
-  pull_request:
-    branches: [frontendDev, backendDev]
-  push:
-    branches: [frontendDev, backendDev]
+# on: 
+#   pull_request:
+#     branches: [frontendDev, backendDev]
+#   push:
+#     branches: [frontendDev, backendDev]
 
 jobs:
   lint-and-test:

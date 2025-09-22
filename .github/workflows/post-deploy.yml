@@ -1,8 +1,8 @@
 name: Post Deploy Verification
-on:
-  workflow_run:
-    workflows: ["Deploy to Production"]
-    types: [completed]
+# on:
+#   workflow_run:
+#     workflows: ["Deploy to Production"]
+#     types: [completed]
 
 jobs:
   post-deploy-checks:

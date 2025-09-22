@@ -2,8 +2,10 @@ import { defineRouting } from "next-intl/routing";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
 
+export const locales = ["en", "es", "it"];
+
 export const routing = defineRouting({
-  locales: ["en", "es", "it"],
+  locales,
   defaultLocale: "en",
 });
 

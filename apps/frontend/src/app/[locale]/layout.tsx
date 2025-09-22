@@ -1,8 +1,5 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import "./globals.css";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { ThemeProvider } from "next-themes";
@@ -23,35 +20,30 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
-interface RootLayoutProps {
+interface DashboardLayoutProps {
   children: React.ReactNode;
   params: Promise<{
     locale: string;
   }>;
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
+export default function DashboardLayout({
+  children,
+  params,
+}: DashboardLayoutProps) {
   const locale = getLocaleFromParams(params);
   return (
-    <html
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-      suppressHydrationWarning
-      lang={locale}
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
     >
-      <body className="font-sans">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider>
-            <Suspense fallback={<LoadingSpinner />}>
-              <LayoutWrapper>{children}</LayoutWrapper>
-            </Suspense>
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+      <NextIntlClientProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </Suspense>
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }

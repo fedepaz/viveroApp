@@ -10,6 +10,10 @@
     "signout": "Cerrar Sesión",
     "userRole": "Gerente de Invernadero"
   },
+  "themeToggle": {
+    "lightMode": "Cambiar a modo claro",
+    "darkMode": "Cambiar a modo oscuro"
+  },
   "metrics": {
     "totalPlants": "Total de plantas",
     "healthyPlants": "Plantas saludables",

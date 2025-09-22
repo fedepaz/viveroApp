@@ -10,6 +10,10 @@
     "signout": "Sign Out",
     "userRole": "Greenhouse Manager"
   },
+  "themeToggle": {
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode"
+  },
   "metrics": {
     "totalPlants": "Total Plants",
     "healthyPlants": "Healthy Plants",

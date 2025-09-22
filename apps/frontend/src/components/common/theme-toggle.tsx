@@ -1,16 +1,35 @@
-import * as React from "react";
+"use client";
+
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const t = useTranslations("themeToggle");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+
+  if (!mounted) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="agricultural-touch-target"
+        disabled
+      ></Button>
+    );
+  }
 
   return (
     <Button
@@ -18,6 +37,8 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       className="agricultural-touch-target"
+      aria-label={theme === "dark" ? t("lightMode") : t("darkMode")}
+      title={theme === "dark" ? t("lightMode") : t("darkMode")}
     >
       {theme === "dark" ? (
         <Sun className="h-5 w-5" />

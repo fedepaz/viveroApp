@@ -51,6 +51,15 @@ Agents must **always read and apply** the following project guides before respon
 
 ---
 
+## 🌊 Git Workflow
+
+- **Branching Strategy**: All new features should be developed in a feature branch (e.g., `feat/new-feature`).
+- **Pull Requests**: Pull requests should be made to the `frontendDev` or `backendDev` branches. 
+- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are not allowed. 
+- **Merging to `main`**: Merges to the `main` branch should only be done through the GitHub UI after a pull request has been reviewed and approved.
+
+---
+
 ## 📌 Agent Behavior
 
 - Always **cite which doc** a decision comes from (example: “Per `tech_stack_guide.md`, backend must use NestJS”).
@@ -59,6 +68,21 @@ Agents must **always read and apply** the following project guides before respon
   2. `tdd_cicd_guide.md` for testing & pipelines
   3. `product-manager-agent.md` for product/enterprise logic
 - If **uncertain**, **ask for clarification** instead of assuming defaults.
+
+---
+
+## 🤖 Agent Roles
+
+This section outlines the roles and responsibilities of the AI agents involved in this project.
+
+- **`agricultural-ux-ui-designer`**: Designs the user experience and user interface for the agricultural enterprise management system. See `docs/agents/agricultural-ux-ui-agent.md` for more details.
+- **`cicd-pipeline-engineer`**: Creates and manages the CI/CD pipelines for automated testing, building, and deployment. See `docs/agents/cicd_agent.md` for more details.
+- **`plant-management-devops-engineer`**: Handles the infrastructure and deployment of the multi-tenant SaaS platform. See `docs/agents/devops_agent.md` for more details.
+- **`agricultural-frontend-specialist`**: Implements the frontend of the application using React, Next.js, and other related technologies. See `docs/agents/frontend-agent-guide.md` for more details.
+- **`agricultural-product-manager`**: Defines the product vision, features, and requirements for the agricultural enterprise management system. See `docs/agents/product-manager-agent.md` for more details.
+- **`solo-developer-roadmap`**: Outlines a realistic development timeline for a solo developer building the enterprise plant management system. See `docs/agents/solo_developer_roadmap.md` for more details.
+- **`tdd-cicd-guide`**: Provides guidance on Test-Driven Development (TDD) and Continuous Integration/Continuous Deployment (CI/CD) practices. See `docs/agents/tdd_cicd_guide.md` for more details.
+- **`tech-stack-guide`**: Defines the approved technology stack for the project. See `docs/agents/tech_stack_guide.md` for more details.
 
 ---
 

@@ -1,7 +1,7 @@
-# on:
-#   pull_request:
-#     branches: [main]
-#     types: [opened, synchronize]
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
 
 jobs:
   check-source:

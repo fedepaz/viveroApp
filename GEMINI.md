@@ -19,6 +19,7 @@ Agents must **always read and apply** the following project guides before respon
 1. `docs/agents/tech_stack_guide.md`  
    → Defines **approved technology stack** for frontend, backend, infra, and testing.
 2. `docs/agents/tdd_cicd_guide.md`  
+   `docs/agents/cicd_agent.md`
    → Defines **test-driven development workflow** and **CI/CD requirements**.
 3. `docs/agents/product-manager-agent.md`  
    → Defines **product vision, enterprise workflows, and SaaS requirements**.
@@ -54,8 +55,8 @@ Agents must **always read and apply** the following project guides before respon
 ## 🌊 Git Workflow
 
 - **Branching Strategy**: All new features should be developed in a feature branch (e.g., `feat/new-feature`).
-- **Pull Requests**: Pull requests should be made to the `frontendDev` or `backendDev` branches. 
-- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are not allowed. 
+- **Pull Requests**: Pull requests should be made to the `frontendDev` or `backendDev` branches.
+- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are not allowed.
 - **Merging to `main`**: Merges to the `main` branch should only be done through the GitHub UI after a pull request has been reviewed and approved.
 
 ---

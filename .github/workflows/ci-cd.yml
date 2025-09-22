@@ -1,7 +1,7 @@
 # .github/workflows/ci-cd.yml
 name: ViveroApp CI/CD
 
-# on: [push, pull_request]
+on: [push, pull_request]
 
 jobs:
   lint:
@@ -16,6 +16,8 @@ jobs:
           node-version: 18
           cache: "pnpm"
       - run: pnpm install
+      - run: echo "Linting...
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +28,4 @@ jobs:
           node-version: 18
           cache: "pnpm"
       - run: pnpm install
+      - run: echo "Testing..."

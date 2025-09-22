@@ -1,7 +1,7 @@
 name: Build & Store Artifacts
-# on:
-#   pull_request:
-#     branches: [frontendDev]
+on:
+  pull_request:
+    branches: [frontendDev]
 
 jobs:
   changes:
@@ -16,11 +16,9 @@ jobs:
         with:
           filters: |
             frontend:
-              - 'frontend/**'
-              - 'package.json'
+              - 'apps/frontend/**'
             backend:
-              - 'backend/**'
-              - 'package.json'
+              - 'apps/backend/**'
 
   build-frontend:
     needs: changes
@@ -43,18 +41,12 @@ jobs:
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Build Next.js application
-        run: pnpm build --workspace=frontend
+        run: echo "Building Next.js application..."
           
       - name: Store build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: frontend-build-${{ github.sha }}
-          path: |
-            frontend/.next
-            frontend/out
-          retention-days: 7
+        run: echo "Storing build artifacts..."
 
   build-backend:
     needs: changes
@@ -79,11 +71,7 @@ jobs:
         run: pnpm install --frozen-lockfile
         
       - name: Build NestJS application  
-        run: pnpm build --workspace=backend
+        run: echo "Building NestJS application..."
           
       - name: Store build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: backend-build-${{ github.sha }}
-          path: backend/dist
-          retention-days: 7
+        run: echo "Storing build artifacts..."

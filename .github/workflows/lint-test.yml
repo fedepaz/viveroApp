@@ -1,0 +1,46 @@
+name: Lint & Test
+on: 
+  pull_request:
+    branches: [frontendDev, backendDev]
+  push:
+    branches: [frontendDev, backendDev]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workspace: [frontend, backend]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Run linting
+        run: pnpm lint --workspace=${{ matrix.workspace }}
+        
+      - name: Run type checking
+        run: pnpm type-check --workspace=${{ matrix.workspace }}
+        
+      - name: Run unit tests
+        run: pnpm test:unit --workspace=${{ matrix.workspace }} --coverage
+        
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/lcov.info
+          flags: ${{ matrix.workspace }}

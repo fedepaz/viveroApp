@@ -10,6 +10,40 @@
     "signout": "Cerrar Sesión",
     "userRole": "Gerente de Invernadero"
   },
+  "Auth": {
+    "Login": {
+      "title": "Bienvenido de nuevo",
+      "description": "Ingrese sus credenciales para acceder a su cuenta",
+      "noAccount": "¿No tiene una cuenta?",
+      "signUpLink": "Registrarse",
+      "Form": {
+        "title": "Inicie sesión en su cuenta",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "loginButton": "Iniciar sesión",
+        "loggingIn": "Iniciando sesión..."
+      }
+    },
+    "Signup": {
+      "title": "Crear una cuenta",
+      "description": "Únete a nosotros para gestionar sus operaciones agrícolas",
+      "haveAccount": "¿Ya tiene una cuenta?",
+      "loginLink": "Iniciar sesión",
+      "Form": {
+        "title": "Crear su cuenta",
+        "nameLabel": "Nombre completo",
+        "namePlaceholder": "Juan Pérez",
+        "emailLabel": "Correo electrónico",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Contraseña",
+        "passwordPlaceholder": "••••••••",
+        "signupButton": "Crear cuenta",
+        "creatingAccount": "Creando cuenta..."
+      }
+    }
+  },
   "themeToggle": {
     "lightMode": "Cambiar a modo claro",
     "darkMode": "Cambiar a modo oscuro"

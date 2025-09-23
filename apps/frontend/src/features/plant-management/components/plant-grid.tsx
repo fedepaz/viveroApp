@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Search, Grid3X3, List, SortAsc, Plus } from "lucide-react";
-import type { Plant } from "@/lib/types";
+import type { Plant } from "@/features/plant-management/types/plant";
 import { useTranslations } from "next-intl"; // Import useTranslations
 
 // Mock plant data (will remain hardcoded for now, as it's mock data)

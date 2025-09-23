@@ -10,6 +10,40 @@
     "title": "AgriManage",
     "userRole": "Gestore della serra"
   },
+  "Auth": {
+    "Login": {
+      "title": "Bentornato di nuovo",
+      "description": "Inserisci le tue credenziali per accedere alla tua account",
+      "noAccount": "Non hai un account?",
+      "signUpLink": "Registrati",
+      "Form": {
+        "title": "Accedi alla tua account",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "loginButton": "Accedi",
+        "loggingIn": "Accesso in corso..."
+      }
+    },
+    "Signup": {
+      "title": "Crea un account",
+      "description": "Unisciti a noi per gestire le tue operazioni agricole",
+      "haveAccount": "Hai già un account?",
+      "loginLink": "Accedi",
+      "Form": {
+        "title": "Crea il tuo account",
+        "nameLabel": "Nome completo",
+        "namePlaceholder": "Giovanni Rossi",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signupButton": "Crea account",
+        "creatingAccount": "Creazione dell'account in corso..."
+      }
+    }
+  },
   "themeToggle": {
     "lightMode": "Passa alla modalità luce",
     "darkMode": "Passa alla modalità scura"

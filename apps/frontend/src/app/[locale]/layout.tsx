@@ -2,13 +2,14 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
-import { ThemeProvider } from "next-themes";
+
 import { NextIntlClientProvider } from "next-intl";
 import {
   generateLocaleStaticParams,
   getLocaleFromParams,
 } from "@/i18n/routing";
 import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -33,12 +34,7 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   const locale = getLocaleFromParams(params);
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
+    <ThemeProvider>
       <NextIntlClientProvider>
         <Suspense fallback={<LoadingSpinner />}>
           <LayoutWrapper>{children}</LayoutWrapper>

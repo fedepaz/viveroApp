@@ -1,4 +1,4 @@
-import { PlantGrid } from "@/components/agricultural/plant-grid";
+import { PlantGrid } from "@/features/plant-management";
 import {
   generateLocaleStaticParams,
   getLocaleFromParams,

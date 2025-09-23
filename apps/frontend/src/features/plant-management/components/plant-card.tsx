@@ -14,11 +14,11 @@ import {
   Camera,
 } from "lucide-react";
 import { useTranslations } from "next-intl"; // Import useTranslations
-import { format } from "path";
-import { Button } from "../ui/button";
-import { Card, CardContent } from "../ui/card";
-import { PlantStatusIndicator } from "./plant-status-indicator";
+
+import { PlantStatusIndicator } from "../../../components/agricultural/plant-status-indicator";
 import { formatDate } from "date-fns";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface PlantCardProps {
   plant: Plant;

@@ -1,7 +1,34 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./src/i18n/routing";
+import { NextRequest, NextResponse } from "next/server";
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+export function middleware(request: NextRequest) {
+  const response = intlMiddleware(request);
+
+  const pathname = request.nextUrl.pathname;
+  //isAuthenticated temporary, replace with Clerk, Auth0, or your backend later
+  const isAuthenticated = request.cookies.get("auth")?.value === "true";
+
+  if (pathname.includes("/login") || pathname.includes("/signup")) {
+    if (isAuthenticated) {
+      const locale = pathname.split("/")[1]; // Get locale from pathname
+      return NextResponse.redirect(
+        new URL(`/${locale}/dashboard`, request.url)
+      );
+    }
+    return response;
+  }
+  if (pathname.includes("/dashboard")) {
+    if (!isAuthenticated) {
+      const locale = pathname.split("/")[1]; // Get locale from pathname
+      return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+    }
+    return response;
+  }
+  return response;
+}
 
 export const config = {
   // Match all pathnames except for

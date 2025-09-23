@@ -10,6 +10,40 @@
     "signout": "Sign Out",
     "userRole": "Greenhouse Manager"
   },
+  "Auth": {
+    "Login": {
+      "title": "Welcome back",
+      "description": "Enter your credentials to access your account",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "Form": {
+        "title": "Login to your account",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "loginButton": "Login",
+        "loggingIn": "Logging in..."
+      }
+    },
+    "Signup": {
+      "title": "Create an account",
+      "description": "Join us to manage your agricultural operations",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "Form": {
+        "title": "Create your account",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "John Doe",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "passwordLabel": "Password",
+        "passwordPlaceholder": "••••••••",
+        "signupButton": "Create Account",
+        "creatingAccount": "Creating account..."
+      }
+    }
+  },
   "themeToggle": {
     "lightMode": "Switch to light mode",
     "darkMode": "Switch to dark mode"

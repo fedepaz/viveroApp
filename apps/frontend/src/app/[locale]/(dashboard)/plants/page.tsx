@@ -1,10 +1,9 @@
+import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { PlantGrid } from "@/features/plant-management";
 import {
   generateLocaleStaticParams,
   getLocaleFromParams,
 } from "@/i18n/routing";
-
-import { DashboardHeader } from "@/components/agricultural/dashboard-header";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();

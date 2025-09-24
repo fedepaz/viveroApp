@@ -1,11 +1,11 @@
 "use client";
 
 import { Settings, TrendingUp, AlertTriangle, Badge } from "lucide-react";
-import type { EnvironmentalData } from "@/lib/types";
-import { useTranslations } from "next-intl"; // Import useTranslations
-import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { EnvironmentalMetric } from "./environmental-metric";
+import type { EnvironmentalData } from "@/features/dashboard";
+import { useTranslations } from "next-intl";
+import { EnvironmentalMetric } from "@/features/dashboard";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 interface EnvironmentalOverviewProps {
   data: EnvironmentalData;

@@ -1,6 +1,6 @@
 import type React from "react";
-import { DesktopSidebar } from "./desktop-sidebar";
-import { BottomNavigation } from "./bottom-navigation";
+import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
+import { BottomNavigation } from "@/components/layout/bottom-navigation";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;

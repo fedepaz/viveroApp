@@ -2,10 +2,11 @@
 
 import { Progress } from "@radix-ui/react-progress";
 import { Filter, MoreHorizontal, Eye } from "lucide-react";
-import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import { PlantStatusIndicator } from "./plant-status-indicator";
+
+import { PlantStatusIndicator } from "@/features/plant-management";
 import { useTranslations } from "next-intl"; // Import useTranslations
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 // Mock data for plant status overview
 const plantStatusData = {

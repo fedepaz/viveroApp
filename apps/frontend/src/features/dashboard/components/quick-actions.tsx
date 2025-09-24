@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Plus,
   Thermometer,
@@ -8,9 +10,7 @@ import {
   AlertTriangle,
   Tractor,
 } from "lucide-react";
-import { useTranslations } from "next-intl"; // Import useTranslations
-import { Button } from "../ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import { useTranslations } from "next-intl";
 
 export function QuickActions() {
   const t = useTranslations("quickActions"); // Initialize useTranslations

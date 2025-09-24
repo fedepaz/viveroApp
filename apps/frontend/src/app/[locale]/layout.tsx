@@ -8,7 +8,7 @@ import {
   generateLocaleStaticParams,
   getLocaleFromParams,
 } from "@/i18n/routing";
-import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
+import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 export function generateStaticParams() {

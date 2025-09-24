@@ -11,7 +11,7 @@ import {
   Star,
   BarChart3,
 } from "lucide-react";
-import type { DashboardMetrics as MetricsType } from "@/lib/types";
+import type { DashboardMetricsInterface as MetricsType } from "@/features/dashboard";
 import { useTranslations } from "next-intl";
 
 interface DashboardMetricsProps {

@@ -17,18 +17,14 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl"; // Import useTranslations
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetTrigger,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "../ui/sheet";
-
-const navigationItems = [
-  // These will be translated using 't' from useTranslations
-];
+} from "@/components/ui/sheet";
 
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);

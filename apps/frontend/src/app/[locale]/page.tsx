@@ -1,9 +1,11 @@
-import { DashboardHeader } from "@/components/agricultural/dashboard-header";
-import { DashboardMetrics } from "@/components/agricultural/dashboard-metrics";
-import { EnvironmentalOverview } from "@/components/agricultural/environmental-overview";
-import { PlantStatusOverview } from "@/components/agricultural/plant-status-overview";
-import { CriticalAlerts } from "@/components/agricultural/critical-alerts";
-import { QuickActions } from "@/components/agricultural/quick-actions";
+import { DashboardHeader } from "@/components/layout/dashboard-header";
+import {
+  CriticalAlerts,
+  DashboardMetrics,
+  EnvironmentalOverview,
+  QuickActions,
+} from "@/features/dashboard";
+import { PlantStatusOverview } from "@/features/plant-management";
 import {
   generateLocaleStaticParams,
   getLocaleFromParams,

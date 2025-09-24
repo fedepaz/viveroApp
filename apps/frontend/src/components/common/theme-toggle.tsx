@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+
   const mounted = useIsMounted();
 
   const t = useTranslations("themeToggle");

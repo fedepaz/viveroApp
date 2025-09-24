@@ -129,6 +129,7 @@ src/
 ├── features/                # 🚀 CORE: Domain-specific features (Colocated)
 │   ├── plant-management/    # Encapsulates all plant-related logic & UI
 │   ├── client-management/   # Encapsulates all client-related logic & UI
+│   ├── dashboard/           # Encapsulates all dashboard-related logic & UI
 │   └── ...                  # Other bounded contexts
 ├── components/             # Reusable UI components (NOT domain logic)
 │   ├── ui/                 # shadcn/ui base components

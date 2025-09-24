@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { MobileNavigation } from "./mobile-navigation";
-import { LanguageSwitcher } from "./language-switcher";
-import { ThemeToggle } from "../common/theme-toggle";
+import { LanguageSwitcher } from "@/components/common/language-switcher";
+import { ThemeToggle } from "@/components/common/theme-toggle";
 import { useTranslations } from "next-intl";
 
 export function DashboardHeader() {

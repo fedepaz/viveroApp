@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PlantCard } from "./plant-card";
+import { PlantCard } from "@/features/plant-management";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Search, Grid3X3, List, SortAsc, Plus } from "lucide-react";
-import type { Plant } from "@/features/plant-management/types/plant";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import type { Plant } from "@/features/plant-management";
+import { useTranslations } from "next-intl";
 
 // Mock plant data (will remain hardcoded for now, as it's mock data)
 const mockPlants: Plant[] = [

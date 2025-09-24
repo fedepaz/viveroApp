@@ -1,51 +1,28 @@
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./src/i18n/routing";
-import { NextRequest, NextResponse } from "next/server";
 
 const intlMiddleware = createMiddleware(routing);
 
-export function middleware(request: NextRequest) {
-  const response = intlMiddleware(request);
+// Define public routes, including sign-in, sign-up, and all localized pages.
+const isPublicRoute = createRouteMatcher([
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+  // The root and all locale-prefixed routes are public.
+  '/',
+  '/(en|es|it)(.*)'
+]);
 
-  const pathname = request.nextUrl.pathname;
-  //isAuthenticated temporary, replace with Clerk, Auth0, or your backend later
-  const isAuthenticated = request.cookies.get("auth")?.value === "true";
+export default clerkMiddleware((auth, req) => {
+  // If the route is not public, protect it.
+  if (!isPublicRoute(req)) {
+    auth().protect();
+  }
 
-  if (pathname.includes("/login") || pathname.includes("/signup")) {
-    if (isAuthenticated) {
-      const locale = pathname.split("/")[1]; // Get locale from pathname
-      return NextResponse.redirect(
-        new URL(`/${locale}/dashboard`, request.url)
-      );
-    }
-    return response;
-  }
-  if (pathname.includes("/dashboard")) {
-    if (!isAuthenticated) {
-      const locale = pathname.split("/")[1]; // Get locale from pathname
-      return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
-    }
-    return response;
-  }
-  return response;
-}
+  // Always run the intl middleware to handle locale detection and redirection.
+  return intlMiddleware(req);
+});
 
 export const config = {
-  // Match all pathnames except for
-  // - API routes
-  // - _next (Next.js internals)
-  // - _static (inside /public)
-  // - all root files inside /public (e.g. /favicon.ico)
-  matcher: [
-    // Enable a redirect to a matching locale at the root
-    "/",
-
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
-    "/(en|es|it)/:path*",
-
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
-    "/((?!_next|_static|.*\\..*).*)",
-  ],
+  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

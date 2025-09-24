@@ -117,14 +117,14 @@ Application Structure:
 messages/               # Internationalization messages
 src/
 ├── app/                     # Next.js 14 App Router
+│   ├── (auth)/              # Authentication routes (e.g., sign-in, sign-up)
 │   ├── [locale]/            # Internationalization Route Segment
 │   │   ├── (dashboard)/     # Protected routes (Dashboard Layout)
 │   │   │   ├── plants/      # Routes for Plant Management Feature
 │   │   │   ├── clients/     # Routes for Client Management Feature
 │   │   │   ├── operations/  # Routes for Operations Feature
 │   │   │   └── analytics/   # Routes for Analytics Feature
-│   │   ├── (auth)/          # Authentication flows (Auth Layout)
-│   │   └── page.tsx         # Root page (redirects to default locale/dashboard)
+│   │   └── page.tsx         # Locale-specific root page
 │   └── api/                 # API routes
 ├── features/                # 🚀 CORE: Domain-specific features (Colocated)
 │   ├── plant-management/    # Encapsulates all plant-related logic & UI
@@ -145,6 +145,9 @@ src/
 ├── providers/              # Context providers (e.g., `ThemeProvider`, `QueryClientProvider`)
 └── types/                  # ONLY global or shared types (e.g., `ApiResponse<T>`)
 ```
+
+**Note on Authentication Structure:** The `(auth)` route group is intentionally placed outside the `[locale]` segment. This is the recommended practice when using an authentication provider like Clerk, which manages its own UI localization. This separation simplifies middleware and routing by decoupling the application's localization from the authentication flow.
+
 
 ### Internationalization (i18n) Implementation
 

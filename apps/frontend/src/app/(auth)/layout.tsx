@@ -1,21 +1,13 @@
 import { LoadingSpinner } from "@/components/common/loading-spinner";
-import { getLocaleFromParams } from "@/i18n/routing";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { NextIntlClientProvider } from "next-intl";
 import { Suspense } from "react";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
-  params: Promise<{
-    locale: string;
-  }>;
 }
 
-export default async function AuthLayout({
-  children,
-  params,
-}: AuthLayoutProps) {
-  const locale = getLocaleFromParams(params);
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <ThemeProvider>
       <NextIntlClientProvider>

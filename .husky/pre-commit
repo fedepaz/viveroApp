@@ -24,7 +24,7 @@ fi
 echo "✅ Comprobación de rama superada. Ejecutando verificaciones pre-commit..."
 
 # Ejecutar el linter para verificar la calidad del código
-pnpm lint:check
+pnpm lint
 
 # Comprobar el código de salida del comando anterior
 if [ $? -ne 0 ]; then

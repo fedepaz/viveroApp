@@ -3,17 +3,15 @@ TDD & CI/CD Guide for "Chill Mode" Development 😎
 Philosophy: Write tests so good that you sleep peacefully knowing your 3-4 enterprise clients are happy and your app won't wake you up at 3 AM.
 Test-Driven Development Strategy
 The "Sleep Well" Testing Pyramid
-/\
- / \
- E2E /\_**\_\ (5% - Critical user flows)
-/ \
- Integration /\_\_** \ (15% - API contracts)
-/ \
- Unit /****\_\_\_****\ (80% - Business logic)
+
+- **E2E (5% - Critical user flows)**: Owned by the `agricultural-qa-test-automation-engineer`. Covers critical paths like trial signup and plant lifecycle management.
+- **Integration (15% - API contracts & component interactions)**: A shared responsibility. The `agricultural-qa-test-automation-engineer` focuses on cross-system API contract tests, while developers test interactions between their components and services.
+- **Unit (80% - Business logic & components)**: Owned by developers. Every piece of business logic and every UI component must have unit tests.
+
 Testing Philosophy
 Rule #1: If it can break at 3 AM and wake you up, it needs a test.
-Rule #2: If a client can lose money because of it, it needs integration tests.
-Rule #3: If it's business logic, it needs unit tests.
+Rule #2: If a client can lose money because of it, it needs integration tests, validated by the `agricultural-qa-test-automation-engineer`.
+Rule #3: If it's business logic, it needs unit tests written by the developer.
 Frontend Testing Stack
 Setup
 

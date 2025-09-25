@@ -60,7 +60,7 @@ The CI/CD agent should leverage this structured history to automate release and 
 - **Responsibilities**:
   - Calls the `reusable-setup.yml` workflow.
   - Uses path filtering to determine which checks to run (frontend or backend).
-  - Runs linting, type-checking, and unit tests for the changed application(s) using `turbo run lint`, `turbo run test`, etc.
+  - Runs linting, type-checking, and unit tests for the changed application(s) using `turbo run lint`, `turbo run test`, etc. The test suites executed in this workflow are defined and maintained by the `agricultural-qa-test-automation-engineer`.
 
 #### 3. `deploy.yml` (Deployment Workflow)
 

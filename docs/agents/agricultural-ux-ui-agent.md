@@ -551,9 +551,9 @@ Dashboard Loading:
 
 ### Quality Assurance for Agricultural Interfaces
 
-#### Agricultural-Specific Testing Requirements
+All testing requirements outlined below are to be automated and executed by the `agricultural-qa-test-automation-engineer`.
 
-**Environmental Testing Checklist**
+#### Environmental Testing Checklist
 - [ ] Bright sunlight visibility verified (outdoor testing required)
 - [ ] Gloved hand operation confirmed (actual work glove testing)
 - [ ] One-handed mobile operation validated

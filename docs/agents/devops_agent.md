@@ -429,6 +429,8 @@ migrate_all_agricultural_tenants() {
 
 ## Quality Gates
 
+All automated tests and quality checks are managed and maintained by the `agricultural-qa-test-automation-engineer`.
+
 ### Local Development Validation
 - [ ] docker-compose starts complete agricultural stack in <3 minutes
 - [ ] Sample plant data loads with multiple tenant scenarios  

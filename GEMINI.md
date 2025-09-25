@@ -38,7 +38,7 @@ Agents must **always read and apply** the following project guides before respon
 - **Frontend implementations** must follow `frontend-agent-guide.md` (Next.js 14, Tailwind, shadcn/ui, TanStack, etc.)
 - **Product requirements** must follow `product-manager-agent.md` (multi-tenant, enterprise workflows).
 - **Testing must follow TDD** as outlined in `tdd_cicd_guide.md` (Vitest, Jest, Playwright, 80%+ coverage).
-- **CI/CD** must always be part of code suggestions (GitHub Actions, pipelines with build/test/deploy).
+- **CI/CD**: Must follow the 4-file structure defined in `docs/agents/cicd_agent.md` and is optimized with Turborepo. All GitHub Actions must be verified using the `resolve_library_id` tool before use.
 - **Enterprise workflows** (multi-tenancy, supply chain, financial ops, compliance) must follow `product-manager-agent.md`.
 
 ---

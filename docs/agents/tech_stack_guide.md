@@ -190,6 +190,8 @@ Coverage: Vitest coverage (80%+ required)
     "k6": "^0.48.0",
     "concurrently": "^8.2.0",
     "husky": "^8.0.3",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "lint-staged": "^15.2.0",
     "dotenv-cli": "^7.3.0",
     "tsx": "^4.7.0"

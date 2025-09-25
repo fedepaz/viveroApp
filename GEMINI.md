@@ -46,6 +46,9 @@ Agents must **always read and apply** the following project guides before respon
 ## 🛠️ Development Standards
 
 - **Monorepo with pnpm workspaces** (`apps/` and `packages/` layout).
+- **Build System**: Uses **Turborepo** to manage monorepo tasks and optimize CI/CD pipelines.
+- **Local Quality Gates**: Uses **Husky** with pre-commit hooks to automatically run linters and enforce branch protection rules before code is committed.
+- **Commit Message Convention**: Follows the **Conventional Commits** specification, as detailed in `COMMIT_CONVENTIONS.md`. This is enforced automatically by `commitlint` via a Husky hook.
 - **Shared contracts** (Zod schemas, DTOs, API definitions) live in `packages/shared`.
 - **Infrastructure as Code** (Terraform + Helm) in `packages/infra`.
 - **Documentation** must use the format specified in `product-manager-agent.md` (Executive Summary, Feature Specs, etc.).

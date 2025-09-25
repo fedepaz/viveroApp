@@ -776,6 +776,15 @@ const ProductionAnalytics = ({ tenantId }: { tenantId: string }) => {
 };
 ```
 
+### Local Quality Gates (Pre-Commit Checks)
+
+To ensure all code and messages committed to the repository meet our standards, this project uses **Husky** to manage pre-commit hooks. Before any commit is finalized, the following automated checks are run:
+
+- **Code Linting & Branch Protection**: Checks code for quality issues and prevents direct commits to protected branches (`main`, `frontendDev`, `backendDev`).
+- **Commit Message Formatting**: Enforces the **Conventional Commits** standard for all commit messages using `commitlint`. See `COMMIT_CONVENTIONS.md` for a detailed guide.
+
+This automated process catches errors early, enforces consistency, and ensures a clean, professional Git history.
+
 ## Testing Strategy
 
 ### Component Testing Standards

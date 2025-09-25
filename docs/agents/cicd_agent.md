@@ -16,6 +16,17 @@ Build bulletproof CI/CD pipelines that catch bugs before users do, deploy reliab
 
 This project follows a modular, 4-file approach to CI/CD, prioritizing clarity, efficiency, and maintainability. This structure is the single source of truth for all CI/CD operations.
 
+### Commit Message Convention
+
+This project enforces the **Conventional Commits** specification for all commit messages. This is handled locally by `commitlint` and Husky hooks before code is ever pushed.
+
+**CI/CD Implications:**
+
+- **Automated Changelogs:** The structured commit messages (`feat:`, `fix:`, etc.) can be used by the CI/CD pipeline to automatically generate release notes.
+- **Semantic Versioning:** The pipeline can use the commit history to automatically determine the next version number (patch, minor, major) for a release.
+
+The CI/CD agent should leverage this structured history to automate release and documentation processes.
+
 ### Build System
 
 - **Turborepo**: This project uses Turborepo as a high-performance build system to orchestrate tasks within the monorepo. It optimizes the pipeline by caching task results and only running jobs on code that has changed.

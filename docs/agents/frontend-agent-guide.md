@@ -793,9 +793,11 @@ This automated process catches errors early, enforces consistency, and ensures a
 
 ### Component Testing Standards
 
+All frontend unit and component tests are written using **Vitest** as the test runner and **@testing-library/react** for rendering and interacting with components.
+
 ```typescript
 // Plant component test example
-describe("PlantCard", () => {
+describe('PlantCard', () => {
   const mockPlant = {
     id: "1",
     name: "Premium Red Tulip",
@@ -807,7 +809,11 @@ describe("PlantCard", () => {
     location: { greenhouse: "A", section: "1", row: 5, position: 10 },
   };
 
-  it("renders plant information correctly", () => {
+  // Global mocks should be handled in vitest.setup.ts, but local mocks use vi.mock
+  // Example of mocking a hook locally if needed, otherwise use global setup
+  // vi.mock('./some-local-hook', () => ({ useSomeLocalHook: () => ({ value: 'mocked' }) }));
+
+  it('renders plant information correctly', () => {
     render(
       <PlantCard plant={mockPlant} onUpdate={vi.fn()} onViewDetails={vi.fn()} />
     );
@@ -817,7 +823,7 @@ describe("PlantCard", () => {
     expect(screen.getByText("85%")).toBeInTheDocument(); // Health score
   });
 
-  it("shows critical temperature alert", () => {
+  it('shows critical temperature alert', () => {
     const criticalPlant = {
       ...mockPlant,
       currentTemperature: 35,
@@ -843,7 +849,7 @@ describe("PlantCard", () => {
     expect(screen.getByText(/temperature exceeds/i)).toBeInTheDocument();
   });
 
-  it("handles mobile touch interactions", async () => {
+  it('handles mobile touch interactions', async () => {
     const user = userEvent.setup();
     const onUpdate = vi.fn();
 
@@ -860,6 +866,73 @@ describe("PlantCard", () => {
 
     expect(onUpdate).toHaveBeenCalledWith("1");
   });
+});
+```
+
+### Hooks Testing Standards
+
+For testing custom React hooks, the best practice is to use **`renderHook` from `@testing-library/react`** (or `@testing-library/react-hooks` if explicitly needed for older versions, but `renderHook` is now part of `@testing-library/react` itself). This allows you to test the hook's logic, state management, and side effects in isolation, within a React environment.
+
+```typescript
+// Example: Custom hook test
+import { renderHook, act } from '@testing-library/react';
+import { useCounter } from './useCounter';
+
+describe('useCounter', () => {
+  it('should increment the counter', () => {
+    const { result } = renderHook(() => useCounter());
+
+    act(() => {
+      result.current.increment();
+    });
+
+    expect(result.current.count).toBe(1);
+  });
+
+  it('should decrement the counter', () => {
+    const { result } = renderHook(() => useCounter(5));
+
+    act(() => {
+      result.current.decrement();
+    });
+
+    expect(result.current.count).toBe(4);
+  });
+});
+```
+
+### Global Test Setup
+
+To ensure consistency and avoid repetition, global test setups and mocks should be managed through a dedicated setup file configured in `vitest.config.ts`.
+
+*   **Purpose:** Centralize common test configurations, global mocks, and polyfills that need to run before all tests.
+*   **File Location:** Create a `vitest.setup.ts` file (e.g., at `apps/frontend/vitest.setup.ts` or a shared `config/vitest.setup.ts` if applicable).
+*   **Configuration:** Point to this file in your `vitest.config.ts` using the `test.setupFiles` option.
+
+```typescript
+// vitest.setup.ts (Example for mocking useTranslations globally)
+import { vi } from 'vitest';
+import '@testing-library/jest-dom/vitest'; // Import extended matchers
+
+// Global mock for next-intl's useTranslations hook
+vi.mock('next-intl', () => ({
+  useTranslations: vi.fn((namespace) => (key: string) => `${namespace}.${key}`),
+}));
+
+// Add other global setups here (e.g., mocking API services, polyfills)
+```
+
+```typescript
+// vitest.config.ts (Example configuration)
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'], // Path to your global setup file
+    // ... other test configurations
+  },
 });
 ```
 
@@ -1037,9 +1110,9 @@ When requesting component implementations, provide:
 
 **Architectural Guidance:**
 
-- Specify the Feature: Always state which feature/ folder the new component/hook belongs to (e.g., "This belongs in features/plant-management/")
-- Colocation is Key: New hooks, stores, or API clients for a feature must be created within that features's directory.
-
+    - Specify the Feature: Always state which feature/ folder the new component/hook belongs to (e.g., "This belongs in features/plant-management/")
+    - Colocation is Key: New hooks, stores, or API clients for a feature must be created within that features's directory.
+    - **Testing Colocation:** All unit and component tests for a feature should be placed in a `__tests__` subdirectory within the feature's directory (e.g., `src/features/plant-management/components/__tests__/PlantCard.test.tsx`).
 ### Expected Outputs
 
 The agent will deliver:

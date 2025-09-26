@@ -6,10 +6,9 @@ import {
   QuickActions,
 } from "@/features/dashboard";
 import { PlantStatusOverview } from "@/features/plant-management";
-import {
-  generateLocaleStaticParams,
-  getLocaleFromParams,
-} from "@/i18n/routing";
+import { use } from 'react';
+import { setRequestLocale } from 'next-intl/server';
+import { generateLocaleStaticParams } from '@/i18n/routing';
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -97,7 +96,8 @@ interface DashboardPageProps {
 }
 
 export default function DashboardPage({ params }: DashboardPageProps) {
-  const locale = getLocaleFromParams(params);
+  const { locale } = use(params);
+  setRequestLocale(locale);
 
   return (
     <div className="min-h-screen bg-background">

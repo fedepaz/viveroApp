@@ -93,7 +93,7 @@ export function PlantCard({
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <PlantStatusIndicator status={statusClass as any} size="sm" />
+              <PlantStatusIndicator status={statusClass} size="sm" />
               {plant.alerts.length > 0 && (
                 <Badge className="text-xs">{plant.alerts.length}</Badge>
               )}
@@ -124,7 +124,7 @@ export function PlantCard({
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <PlantStatusIndicator status={statusClass as any} />
+            <PlantStatusIndicator status={statusClass} />
             {plant.alerts.length > 0 && (
               <Badge className="text-xs">{plant.alerts.length}</Badge>
             )}

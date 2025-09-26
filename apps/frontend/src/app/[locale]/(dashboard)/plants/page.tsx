@@ -1,9 +1,9 @@
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { PlantGrid } from "@/features/plant-management";
-import {
-  generateLocaleStaticParams,
-  getLocaleFromParams,
-} from "@/i18n/routing";
+
+import { generateLocaleStaticParams } from "@/i18n/routing";
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -12,8 +12,11 @@ export function generateStaticParams() {
 interface PlantsPageProps {
   params: Promise<{ locale: string }>;
 }
+
 export default function PlantsPage({ params }: PlantsPageProps) {
-  const locale = getLocaleFromParams(params);
+  const { locale } = use(params);
+  setRequestLocale(locale);
+
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />

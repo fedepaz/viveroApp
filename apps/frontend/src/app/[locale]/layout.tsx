@@ -1,13 +1,13 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Suspense } from "react";
+import { Suspense, use } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 
 import { NextIntlClientProvider } from "next-intl";
 import {
   generateLocaleStaticParams,
-  getLocaleFromParams,
 } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-provider";
 
@@ -32,7 +32,8 @@ export default function DashboardLayout({
   children,
   params,
 }: DashboardLayoutProps) {
-  const locale = getLocaleFromParams(params);
+  const { locale } = use(params);
+  setRequestLocale(locale);
   return (
     <ThemeProvider>
       <NextIntlClientProvider>

@@ -27,7 +27,7 @@ echo "✅ Comprobación de rama superada. Ejecutando verificaciones pre-commit..
 pnpm lint
 
 # Comprobar el código de salida del comando anterior
-if [ $? -ne 0 ]; then
+if [ "$?" -ne 0 ]; then
   echo "❌ Las verificaciones pre-commit han fallado. Por favor, corrige los problemas de linting antes de continuar."
   exit 1
 fi

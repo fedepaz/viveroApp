@@ -25,9 +25,9 @@ echo "✅ Comprobación de rama superada. Ejecutando verificaciones pre-commit..
 
 # Ejecutar el linter para verificar la calidad del código
 pnpm lint
+LINT_EXIT_CODE=$?
 
-# Comprobar el código de salida del comando anterior
-if [ "$?" -ne 0 ]; then
+if [ "$LINT_EXIT_CODE" != 0 ]; then
   echo "❌ Las verificaciones pre-commit han fallado. Por favor, corrige los problemas de linting antes de continuar."
   exit 1
 fi

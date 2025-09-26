@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { enUS, esES, itIT } from "@clerk/localizations";
 import "./globals.css";
+import { cookies } from "next/headers";
 
 type LocaleKey = "en" | "es" | "it";
 
@@ -12,20 +13,30 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
-const locale: LocaleKey = "es";
 const localizations = {
   en: enUS,
   es: esES,
   it: itIT,
 } as const;
 
-const clerkLocalization = localizations[locale];
-
-export default function RootLayout({
+// Read cookie safely on the server. If cookie is missing or invalid, fall back to `en`.
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // read cookies() inside the server component (cookies() can be async in some Next types)
+  const cookieStore = await cookies();
+  const cookieLocale = cookieStore.get("NEXT_LOCALE")?.value;
+  const locale = (
+    cookieLocale &&
+    (cookieLocale === "en" || cookieLocale === "es" || cookieLocale === "it")
+      ? (cookieLocale as LocaleKey)
+      : "en"
+  ) as LocaleKey;
+
+  const clerkLocalization = localizations[locale];
+
   return (
     <ClerkProvider localization={clerkLocalization}>
       <html suppressHydrationWarning>

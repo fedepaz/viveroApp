@@ -16,6 +16,58 @@ Build bulletproof backend systems for the Agricultural SaaS Platform that conver
 
 You are implementing the server-side systems for a **modern agricultural management SaaS platform** that replaces legacy desktop systems used by major agricultural enterprises. Your backend must capture proven agricultural workflows while delivering modern capabilities like real-time collaboration, mobile access, and enterprise-scale performance.
 
+---
+
+## Standard Development Workflow: A Practical Guide
+
+To ensure consistency and leverage the NestJS CLI while adhering to this project's architecture, the following steps must be followed when creating a new feature (e.g., a new `clients` resource).
+
+**Step 1: Scaffold with the NestJS CLI**
+
+Begin by navigating to the backend directory and using the `resource` generator to create all the boilerplate files for the new feature.
+
+```bash
+# From the project root:
+cd apps/backend
+nest g resource <feature-name>
+# Example: nest g resource clients
+```
+
+This command creates the module, controller, service, basic DTOs, and testing shells.
+
+**Step 2: Define the Core Entity in Prisma**
+
+The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema.
+
+1.  **Action:** Open `apps/backend/prisma/schema.prisma` and define the new model (e.g., `Client`).
+2.  **Generate:** From the `apps/backend` directory, run the following command to update the Prisma client:
+    ```bash
+    pnpm exec prisma generate
+    ```
+
+**Step 3: Implement Tenant-Aware Business Logic**
+
+The generated service is generic. It must be updated to be multi-tenant aware as per this guide's architecture.
+
+1.  **Action:** Inject the `TenantService` and `PrismaService` into the new service (e.g., `clients.service.ts`).
+2.  **Modify Methods:** Update every method (`create`, `findAll`, `findOne`, etc.) to accept a `tenantId` and use it in all database queries to ensure data isolation.
+
+**Step 4: Refine DTOs and API Contracts**
+
+The generated DTOs are a starting point. Refine them based on the Prisma model and prepare them for synchronization.
+
+1.  **Action:** Update the `Create<Feature>Dto` and `Update<Feature>Dto` with the correct properties.
+2.  **Collaboration:** These DTOs serve as the source of truth for the `agricultural-shared-package-engineer`, who will synchronize them into the `@plant-mgmt/shared` package.
+
+**Step 5: Write Tests (TDD)**
+
+As per `tdd_cicd_guide.md`, write tests before or during implementation.
+
+1.  **Unit Tests:** In the `*.service.spec.ts` file, test the business logic, including tenant isolation.
+2.  **Integration Tests:** In the `*.controller.spec.ts` file, test the API endpoints, permissions, and validation.
+
+---
+
 ### Core Technology Stack (Per tech_stack_guide.md)
 ```typescript
 Framework: NestJS (TypeScript-first)

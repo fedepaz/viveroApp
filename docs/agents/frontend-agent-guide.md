@@ -133,70 +133,65 @@ src/
 
 ### Internationalization (i18n) Implementation
 
-To ensure a consistent, scalable, and performant multi-language experience, all frontend pages must use the centralized helper functions from `src/i18n/routing.ts`. This is a critical requirement for our SaaS platform.
+To ensure a consistent, scalable, and performant multi-language experience, all frontend pages must use the following standards.
 
 **1. Centralized Routing Logic (`src/i18n/routing.ts`):**
 
-All logic for handling URL-based locales is centralized in this file. It provides helper functions to be used across the application.
+All logic for defining supported locales and generating static paths is centralized in this file.
 
 ```typescript
-// src/i19n/routing.ts
+// src/i18n/routing.ts
 import { defineRouting } from "next-intl/routing";
-import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
 
 // Defines supported locales and the default
 export const routing = defineRouting({
   locales: ["en", "es", "it"],
   defaultLocale: "en",
+  localePrefix: "always",
+  localeDetection: true,
 });
 
 // Helper to generate static paths for all locales
 export function generateLocaleStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
-
-// Helper to extract locale from params and set it for the request
-export function getLocaleFromParams(params: Promise<{ locale: string }>) {
-  const { locale } = use(params);
-  setRequestLocale(locale);
-  return locale;
-}
 ```
 
 **2. Standard for Page Components (`page.tsx`):**
 
-Every page component **must** use the helper functions from `routing.ts` to handle the locale.
+Every page component under the `[locale]` segment **must** handle the locale context directly. Child components can then use `useTranslations()` without any extra work.
 
 ```typescript
-// src/app/[locale]/plants/page.tsx
+// Example: apps/frontend/src/app/[locale]/new-feature/page.tsx
 import { useTranslations } from "next-intl";
-import {
-  generateLocaleStaticParams,
-  getLocaleFromParams,
-} from "@/i18n/routing";
+import { generateLocaleStaticParams } from "@/i18n/routing";
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
+import { FeatureDashboard } from "@/features/new-feature";
 
-// A. Statically generate routes using the helper
+// 1. Statically generate routes using the helper
 export function generateStaticParams() {
   return generateLocaleStaticParams();
 }
 
-// B. Define the props interface for the page
-interface PlantsPageProps {
+// 2. Define the props interface for the page
+interface NewFeaturePageProps {
   params: Promise<{ locale: string }>;
 }
 
-// C. Implement the page component
-export default function PlantsPage({ params }: PlantsPageProps) {
-  // D. Get and set the locale using the helper
-  const locale = getLocaleFromParams(params);
+// 3. Implement the page component
+export default function NewFeaturePage({ params }: NewFeaturePageProps) {
+  // 4. The page component sets the locale for the request
+  const { locale } = use(params);
+  setRequestLocale(locale);
 
-  const t = useTranslations("PlantsPage");
+  const t = useTranslations("NewFeaturePage");
 
   return (
     <div>
       <h1>{t("title")}</h1>
-      <p>{t("description")}</p>
+      {/* The actual feature UI is in a child component */}
+      <FeatureDashboard />
     </div>
   );
 }
@@ -204,12 +199,10 @@ export default function PlantsPage({ params }: PlantsPageProps) {
 
 **Key Requirements:**
 
-1.  **Use Centralized Helpers**: Always import and use `generateLocaleStaticParams` and `getLocaleFromParams` from `src/i19n/routing.ts`.
-2.  **No Manual Logic**: Do not manually implement `use(params)` or `setRequestLocale` inside page components. This logic is handled by `getLocaleFromParams`.
-3.  **`useTranslations` Hook**: All text content must be retrieved using the `useTranslations` hook from `next-intl`.
+1.  **Page-Level Locale Handling**: The page component itself must use `use(params)` and `setRequestLocale(locale)`.
+2.  **Child Component Translations**: Any child components (like `FeatureDashboard` above) can then simply use the `useTranslations()` hook to get the correct text.
+3.  **Static Generation**: Pages must export `generateStaticParams` that calls the `generateLocaleStaticParams` helper from `routing.ts`.
 4.  **Translation Files**: All translation strings must be stored in the `messages/` directory (e.g., `messages/en.json`).
-
-This standardized approach is mandatory for all new pages.
 
 ### Core Technology Implementation
 
@@ -243,6 +236,67 @@ To ensure type safety and consistency between the frontend and backend, this pro
 1.  **Single Source of Truth:** This package is the single source of truth for all data transfer objects (DTOs), API contracts, Zod validation schemas, and shared utility functions.
 2.  **Mandatory Usage:** The frontend **must not** define its own versions of these shared types. All data contracts for API communication must be imported from `@plant-mgmt/shared`.
 3.  **Collaboration:** The contents of this package are managed by the `agricultural-shared-package-engineer`, who works with both frontend and backend agents to ensure contracts are synchronized. When a new API endpoint is developed or a data model changes, the frontend agent must coordinate with the shared package agent to get the updated types.
+
+### Standard Development Workflow: A Practical Guide
+
+Unlike NestJS, the Next.js CLI does not have a feature for scaffolding feature slices. Therefore, a standardized manual process with shell commands is required to align with the project's feature-centric architecture.
+
+**Step 1: Create the Feature Directory Structure**
+
+Use this command from the project root to create the entire folder and file structure for a new feature. Replace `<feature-name>` with your feature's name (e.g., `clients`).
+
+```bash
+# Replace <feature-name> with the actual name of your feature
+FEATURE_NAME=<feature-name>; mkdir -p apps/frontend/src/features/$FEATURE_NAME/{api,components/__tests__,hooks,stores,utils} && touch apps/frontend/src/features/$FEATURE_NAME/{index.ts,types.ts}
+```
+
+**Step 2: Create the Page Route**
+
+Create the page file that will render your feature. This file connects a URL to your feature and must handle the i18n context correctly.
+
+```bash
+# Replace <feature-name> with the actual name of your feature
+touch apps/frontend/src/app/[locale]/<feature-name>/page.tsx
+```
+
+Paste the following boilerplate into the newly created page file, replacing `<FeatureDashboard>` and `<feature-name>` as needed.
+
+```tsx
+// apps/frontend/src/app/[locale]/<feature-name>/page.tsx
+import { <FeatureDashboard> } from "@/features/<feature-name>";
+import { generateLocaleStaticParams } from "@/i18n/routing";
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
+
+export function generateStaticParams() {
+  return generateLocaleStaticParams();
+}
+
+interface FeaturePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default function FeaturePage({ params }: FeaturePageProps) {
+  // The page is responsible for setting the locale
+  const { locale } = use(params);
+  setRequestLocale(locale);
+
+  return <FeatureDashboard />; // Render the main component from your feature
+}
+```
+
+**Step 3: Implement Components, Data Logic, and Tests**
+
+With the structure in place, build the feature's internals, ensuring to:
+- Import shared data contracts from `@plant-mgmt/shared`.
+- Place API-calling functions in the `api/` folder.
+- Create TanStack Query hooks in the `hooks/` folder.
+- Build React components in the `components/` folder.
+- Write component tests in the `components/__tests__/` folder.
+
+**Step 4: Curate the Feature's Public API**
+
+In `apps/frontend/src/features/<feature-name>/index.ts`, export only the main components (like `<FeatureDashboard>`) that are needed by other parts of the app, such as the page file. This enforces the modular boundary of the feature.
 
 ## Agricultural Component Specifications
 

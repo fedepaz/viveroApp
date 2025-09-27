@@ -1,4 +1,3 @@
-import { DashboardHeader } from "@/components/layout/dashboard-header";
 import {
   CriticalAlerts,
   DashboardMetrics,
@@ -6,9 +5,9 @@ import {
   QuickActions,
 } from "@/features/dashboard";
 import { PlantStatusOverview } from "@/features/plant-management";
-import { use } from 'react';
-import { setRequestLocale } from 'next-intl/server';
-import { generateLocaleStaticParams } from '@/i18n/routing';
+import { use } from "react";
+import { setRequestLocale } from "next-intl/server";
+import { generateLocaleStaticParams } from "@/i18n/routing";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -101,8 +100,6 @@ export default function DashboardPage({ params }: DashboardPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <DashboardHeader />
-
       <main className="container mx-auto px-4 py-6 space-y-6">
         {/* Critical Alerts - Always visible at top */}
         <CriticalAlerts alerts={mockDashboardData.criticalAlerts} />

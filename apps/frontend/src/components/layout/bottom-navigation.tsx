@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Home, Leaf, Thermometer, Calendar, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";

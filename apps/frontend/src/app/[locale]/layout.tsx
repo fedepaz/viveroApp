@@ -8,6 +8,7 @@ import { generateLocaleStaticParams } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { DashboardHeader } from "@/components/layout/dashboard-header";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -30,7 +31,10 @@ export default function DashboardLayout({
     <ThemeProvider>
       <NextIntlClientProvider>
         <Suspense fallback={<LoadingSpinner />}>
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <LayoutWrapper>
+            <DashboardHeader />
+            {children}
+          </LayoutWrapper>
         </Suspense>
       </NextIntlClientProvider>
     </ThemeProvider>

@@ -19,20 +19,20 @@ interface StatusBadgeProps {
 export function StatusBadge({ status, children, className }: StatusBadgeProps) {
   const statusStyles = {
     healthy:
-      "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800",
+      "bg-chart-2/10 text-chart-2 border-chart-2/20 dark:bg-chart-2/10 dark:text-chart-2 dark:border-chart-2/20",
     warning:
-      "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800",
+      "bg-chart-5/10 text-chart-5 border-chart-5/20 dark:bg-chart-5/10 dark:text-chart-5 dark:border-chart-5/20",
     critical:
-      "bg-red-100 text-red-800 border-red-200 dark:bg-red-900/20 dark:text-red-400 dark:border-red-800",
-    info: "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800",
+      "bg-destructive/10 text-destructive border-destructive/20 dark:bg-destructive/10 dark:text-destructive dark:border-destructive/20",
+    info: "bg-chart-1/10 text-chart-1 border-chart-1/20 dark:bg-chart-1/10 dark:text-chart-1 dark:border-chart-1/20",
     active:
-      "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800",
+      "bg-chart-2/10 text-chart-2 border-chart-2/20 dark:bg-chart-2/10 dark:text-chart-2 dark:border-chart-2/20",
     inactive:
-      "bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800",
+      "bg-muted text-muted-foreground border-border dark:bg-muted dark:text-muted-foreground dark:border-border",
     pending:
-      "bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-800",
+      "bg-chart-5/10 text-chart-5 border-chart-5/20 dark:bg-chart-5/10 dark:text-chart-5 dark:border-chart-5/20",
     completed:
-      "bg-green-100 text-green-800 border-green-200 dark:bg-green-900/20 dark:text-green-400 dark:border-green-800",
+      "bg-chart-2/10 text-chart-2 border-chart-2/20 dark:bg-chart-2/10 dark:text-chart-2 dark:border-chart-2/20",
   };
 
   return (

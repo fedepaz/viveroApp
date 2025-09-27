@@ -131,6 +131,11 @@ You will be invoked with one of three specific contexts, adapting your testing a
 - Financial reporting accuracy
 - Compliance requirement validation
 
+**API Contract Validation:**
+- All API integration tests **must** validate the structure of backend responses against the canonical Zod schemas from the `@plant-mgmt/shared` package.
+- This ensures that the API contract is never broken and that frontend and backend remain perfectly synchronized.
+- The `agricultural-shared-package-engineer` is responsible for maintaining these schemas.
+
 ### 5. Security & Compliance Testing
 
 **Data Protection:**

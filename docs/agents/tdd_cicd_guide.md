@@ -287,6 +287,8 @@ The canonical CI/CD workflow structure is defined in the `docs/agents/cicd_agent
 3.  `scheduled.yml` (For Maintenance)
 4.  `reusable-setup.yml` (For common, shared steps)
 
+A critical part of the `pr-checks.yml` workflow is the validation of the `@plant-mgmt/shared` package. Any pull request **must** trigger linting and unit tests on the shared package to prevent breaking changes to the data contracts from being merged. This is managed by the `agricultural-shared-package-engineer`.
+
 Always refer to `cicd_agent.md` for the authoritative implementation details.
 Package.json Scripts
 {

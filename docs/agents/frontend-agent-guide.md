@@ -21,11 +21,6 @@ The core principle is Colocation Over Centralization. Business logic, UI, state,
 
 🚫 Old Way (Avoid)
 
-1
-2
-3
-4
-5
 src/
 ├── hooks/ # usePlants.ts, useClients.ts → Global dumping ground
 ├── lib/api/ # plantService.ts, clientService.ts → Scattered
@@ -33,21 +28,6 @@ src/
 └── components/ # UI only, no context
 ✅ New Way (Adopt)
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
 src/features/
 ├── plant-management/ # Everything about plants in one place
 │ ├── components/ # <PlantCard />, <PlantTable />
@@ -55,6 +35,7 @@ src/features/
 │ ├── api/ # plantService.ts (API calls for plants)
 │ ├── stores/ # plantFiltersStore.ts (Zustand store for plants)
 │ ├── utils/ # formatPlantName.ts, calculateGrowthRate.ts
+│ ├── index.ts # Export component, types, hooks for importing "@features/plant-management"
 │ └── types.ts # Plant, PlantFilters, etc.
 ├── client-management/
 │ └── ... # Same structure, isolated context
@@ -245,6 +226,23 @@ Tech Stack Configuration:
 ├── Internationalization: next-intl (NL, DE, EN, IT)
 └── Testing: Vitest + Playwright
 ```
+
+### Authentication Workflow
+
+The platform uses a frontend-led authentication model, with Clerk handling user management and the frontend being responsible for passing credentials to the backend.
+
+1.  **Authentication:** All user sign-up, sign-in, and session management are handled by Clerk's pre-built components within the `(auth)` route group of the Next.js application.
+2.  **Token Retrieval:** For any authenticated API request to the backend, the frontend must retrieve the session JWT from Clerk. This is done using the `getToken()` method from the `@clerk/nextjs` hook `useAuth()`.
+3.  **API Request Authorization:** The retrieved JWT must be included in the `Authorization` header of the API request, using the `Bearer` scheme. A shared API client should be configured to handle this automatically.
+4.  **Backend Communication:** The stateless NestJS backend will then receive this token, validate it using Clerk's backend SDK, and authorize the request based on the user's permissions contained within the token.
+
+### Shared Contract Integration
+
+To ensure type safety and consistency between the frontend and backend, this project uses a dedicated `@plant-mgmt/shared` package.
+
+1.  **Single Source of Truth:** This package is the single source of truth for all data transfer objects (DTOs), API contracts, Zod validation schemas, and shared utility functions.
+2.  **Mandatory Usage:** The frontend **must not** define its own versions of these shared types. All data contracts for API communication must be imported from `@plant-mgmt/shared`.
+3.  **Collaboration:** The contents of this package are managed by the `agricultural-shared-package-engineer`, who works with both frontend and backend agents to ensure contracts are synchronized. When a new API endpoint is developed or a data model changes, the frontend agent must coordinate with the shared package agent to get the updated types.
 
 ## Agricultural Component Specifications
 

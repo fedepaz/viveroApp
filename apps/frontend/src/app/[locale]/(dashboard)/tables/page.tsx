@@ -1,5 +1,3 @@
-"use client";
-
 import { TablesGrid } from "@/features/data-table";
 
 export default function TablesPage() {

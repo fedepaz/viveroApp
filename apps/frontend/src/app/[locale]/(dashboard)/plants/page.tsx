@@ -1,5 +1,4 @@
 import { PlantGrid } from "@/features/plant-management";
-
 import { generateLocaleStaticParams } from "@/i18n/routing";
 import { use } from "react";
 import { setRequestLocale } from "next-intl/server";

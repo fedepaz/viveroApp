@@ -105,6 +105,7 @@ This section outlines the roles and responsibilities of the AI agents involved i
 - Tests exist **before** feature code (TDD).
 - CI/CD pipelines include build, lint, test, coverage, deploy.
 - Product features align with enterprise SaaS workflows.
+- **Modern User Experience**: Interfaces are responsive, accessible, and provide a modern user experience, including the use of skeleton loading states to manage perceived performance.
 - Documentation follows `product-manager-agent.md` structure.
 
 ---

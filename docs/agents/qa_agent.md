@@ -50,6 +50,12 @@ You will be invoked with one of three specific contexts, adapting your testing a
 - TanStack Query for state management testing
 - Accessibility testing for enterprise compliance
 
+**Loading State and Skeleton Screen Verification:**
+- [ ] **Coverage**: Verify that all data-fetching features display a skeleton screen during initial load.
+- [ ] **Fidelity**: Ensure the skeleton screen is a high-fidelity placeholder that accurately mimics the final UI layout, preventing content layout shifts.
+- [ ] **Consistency**: Confirm that skeleton screens are used consistently across the application, and that generic spinners are not used for content loading.
+- [ ] **Accessibility**: Check that skeletons respect `prefers-reduced-motion` and have the appropriate ARIA attributes (`aria-busy="true"`) to be accessible.
+
 ### End-to-End Testing Context
 
 **Focus Areas:**

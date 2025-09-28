@@ -20,6 +20,8 @@ Framework: Next.js 14+ (App Router)
 ├── Charts: Recharts + Tremor
 ├── Authentication: Clerk (handles sign-in, sign-up, and session management)
 └── Styling: Tailwind CSS + MUI theming
+
+**Architectural Note**: The combination of Next.js 14 (with React Suspense) and TanStack Query is intentionally chosen to facilitate modern data fetching patterns. This stack enables the implementation of sophisticated and user-friendly loading states, such as skeleton screens, which are a core requirement for providing a high-quality, responsive user experience.
 ```
 
 ### Backend Stack

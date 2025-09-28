@@ -84,9 +84,9 @@ Concurrent User Support:
   
 API Performance:
   - Plant creation: <500ms
-  - Dashboard loads: <2 seconds  
+  - Dashboard loads: <2 seconds (critical for initial skeleton-to-content transition)
   - Report generation: <5 seconds
-  - Mobile API: <200ms response times
+  - Mobile API: <200ms response times (directly impacts perceived loading speed on devices)
 ```
 
 ### Trial System Infrastructure
@@ -294,7 +294,7 @@ Agricultural SaaS Monitoring:
     - Database query performance (plant searches, lifecycle updates)
     - Multi-tenant isolation verification
     - Redis cache hit rates for plant data
-    - API response times for mobile field workers
+    - API response times for mobile field workers, especially for endpoints powering initial skeleton-to-content loads
     
   Agricultural-Specific Alerts:
     - Plant data import failures

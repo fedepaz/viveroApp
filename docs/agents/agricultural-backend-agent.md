@@ -171,8 +171,8 @@ Concurrent User Support:
   
 API Performance:
   - Plant creation: <500ms
-  - Dashboard data loads: <2 seconds  
-  - Mobile API responses: <200ms
+  - Dashboard data loads: <2 seconds (critical for the frontend's skeleton-to-content transition)
+  - Mobile API responses: <200ms (directly impacts the perceived loading speed on user devices)
   - Report generation: <5 seconds
 ```
 

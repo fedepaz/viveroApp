@@ -243,11 +243,11 @@ Unlike NestJS, the Next.js CLI does not have a feature for scaffolding feature s
 
 **Step 1: Create the Feature Directory Structure**
 
-Use this command from the project root to create the entire folder and file structure for a new feature. Replace `<feature-name>` with your feature's name (e.g., `clients`).
+Use this command from the project root to create the entire folder and file structure for a new feature, including a skeleton component. Replace `<feature-name>` with your feature's name (e.g., `clients`).
 
 ```bash
 # Replace <feature-name> with the actual name of your feature
-FEATURE_NAME=<feature-name>; mkdir -p apps/frontend/src/features/$FEATURE_NAME/{api,components/__tests__,hooks,stores,utils} && touch apps/frontend/src/features/$FEATURE_NAME/{index.ts,types.ts}
+FEATURE_NAME=<feature-name>; mkdir -p apps/frontend/src/features/$FEATURE_NAME/{api,components/__tests__,hooks,stores,utils} && touch apps/frontend/src/features/$FEATURE_NAME/{index.ts,types.ts,components/FeatureDashboardSkeleton.tsx}
 ```
 
 **Step 2: Create the Page Route**
@@ -267,6 +267,8 @@ import { <FeatureDashboard> } from "@/features/<feature-name>";
 import { generateLocaleStaticParams } from "@/i18n/routing";
 import { use } from "react";
 import { setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
+import { FeatureDashboardSkeleton } from "@/features/<feature-name>/components/FeatureDashboardSkeleton";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -281,7 +283,11 @@ export default function FeaturePage({ params }: FeaturePageProps) {
   const { locale } = use(params);
   setRequestLocale(locale);
 
-  return <FeatureDashboard />; // Render the main component from your feature
+  return (
+    <Suspense fallback={<FeatureDashboardSkeleton />}>
+      <FeatureDashboard />
+    </Suspense>
+  );
 }
 ```
 
@@ -291,12 +297,50 @@ With the structure in place, build the feature's internals, ensuring to:
 - Import shared data contracts from `@plant-mgmt/shared`.
 - Place API-calling functions in the `api/` folder.
 - Create TanStack Query hooks in the `hooks/` folder.
-- Build React components in the `components/` folder.
+- Build React components in the `components/` folder, including the skeleton component.
 - Write component tests in the `components/__tests__/` folder.
 
 **Step 4: Curate the Feature's Public API**
 
 In `apps/frontend/src/features/<feature-name>/index.ts`, export only the main components (like `<FeatureDashboard>`) that are needed by other parts of the app, such as the page file. This enforces the modular boundary of the feature.
+
+### Skeleton Loading Screen Pattern
+
+This pattern is a mandatory part of the frontend development process for any data-fetching feature.
+
+#### Context and Purpose
+
+Skeleton loading screens improve perceived performance by showing a placeholder UI that mimics the final layout. This reduces cognitive load for the user and provides a smoother experience than a generic spinner.
+
+#### Implementation Rules
+
+- **Mandatory Inclusion**: Every feature in `src/features/{feature-name}/` that fetches data must include a feature-specific Skeleton component.
+- **Colocation and Naming**: Skeletons must live in `src/features/{feature-name}/components/` with the naming convention `{ComponentName}Skeleton.tsx`.
+- **Exporting**: The skeleton component must be exported via the feature’s `index.ts` file.
+- **Structure Mirroring**: Skeletons must visually mirror the structure of the real component they are a placeholder for (e.g., `PlantCard` -> `PlantCardSkeleton`).
+- **Component Coverage**:
+    - **Required**: For all data-fetching components (e.g., cards, tables, widgets).
+    - **Not Required**: For UI primitives that do not fetch data (e.g., `Button`, `Dialog`).
+    - **Reusable**: Common skeletons (e.g., `TableSkeleton`, `ChartSkeleton`) can be placed in `src/components/data-display/` for reuse across features.
+- **Rendering**: Skeletons should be rendered within the feature container using a React `<Suspense>` boundary, as shown in the page route boilerplate.
+
+#### Design and Accessibility Constraints
+
+- **Styling**: Skeletons must be built using only `shadcn/ui` and `Tailwind CSS`.
+- **Theming**: They must use the existing OKLCH nature theme colors and variables (e.g., muted/skeleton variants).
+- **Accessibility**:
+    - Animations must be subtle and must respect the `prefers-reduced-motion` media query.
+    - Use appropriate ARIA attributes (`aria-busy="true"`) to inform screen readers that the content is loading.
+
+#### QA Checklist
+
+- [ ] Does each data-fetching feature include a Skeleton component?
+- [ ] Does the Skeleton's layout and design visually align with the real component?
+- [ ] Is the Skeleton component correctly colocated and named within the feature's `components` directory?
+- [ ] Is the Skeleton correctly rendered using a `<Suspense>` boundary?
+- [ ] Does the Skeleton respect the project's design system (colors, spacing, typography)?
+- [ ] Does the Skeleton follow accessibility best practices?
+
 
 ## Agricultural Component Specifications
 

@@ -147,6 +147,99 @@ For each agricultural interface state:
 - Advanced agricultural analytics displays
 - Keyboard-optimized workflows
 
+## Skeleton Loading Screen Pattern
+
+### Pattern Origin and Purpose
+
+Skeleton loading screens were popularized by Google's Material Design team around 2020 as a superior replacement for spinners. They improve perceived performance by showing placeholder UI that mimics the final layout structure while data loads, reducing cognitive load and providing visual continuity.
+
+### Agricultural SaaS Implementation Requirements
+
+**Mandatory Implementation**:
+- Every data-fetching component in `src/features/{feature-name}/` must include a corresponding Skeleton component
+- File naming convention: `{ComponentName}Skeleton.tsx` (e.g., `PlantCardSkeleton.tsx`)
+- Colocation: Skeletons live in `src/features/{feature-name}/components/` alongside their real components
+- Export: Include skeletons in feature's `index.ts` for proper module boundaries
+
+**Design System Constraints**:
+- Use existing OKLCH nature theme colors only
+- Apply muted/skeleton variants from current color palette
+- Follow established spacing system (Tailwind classes)
+- Use existing typography hierarchy for skeleton text placeholders
+- Extend shadcn/ui Skeleton component as base
+
+**Component Coverage**:
+- **Required**: Data-fetching components (PlantCard, EnvironmentalWidget, HarvestTable, ClientDashboard)
+- **Optional**: UI primitives (Button, Dialog) generally don't need skeletons
+- **Reusable**: Common patterns (TableSkeleton, ChartSkeleton) may live in `src/components/data-display/`
+- **Layout Components**: Only need skeletons if they fetch data (e.g., SidebarSkeleton)
+
+### Implementation Patterns
+
+Here are the recommended ways to implement loading states.
+
+**1. With React Suspense (Recommended for Client and Server Components)**
+
+This is the primary, modern pattern. The component using `useSuspenseQuery` stays clean and assumes data is present. The parent component uses a `<Suspense>` boundary to handle the loading state.
+
+```tsx
+// In your data-fetching component (e.g., PlantCard)
+import { useSuspenseQuery } from '@tanstack/react-query';
+
+const { data } = useSuspenseQuery({ queryKey: ['plant', id], queryFn: fetchPlant });
+// ... component logic assumes `data` exists
+
+// In the parent component (Client or Server)
+import { Suspense } from 'react';
+
+<Suspense fallback={<PlantCardSkeleton />}>
+  <PlantCard plantId="123" />
+</Suspense>
+```
+
+**2. Without Suspense (Classic Client-Side Pattern)**
+
+This pattern is still valid for client components where you want to manually control the loading state within the component itself.
+
+```tsx
+// In your data-fetching component (e.g., PlantCard)
+import { useQuery } from '@tanstack/react-query';
+
+const { data, isPending } = useQuery({ queryKey: ['plant', id], queryFn: fetchPlant });
+
+if (isPending) {
+  return <PlantCardSkeleton />;
+}
+
+// ... component logic for when data is present
+```
+
+**Accessibility Requirements**:
+- No infinite animations (respect `prefers-reduced-motion`)
+- Proper ARIA labels for screen readers
+- Semantic HTML structure matching real component
+- Focus management considerations for dynamic content loading
+
+### Agricultural Component Skeletons
+
+**PlantCard Skeleton Pattern**:
+- Mimic plant image placeholder, name text line, status indicator shape
+- Use nature theme muted colors for placeholder blocks
+- Match exact spacing and layout of real PlantCard
+- Include health score indicator skeleton
+
+**Environmental Widget Skeleton Pattern**:
+- Chart area placeholder with appropriate dimensions
+- Temperature/humidity value placeholders
+- Alert indicator skeleton areas
+- Responsive skeleton layout matching real widget
+
+**Dashboard Skeleton Patterns**:
+- Grid layout placeholders matching real agricultural dashboard
+- Multiple PlantCard skeletons in appropriate grid formation
+- Navigation skeleton matching real sidebar/header structure
+- Chart placeholder areas for analytics widgets
+
 ## Agricultural Component Library Extensions
 
 ### Plant Management Components
@@ -158,18 +251,21 @@ Using existing theme values, specify:
 - Nature theme colors for health status indicators
 - Established typography hierarchy for plant information
 - Current spacing system for dense data display
+- **Required**: PlantCardSkeleton following exact layout structure
 
 **Environmental Monitor Widget**:
 - Existing chart components with agricultural sensor data
 - Nature theme chart colors for temperature, humidity trends
 - Established alert patterns for critical conditions
 - Current responsive breakpoints for multi-device access
+- **Required**: EnvironmentalWidgetSkeleton with chart placeholders
 
 **Harvest Planning Interface**:
 - Existing table components with agricultural scheduling data
 - Nature theme semantic colors for harvest readiness
 - Established form components for planning inputs
 - Current layout system for complex agricultural data
+- **Required**: HarvestTableSkeleton with row/column structure
 
 ### Multi-Tenant Agricultural Patterns
 
@@ -214,12 +310,24 @@ Optimizing current responsive patterns for:
 - [ ] Components extending existing shadcn/ui patterns
 - [ ] No new design tokens created
 
+### Skeleton Loading Pattern Compliance
+- [ ] Every data-fetching component has corresponding Skeleton component
+- [ ] Skeleton naming follows `{ComponentName}Skeleton.tsx` convention
+- [ ] Skeletons colocated in feature's `components/` directory
+- [ ] Skeletons exported via feature's `index.ts`
+- [ ] Skeleton layout mirrors real component structure exactly
+- [ ] Skeleton uses nature theme muted colors only
+- [ ] Skeleton respects `prefers-reduced-motion` for accessibility
+- [ ] Skeleton includes proper ARIA labels for screen readers
+- [ ] Loading states properly integrated with TanStack Query or Suspense
+
 ### Agricultural Workflow Validation
 - [ ] Plant management workflows intuitive and efficient
 - [ ] Field worker mobile accessibility optimized
 - [ ] Multi-tenant data isolation patterns clear
 - [ ] Environmental monitoring interfaces actionable
 - [ ] Client management workflows streamlined
+- [ ] Loading states maintain agricultural context and workflow continuity
 
 ### Enterprise Scale Verification
 - [ ] Performance with 200k+ plant records considered

@@ -11,14 +11,11 @@ import {
   Star,
   BarChart3,
 } from "lucide-react";
-import type { DashboardMetricsInterface as MetricsType } from "@/features/dashboard";
 import { useTranslations } from "next-intl";
+import { useDashboardMetrics } from "../hooks/hooks";
 
-interface DashboardMetricsProps {
-  metrics: MetricsType;
-}
-
-export function DashboardMetrics({ metrics }: DashboardMetricsProps) {
+export function DashboardMetrics() {
+  const { data: metrics } = useDashboardMetrics();
   const t = useTranslations("metrics");
 
   const metricCards = [

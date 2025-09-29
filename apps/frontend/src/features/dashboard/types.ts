@@ -1,4 +1,16 @@
-export interface EnvironmentalData {
+//src/features/dashboard/types.ts
+
+interface MetricsInterface {
+  totalPlants: number;
+  healthyPlants: number;
+  plantsNeedingAttention: number;
+  criticalAlerts: number;
+  averageTemperature: number;
+  averageHumidity: number;
+  harvestReadyCount: number;
+  productionEfficiency: number;
+}
+interface EnvironmentalDataInterface {
   greenhouse: {
     id: string;
     name: string;
@@ -30,13 +42,19 @@ export interface EnvironmentalData {
     humidity: { warning: number; critical: number };
   };
 }
-export interface DashboardMetricsInterface {
-  totalPlants: number;
-  healthyPlants: number;
-  plantsNeedingAttention: number;
-  criticalAlerts: number;
-  averageTemperature: number;
-  averageHumidity: number;
-  harvestReadyCount: number;
-  productionEfficiency: number;
+
+interface CriticalAlertInterface {
+  id: string;
+  type: "temperature" | "humidity" | "pest";
+  severity: "high" | "medium" | "low" | "critical";
+  messageKey: string;
+  location: string;
+  timestamp: Date;
+  plantCount: number;
 }
+
+export type {
+  EnvironmentalDataInterface,
+  MetricsInterface,
+  CriticalAlertInterface,
+};

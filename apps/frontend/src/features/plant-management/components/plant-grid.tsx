@@ -1,7 +1,9 @@
+//src/features/plant-management/components/plant-grid.tsx
+
 "use client";
 
 import { useState } from "react";
-import { PlantCard } from "@/features/plant-management";
+import { PlantCard } from "@/features/plant-management/components/plant-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,107 +15,11 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Search, Grid3X3, List, SortAsc, Plus } from "lucide-react";
-import type { Plant } from "@/features/plant-management";
 import { useTranslations } from "next-intl";
+import { usePlantGrid } from "../hooks/plantGridHooks";
 
-// Mock plant data (will remain hardcoded for now, as it's mock data)
-const mockPlants: Plant[] = [
-  {
-    id: "plant-001",
-    name: "Premium Red Tulips",
-    type: "tulip",
-    variety: "Darwin Hybrid",
-    status: "flowering",
-    plantedDate: new Date("2024-01-15"),
-    expectedHarvestDate: new Date("2024-04-15"),
-    currentTemperature: 22.5,
-    humidity: 68,
-    location: {
-      greenhouse: "Greenhouse A",
-      section: "Section 1",
-      row: 5,
-      position: 12,
-    },
-    healthScore: 92,
-    alerts: [],
-  },
-  {
-    id: "plant-002",
-    name: "Golden Daffodils",
-    type: "daffodil",
-    variety: "King Alfred",
-    status: "growing",
-    plantedDate: new Date("2024-02-01"),
-    expectedHarvestDate: new Date("2024-05-01"),
-    currentTemperature: 28.2,
-    humidity: 45,
-    location: {
-      greenhouse: "Greenhouse B",
-      section: "Section 2",
-      row: 3,
-      position: 8,
-    },
-    healthScore: 65,
-    alerts: [
-      {
-        type: "temperature",
-        severity: "critical",
-        message: "Temperature exceeds optimal range",
-        timestamp: new Date(),
-      },
-      {
-        type: "humidity",
-        severity: "medium",
-        message: "Low humidity detected",
-        timestamp: new Date(),
-      },
-    ],
-  },
-  {
-    id: "plant-003",
-    name: "Purple Hyacinths",
-    type: "hyacinth",
-    variety: "Woodstock",
-    status: "harvesting",
-    plantedDate: new Date("2023-12-10"),
-    expectedHarvestDate: new Date("2024-03-10"),
-    currentTemperature: 21.8,
-    humidity: 72,
-    location: {
-      greenhouse: "Greenhouse C",
-      section: "Section 1",
-      row: 2,
-      position: 15,
-    },
-    healthScore: 88,
-    alerts: [],
-  },
-  {
-    id: "plant-004",
-    name: "White Crocuses",
-    type: "crocus",
-    variety: "Jeanne d'Arc",
-    status: "germinating",
-    plantedDate: new Date("2024-02-20"),
-    expectedHarvestDate: new Date("2024-04-20"),
-    currentTemperature: 19.5,
-    humidity: 78,
-    location: {
-      greenhouse: "Greenhouse A",
-      section: "Section 3",
-      row: 1,
-      position: 5,
-    },
-    healthScore: 95,
-    alerts: [],
-  },
-];
-
-interface PlantGridProps {
-  plants?: Plant[];
-}
-
-export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
+export function PlantGrid() {
+  const { data: plants } = usePlantGrid();
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterType, setFilterType] = useState<string>("all");
@@ -176,7 +82,7 @@ export function PlantGrid({ plants = mockPlants }: PlantGridProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto py-8 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
         <div>

@@ -2,7 +2,7 @@
 
 "use client";
 
-import * as React from "react";
+import React from "react";
 import { DataTable } from "@/components/data-display/data-table";
 import { Plant } from "../types";
 import { plantColumns } from "./columns";

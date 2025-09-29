@@ -1,89 +1,35 @@
+//src/features/plant-management/components/plant-status-overview.tsx
+
 "use client";
 
 import { Progress } from "@radix-ui/react-progress";
 import { Filter, MoreHorizontal, Eye } from "lucide-react";
 
-import { PlantStatusIndicator } from "@/features/plant-management";
+import { PlantStatusIndicator } from "@/features/plant-management/components/plant-status-indicator";
 import { useTranslations } from "next-intl"; // Import useTranslations
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
-// Mock data for plant status overview
-const plantStatusData = {
-  totalPlants: 12847,
-  statusBreakdown: {
-    healthy: 11203,
-    warning: 1456,
-    critical: 188,
-  },
-  recentActivity: [
-    {
-      id: "1",
-      action: "Temperature logged",
-      plant: "Tulip Batch #A-2341",
-      location: "Greenhouse A, Section 2",
-      timestamp: "2 minutes ago",
-      status: "healthy" as const,
-    },
-    {
-      id: "2",
-      action: "Pest alert reported",
-      plant: "Daffodil Batch #B-1205",
-      location: "Greenhouse B, Section 1",
-      timestamp: "15 minutes ago",
-      status: "critical" as const,
-    },
-    {
-      id: "3",
-      action: "Growth stage updated",
-      plant: "Hyacinth Batch #C-0987",
-      location: "Greenhouse C, Section 3",
-      timestamp: "32 minutes ago",
-      status: "healthy" as const,
-    },
-    {
-      id: "4",
-      action: "Harvest completed",
-      plant: "Crocus Batch #A-1876",
-      location: "Greenhouse A, Section 1",
-      timestamp: "1 hour ago",
-      status: "harvest-ready" as const,
-    },
-  ],
-  upcomingTasks: [
-    {
-      id: "1",
-      task: "Weekly inspection",
-      dueTime: "In 2 hours",
-      plantCount: 450,
-      priority: "high" as const,
-    },
-    {
-      id: "2",
-      task: "Fertilizer application",
-      dueTime: "Tomorrow 9:00 AM",
-      plantCount: 1200,
-      priority: "medium" as const,
-    },
-    {
-      id: "3",
-      task: "Harvest scheduling",
-      dueTime: "Tomorrow 2:00 PM",
-      plantCount: 340,
-      priority: "low" as const,
-    },
-  ],
-};
+import {
+  useRecentActivity,
+  useStatusBreakdown,
+  useTotalPlants,
+  useUpcomingTasks,
+} from "../hooks/plantStatusOverviewHooks";
 
 export function PlantStatusOverview() {
-  const { totalPlants, statusBreakdown, recentActivity, upcomingTasks } =
-    plantStatusData;
+  const { data: totalPlants } = useTotalPlants();
+  const { data: statusBreakdown } = useStatusBreakdown();
+  const { data: recentActivity } = useRecentActivity();
+  const { data: upcomingTasks } = useUpcomingTasks();
   const t = useTranslations("metrics"); // Initialize useTranslations
   const tCommon = useTranslations("common"); // For common phrases like "minutes ago"
 
-  const healthyPercentage = (statusBreakdown.healthy / totalPlants) * 100;
-  const warningPercentage = (statusBreakdown.warning / totalPlants) * 100;
-  const criticalPercentage = (statusBreakdown.critical / totalPlants) * 100;
+  const healthyPercentage =
+    (statusBreakdown.healthy / totalPlants.totalPlants) * 100;
+  const warningPercentage =
+    (statusBreakdown.warning / totalPlants.totalPlants) * 100;
+  const criticalPercentage =
+    (statusBreakdown.critical / totalPlants.totalPlants) * 100;
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {

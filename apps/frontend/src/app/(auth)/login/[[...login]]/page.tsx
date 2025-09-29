@@ -1,4 +1,7 @@
+//src/app/(auth)/login/[[...login]]/page.tsx
+
 "use client";
+
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { useIsMounted } from "@/hooks/useIsMounted";

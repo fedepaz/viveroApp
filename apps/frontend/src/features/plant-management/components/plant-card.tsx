@@ -1,6 +1,6 @@
 "use client";
 
-import { Plant } from "@/features/plant-management";
+import type { PlantInterface as Plant } from "@/features/plant-management/types";
 import { cn } from "@/lib/utils";
 import {
   Badge,
@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl"; // Import useTranslations
 
-import { PlantStatusIndicator } from "@/features/plant-management";
+import { PlantStatusIndicator } from "@/features/plant-management/components/plant-status-indicator";
 import { formatDate } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

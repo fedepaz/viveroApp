@@ -1,6 +1,10 @@
-//src/app/[locale]/(dashboard)/plants/page.tsx
+//src/app/[locale]/(dashboard)/invoices/page.tsx
 
-import { PlantsDashboard, PlantsDashboardSkeleton } from "@/features/plants";
+import {
+  InvoicesDashboard,
+  InvoicesDashboardSkeleton,
+} from "@/features/invoices";
+
 import { generateLocaleStaticParams } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { Suspense, use } from "react";
@@ -9,17 +13,17 @@ export function generateStaticParams() {
   return generateLocaleStaticParams();
 }
 
-interface PlantsPageProps {
+interface InvoicesPageProps {
   params: Promise<{ locale: string }>;
 }
 
-export default function PlantsPage({ params }: PlantsPageProps) {
+export default function InvoicesPage({ params }: InvoicesPageProps) {
   const { locale } = use(params);
   setRequestLocale(locale);
 
   return (
-    <Suspense fallback={<PlantsDashboardSkeleton />}>
-      <PlantsDashboard />
+    <Suspense fallback={<InvoicesDashboardSkeleton />}>
+      <InvoicesDashboard />
     </Suspense>
   );
 }

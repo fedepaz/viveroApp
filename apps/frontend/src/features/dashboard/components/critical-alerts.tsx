@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { AlertTriangle, Clock, MapPin, Users, X } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { useTranslations } from "next-intl";
+import { useDashboardCriticalAlerts } from "../hooks/hooks";
 
 interface Alert {
   id: string;
@@ -17,13 +18,14 @@ interface Alert {
   plantCount: number;
 }
 
-interface CriticalAlertsProps {
-  alerts: Alert[];
-}
-
-export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
+export function CriticalAlerts() {
+  const { data: alerts } = useDashboardCriticalAlerts();
   const t = useTranslations("alerts");
   const tCommon = useTranslations("common"); // Assuming a common namespace for general terms
+
+  if (!alerts) {
+    return null;
+  }
 
   if (alerts.length === 0) {
     return null;
@@ -42,7 +44,8 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
     }
   };
 
-  const getTypeIcon = (type: Alert["type"]) => { // Use Alert["type"] for type safety
+  const getTypeIcon = (type: Alert["type"]) => {
+    // Use Alert["type"] for type safety
     switch (type) {
       case "temperature":
         return "🌡️";
@@ -97,11 +100,13 @@ export function CriticalAlerts({ alerts }: CriticalAlertsProps) {
               <div className="flex items-center space-x-4 text-xs text-muted-foreground">
                 <div className="flex items-center">
                   <MapPin className="h-3 w-3 mr-1" />
-                  {tCommon("location", { location: alert.location })} {/* Use common translation for location */}
+                  {tCommon("location", { location: alert.location })}{" "}
+                  {/* Use common translation for location */}
                 </div>
                 <div className="flex items-center">
                   <Users className="h-3 w-3 mr-1" />
-                  {tCommon("plantsAffected", { count: alert.plantCount })} {/* Use common translation for plantsAffected */}
+                  {tCommon("plantsAffected", { count: alert.plantCount })}{" "}
+                  {/* Use common translation for plantsAffected */}
                 </div>
               </div>
             </div>

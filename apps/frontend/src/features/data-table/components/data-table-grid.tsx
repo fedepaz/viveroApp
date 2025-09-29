@@ -1,3 +1,6 @@
+//src/features/data-table/components/data-table-grid.tsx
+"use client";
+
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,88 +11,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Sprout,
-  Users,
-  FileText,
-  ShoppingCart,
-  ArrowRight,
-  Database,
-} from "lucide-react";
+import { ArrowRight, Database } from "lucide-react";
+import { useDataTables } from "../hooks/hooks";
 
 export function TablesGrid() {
-  const tableTypes = [
-    {
-      icon: Sprout,
-      title: "Plant Management",
-      description:
-        "Monitor and manage all plants across your agricultural facilities",
-      count: "200,000+",
-      href: "/tables/plants",
-      color: "text-green-600",
-      bgColor: "bg-green-50 dark:bg-green-900/20",
-      features: [
-        "Health monitoring",
-        "Environmental data",
-        "Growth tracking",
-        "Harvest planning",
-      ],
-    },
-    {
-      icon: Users,
-      title: "User Management",
-      description:
-        "Manage user accounts and permissions across your organization",
-      count: "150+",
-      href: "/tables/users",
-      color: "text-blue-600",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
-      features: [
-        "Role management",
-        "Access control",
-        "Activity tracking",
-        "Department organization",
-      ],
-    },
-    {
-      icon: FileText,
-      title: "Invoice Management",
-      description: "Track and manage all invoices and payments",
-      count: "500+",
-      href: "/tables/invoices",
-      color: "text-purple-600",
-      bgColor: "bg-purple-50 dark:bg-purple-900/20",
-      features: [
-        "Payment tracking",
-        "Client management",
-        "Due date alerts",
-        "Financial reporting",
-      ],
-    },
-    {
-      icon: ShoppingCart,
-      title: "Purchase Orders",
-      description: "Manage purchase orders and supplier relationships",
-      count: "300+",
-      href: "/tables/purchase-orders",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50 dark:bg-orange-900/20",
-      features: [
-        "Supplier management",
-        "Order tracking",
-        "Delivery status",
-        "Procurement analytics",
-      ],
-    },
-  ];
+  const { data: tableTypes } = useDataTables();
 
   return (
-    <div className="space-y-6">
+    <div className="container mx-auto py-8 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
         <div>
-          <h2 className="text-2xl font-bold">
-            <Database />
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <Database className="h-6 w-6" />
             Data Management Dashboard
           </h2>
         </div>

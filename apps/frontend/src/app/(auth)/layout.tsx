@@ -1,3 +1,5 @@
+//src/app/(auth)/layout.tsx
+
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { NextIntlClientProvider } from "next-intl";

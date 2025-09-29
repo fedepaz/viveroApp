@@ -1,3 +1,5 @@
+//src/app/[locale]/layout.tsx
+
 import type React from "react";
 
 import { Suspense, use } from "react";

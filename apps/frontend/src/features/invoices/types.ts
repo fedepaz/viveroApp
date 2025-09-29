@@ -1,3 +1,5 @@
+//src/features/invoices/types.ts
+
 interface Invoice {
   id: string;
   invoiceNumber: string;

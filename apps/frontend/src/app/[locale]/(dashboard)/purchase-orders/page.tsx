@@ -1,8 +1,16 @@
-import { DataTableSkeleton } from "@/components/data-display/data-table";
-import { PurchaseOrdersDashboard } from "@/features/purchase-orders";
-import { purchaseOrderColumns } from "@/features/purchase-orders/components/columns";
+//src/app/[locale]/(dashboard)/purchase-orders/page.tsx
+
+import {
+  PurchaseOrdersDashboard,
+  PurchaseOrdersDashboardSkeleton,
+} from "@/features/purchase-orders";
+import { generateLocaleStaticParams } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { Suspense, use } from "react";
+
+export function generateStaticParams() {
+  return generateLocaleStaticParams();
+}
 
 interface PurchaseOrdersPageProps {
   params: Promise<{ locale: string }>;
@@ -14,9 +22,7 @@ export default function PurchaseOrdersPage({
   const { locale } = use(params);
   setRequestLocale(locale);
   return (
-    <Suspense
-      fallback={<DataTableSkeleton columnCount={purchaseOrderColumns.length} />}
-    >
+    <Suspense fallback={<PurchaseOrdersDashboardSkeleton />}>
       <PurchaseOrdersDashboard />
     </Suspense>
   );

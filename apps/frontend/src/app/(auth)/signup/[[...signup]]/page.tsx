@@ -1,3 +1,5 @@
+//src/app/(auth)/signup/[[...signup]]/page.tsx
+
 "use client";
 
 import { SignUp } from "@clerk/nextjs";

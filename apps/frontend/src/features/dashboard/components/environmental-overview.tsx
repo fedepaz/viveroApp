@@ -1,17 +1,15 @@
 "use client";
 
 import { Settings, TrendingUp, AlertTriangle, Badge } from "lucide-react";
-import type { EnvironmentalData } from "@/features/dashboard";
+
 import { useTranslations } from "next-intl";
-import { EnvironmentalMetric } from "@/features/dashboard";
+import { EnvironmentalMetric } from "@/features/dashboard/components/environmental-metric";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { useDashboardEnvironmentalData } from "../hooks/hooks";
 
-interface EnvironmentalOverviewProps {
-  data: EnvironmentalData;
-}
-
-export function EnvironmentalOverview({ data }: EnvironmentalOverviewProps) {
+export function EnvironmentalOverview() {
+  const { data } = useDashboardEnvironmentalData();
   const t = useTranslations("environmental"); // Use 'environmentalOverview' namespace
   const tCommon = useTranslations("common"); // Use 'common' namespace for general terms
 

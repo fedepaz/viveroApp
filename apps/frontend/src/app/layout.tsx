@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { enUS, esES, itIT } from "@clerk/localizations";
 import "./globals.css";
 import { cookies } from "next/headers";
+import { ReactClientProvider } from "@/providers/query-client-provider";
 
 type LocaleKey = "en" | "es" | "it";
 
@@ -40,7 +41,9 @@ export default async function RootLayout({
   return (
     <ClerkProvider localization={clerkLocalization}>
       <html suppressHydrationWarning>
-        <body className="font-sans">{children}</body>
+        <body>
+          <ReactClientProvider>{children}</ReactClientProvider>
+        </body>
       </html>
     </ClerkProvider>
   );

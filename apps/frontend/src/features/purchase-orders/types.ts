@@ -1,4 +1,6 @@
-export interface PurchaseOrder {
+//src/features/purchase-orders/types.ts
+
+interface PurchaseOrder {
   id: string;
   orderNumber: string;
   supplier: string;
@@ -8,3 +10,24 @@ export interface PurchaseOrder {
   orderDate: string;
   deliveryDate: string;
 }
+
+interface CreatePurchaseOrderDto {
+  orderNumber: string;
+  supplier: string;
+  items: number;
+  totalAmount: number;
+  status: "pending" | "approved" | "delivered" | "cancelled";
+  orderDate: string;
+  deliveryDate: string;
+}
+interface UpdatePurchaseOrderDto {
+  orderNumber?: string;
+  supplier?: string;
+  items?: number;
+  totalAmount?: number;
+  status?: "pending" | "approved" | "delivered" | "cancelled";
+  orderDate?: string;
+  deliveryDate?: string;
+}
+
+export type { PurchaseOrder, CreatePurchaseOrderDto, UpdatePurchaseOrderDto };

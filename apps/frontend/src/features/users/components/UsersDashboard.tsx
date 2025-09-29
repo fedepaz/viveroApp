@@ -2,38 +2,15 @@
 
 import * as React from "react";
 import { DataTable } from "@/components/data-display/data-table";
-import { useIsMounted } from "@/hooks/useIsMounted";
-import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { User } from "../types";
 import { userColumns } from "./columns";
-
-const generateUsers = (count: number): User[] => {
-  const roles: User["role"][] = ["admin", "manager", "worker"];
-  const statuses: User["status"][] = ["active", "inactive"];
-  const departments = [
-    "Greenhouse A",
-    "Greenhouse B",
-    "Processing",
-    "Quality Control",
-    "Administration",
-  ];
-
-  return Array.from({ length: count }, (_, i) => ({
-    id: `user-${i + 1}`,
-    name: `User ${i + 1}`,
-    email: `user${i + 1}@agricultural.com`,
-    role: roles[Math.floor(Math.random() * roles.length)],
-    status: statuses[Math.floor(Math.random() * statuses.length)],
-    lastLogin: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
-    department: departments[Math.floor(Math.random() * departments.length)],
-  }));
-};
+import { useUsers } from "../hooks/hooks";
 
 export function UsersDashboard() {
-  const isMounted = useIsMounted();
-  const users = React.useMemo(() => generateUsers(150), []);
+  const { data: users } = useUsers();
+  //const createUser = useCreateUser();
+  //const updateUser = useUpdateUser();
+  //const deleteUser = useDeleteUser();
 
   const handleEdit = (row: User) => {
     console.log("Edit user:", row);
@@ -56,7 +33,6 @@ export function UsersDashboard() {
   };
 
   // TODO: When implement the data fetching, remove this conditional rendering
-  if (!isMounted) return <LoadingSpinner />;
 
   return (
     <div className="container mx-auto py-8 space-y-8">

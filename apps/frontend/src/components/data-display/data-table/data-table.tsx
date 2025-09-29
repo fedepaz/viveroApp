@@ -68,12 +68,14 @@ export function DataTable<TData, TValue>({
   data,
   title,
   description,
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchKey = "name",
   onAdd,
   onEdit,
   onDelete,
   onExport,
-  loading = false,
+
   totalCount,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -237,19 +239,7 @@ export function DataTable<TData, TValue>({
               ))}
             </TableHeader>
             <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell
-                    colSpan={enhancedColumns.length}
-                    className="h-24 text-center"
-                  >
-                    <div className="flex items-center justify-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                      <span className="ml-2">Loading...</span>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ) : table.getRowModel().rows?.length ? (
+              {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}

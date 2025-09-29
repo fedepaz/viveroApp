@@ -1,6 +1,8 @@
+import { DataTableSkeleton } from "@/components/data-display/data-table";
 import { PurchaseOrdersDashboard } from "@/features/purchase-orders";
+import { purchaseOrderColumns } from "@/features/purchase-orders/components/columns";
 import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
+import { Suspense, use } from "react";
 
 interface PurchaseOrdersPageProps {
   params: Promise<{ locale: string }>;
@@ -12,10 +14,10 @@ export default function PurchaseOrdersPage({
   const { locale } = use(params);
   setRequestLocale(locale);
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-6 space-y-6">
-        <PurchaseOrdersDashboard />
-      </main>
-    </div>
+    <Suspense
+      fallback={<DataTableSkeleton columnCount={purchaseOrderColumns.length} />}
+    >
+      <PurchaseOrdersDashboard />
+    </Suspense>
   );
 }

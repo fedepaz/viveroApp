@@ -1,6 +1,8 @@
+import { DataTableSkeleton } from "@/components/data-display/data-table";
 import { InvoicesDashboard } from "@/features/invoices";
+import { invoiceColumns } from "@/features/invoices/components/columns";
 import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
+import { Suspense, use } from "react";
 
 interface InvoicePageProps {
   params: Promise<{ locale: string }>;
@@ -11,10 +13,10 @@ export default function InvoicesPage({ params }: InvoicePageProps) {
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="container mx-auto px-4 py-6 space-y-6">
-        <InvoicesDashboard />
-      </main>
-    </div>
+    <Suspense
+      fallback={<DataTableSkeleton columnCount={invoiceColumns.length} />}
+    >
+      <InvoicesDashboard />
+    </Suspense>
   );
 }

@@ -8,4 +8,21 @@ interface Invoice {
   createdDate: string;
 }
 
-export type { Invoice };
+interface CreateInvoiceDto {
+  invoiceNumber: string;
+  client: string;
+  amount: number;
+  status: Invoice["status"];
+  dueDate: string;
+  createdDate: string;
+}
+interface UpdateInvoiceDto {
+  invoiceNumber?: string;
+  client?: string;
+  amount?: number;
+  status?: Invoice["status"];
+  dueDate?: string;
+  createdDate?: string;
+}
+
+export type { Invoice, CreateInvoiceDto, UpdateInvoiceDto };

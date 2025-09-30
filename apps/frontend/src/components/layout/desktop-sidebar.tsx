@@ -5,16 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   Home,
-  Leaf,
   Thermometer,
   Users,
   BarChart3,
-  Settings,
   Calendar,
-  Package,
   AlertTriangle,
   ChevronLeft,
   ChevronRight,
+  FileText,
+  ShoppingCart,
+  Sprout,
+  UserCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -36,11 +37,10 @@ export function DesktopSidebar() {
       description: t("overviewAndAlerts"),
     },
     {
-      title: t("plants"),
-      href: "/plants",
-      icon: Leaf,
-      description: t("plantManagement"),
-      badge: "2.3k",
+      title: t("analytics"),
+      href: "/analytics",
+      icon: BarChart3,
+      description: t("analytics"),
     },
     {
       title: t("environment"),
@@ -61,28 +61,29 @@ export function DesktopSidebar() {
 
   const secondaryItems = [
     {
-      title: t("clients"),
+      title: "Plants",
+      href: "/plants",
+      icon: Sprout,
+    },
+    {
+      title: "Clients",
       href: "/clients",
       icon: Users,
-      description: t("clientManagement"),
     },
     {
-      title: t("inventory"),
-      href: "/inventory",
-      icon: Package,
-      description: t("supplyTracking"),
+      title: "Invoices",
+      href: "/invoices",
+      icon: FileText,
     },
     {
-      title: t("analytics"),
-      href: "/analytics",
-      icon: BarChart3,
-      description: t("performanceMetrics"),
+      title: "Purchase Orders",
+      href: "/purchase-orders",
+      icon: ShoppingCart,
     },
     {
-      title: t("settings"),
-      href: "/settings",
-      icon: Settings,
-      description: t("systemConfiguration"),
+      title: "Users",
+      href: "/users",
+      icon: UserCircle,
     },
   ];
 

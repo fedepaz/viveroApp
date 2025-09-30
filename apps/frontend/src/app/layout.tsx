@@ -1,10 +1,11 @@
 // src/app/layout.tsx
+
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { enUS, esES, itIT } from "@clerk/localizations";
 import "./globals.css";
 import { cookies } from "next/headers";
-import { ReactClientProvider } from "@/providers/query-client-provider";
+import { shadcn } from "@clerk/themes";
 
 type LocaleKey = "en" | "es" | "it";
 
@@ -35,15 +36,21 @@ export default async function RootLayout({
       ? (cookieLocale as LocaleKey)
       : "en"
   ) as LocaleKey;
+  //read the local storage for theme key and set the theme
+
+  const clerkAppearance = {
+    baseTheme: shadcn,
+  };
 
   const clerkLocalization = localizations[locale];
 
   return (
-    <ClerkProvider localization={clerkLocalization}>
+    <ClerkProvider
+      localization={clerkLocalization}
+      appearance={clerkAppearance}
+    >
       <html suppressHydrationWarning>
-        <body>
-          <ReactClientProvider>{children}</ReactClientProvider>
-        </body>
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );

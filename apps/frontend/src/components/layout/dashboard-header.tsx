@@ -2,11 +2,9 @@
 
 import { Bell, Search, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -16,6 +14,10 @@ import { MobileNavigation } from "./mobile-navigation";
 import { LanguageSwitcher } from "@/components/common/language-switcher";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { useTranslations } from "next-intl";
+import { SignedIn, UserButton, SignedOut, UserProfile } from "@clerk/nextjs";
+import { Skeleton } from "../ui/skeleton";
+import { shadcn } from "@clerk/themes";
+import { Input } from "../ui/input";
 
 export function DashboardHeader() {
   const t = useTranslations("dashboard");
@@ -38,7 +40,6 @@ export function DashboardHeader() {
               </div>
             </div>
           </div>
-
           {/* Search Bar - Hidden on mobile */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
             <div className="relative w-full">
@@ -93,11 +94,27 @@ export function DashboardHeader() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>{t("userRole")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>{t("profile")}</DropdownMenuItem>
-                <DropdownMenuItem>{t("team")}</DropdownMenuItem>
-                <DropdownMenuItem>{t("preferences")}</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>{t("signout")}</DropdownMenuItem>
+                <SignedIn>
+                  <div className="flex items-center justify-center">
+                    <UserButton
+                      showName={true}
+                      appearance={{
+                        baseTheme: shadcn,
+                        elements: {
+                          userButtonPopoverCard: {
+                            pointerEvents: "initial",
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                </SignedIn>
+                <SignedOut>
+                  {/* Shows a mock button and display user not signed in */}
+                  <div className="flex items-center justify-center">
+                    <Skeleton className="h-5 w-5" />
+                  </div>
+                </SignedOut>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

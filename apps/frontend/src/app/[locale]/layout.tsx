@@ -11,6 +11,7 @@ import { setRequestLocale } from "next-intl/server";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
+import { ReactClientProvider } from "@/providers/query-client-provider";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -32,12 +33,14 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <NextIntlClientProvider>
-        <Suspense fallback={<LoadingSpinner />}>
-          <LayoutWrapper>
-            <DashboardHeader />
-            {children}
-          </LayoutWrapper>
-        </Suspense>
+        <ReactClientProvider>
+          <Suspense fallback={<LoadingSpinner />}>
+            <LayoutWrapper>
+              <DashboardHeader />
+              {children}
+            </LayoutWrapper>
+          </Suspense>
+        </ReactClientProvider>
       </NextIntlClientProvider>
     </ThemeProvider>
   );

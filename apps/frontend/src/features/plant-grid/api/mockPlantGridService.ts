@@ -1,8 +1,8 @@
 // src/features/plants/hooks/usePlants.ts
 
-import { PlantInterface } from "../types";
+import { CardPlantInterface } from "../types";
 
-const mockPlants: PlantInterface[] = [
+const mockCardPlants: CardPlantInterface[] = [
   {
     id: "plant-001",
     name: "Premium Red Tulips",
@@ -98,11 +98,11 @@ const mockPlants: PlantInterface[] = [
 // for now we'll just return mock data
 
 export const mockPlantGridService = {
-  async fetchPlants(): Promise<PlantInterface[]> {
+  async fetchPlants(): Promise<CardPlantInterface[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
     //Replace with your actual API call
     // Simulate receiving data from the API
-    return mockPlants;
+    return mockCardPlants;
   },
 };

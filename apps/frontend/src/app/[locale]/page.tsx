@@ -4,8 +4,10 @@ import { RootDashboard, RootDashboardSkeleton } from "@/features/dashboard";
 import { Suspense, use } from "react";
 import { setRequestLocale } from "next-intl/server";
 import { generateLocaleStaticParams } from "@/i18n/routing";
-import { TablesGrid } from "@/features/data-table";
-import { TablesGridSkeleton } from "@/features/data-table/components/data-table-grid-skeleton";
+import {
+  DataTableGrid,
+  DataTableGridSkeleton,
+} from "@/features/data-table-grid";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -24,8 +26,8 @@ export default function RootDashboardPage({ params }: DashboardPageProps) {
       <Suspense fallback={<RootDashboardSkeleton />}>
         <RootDashboard />
       </Suspense>
-      <Suspense fallback={<TablesGridSkeleton />}>
-        <TablesGrid />
+      <Suspense fallback={<DataTableGridSkeleton />}>
+        <DataTableGrid />
       </Suspense>
     </div>
   );

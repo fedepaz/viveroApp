@@ -1,7 +1,7 @@
 //src/features/dashboard/components/Dashboard.tsx
 "use client";
 
-import { PlantStatusOverview } from "@/features/plant-management";
+import { PlantStatusOverview } from "@/features/plant-grid";
 import { CriticalAlerts } from "./critical-alerts";
 import { DashboardMetrics } from "./dashboard-metrics";
 import { EnvironmentalOverview } from "./environmental-overview";

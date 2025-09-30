@@ -1,6 +1,6 @@
 "use client";
 
-import type { PlantInterface as Plant } from "@/features/plant-management/types";
+import type { CardPlantInterface } from "@/features/plant-grid/types";
 import { cn } from "@/lib/utils";
 import {
   Badge,
@@ -15,20 +15,20 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl"; // Import useTranslations
 
-import { PlantStatusIndicator } from "@/features/plant-management/components/plant-status-indicator";
+import { PlantStatusIndicator } from "@/features/plant-grid/components/plant-status-indicator";
 import { formatDate } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface PlantCardProps {
-  plant: Plant;
+  plantCard: CardPlantInterface;
   onUpdate: (plantId: string) => void;
   onViewDetails: (plantId: string) => void;
   viewMode?: "compact" | "detailed" | "mobile";
 }
 
 export function PlantCard({
-  plant,
+  plantCard,
   onUpdate,
   onViewDetails,
   viewMode = "detailed",
@@ -36,15 +36,15 @@ export function PlantCard({
   const t = useTranslations("plantGrid");
 
   const getStatusClass = () => {
-    if (plant.alerts.some((alert) => alert.severity === "critical"))
+    if (plantCard.alerts.some((alert) => alert.severity === "critical"))
       return "critical";
     if (
-      plant.alerts.some(
+      plantCard.alerts.some(
         (alert) => alert.severity === "high" || alert.severity === "medium"
       )
     )
       return "warning";
-    if (plant.healthScore >= 80) return "healthy";
+    if (plantCard.healthScore >= 80) return "healthy";
     return "warning";
   };
 
@@ -74,28 +74,32 @@ export function PlantCard({
   };
 
   const statusClass = getStatusClass();
-  const tempStatus = getTemperatureStatus(plant.currentTemperature);
-  const humidityStatus = getHumidityStatus(plant.humidity);
+  const tempStatus = getTemperatureStatus(plantCard.currentTemperature);
+  const humidityStatus = getHumidityStatus(plantCard.humidity);
 
   if (viewMode === "compact") {
     return (
       <Card
         className={cn("plant-health-card", statusClass)}
-        onClick={() => onViewDetails(plant.id)}
+        onClick={() => onViewDetails(plantCard.id)}
       >
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="text-2xl">{getPlantTypeEmoji(plant.type)}</div>
+              <div className="text-2xl">
+                {getPlantTypeEmoji(plantCard.type)}
+              </div>
               <div>
-                <h3 className="font-semibold text-sm">{plant.name}</h3>
-                <p className="text-xs text-muted-foreground">{plant.variety}</p>
+                <h3 className="font-semibold text-sm">{plantCard.name}</h3>
+                <p className="text-xs text-muted-foreground">
+                  {plantCard.variety}
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <PlantStatusIndicator status={statusClass} size="sm" />
-              {plant.alerts.length > 0 && (
-                <Badge className="text-xs">{plant.alerts.length}</Badge>
+              {plantCard.alerts.length > 0 && (
+                <Badge className="text-xs">{plantCard.alerts.length}</Badge>
               )}
             </div>
           </div>
@@ -110,30 +114,32 @@ export function PlantCard({
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <div className="text-3xl">{getPlantTypeEmoji(plant.type)}</div>
+            <div className="text-3xl">{getPlantTypeEmoji(plantCard.type)}</div>
             <div>
-              <h3 className="font-semibold text-lg">{plant.name}</h3>
-              <p className="text-sm text-muted-foreground">{plant.variety}</p>
+              <h3 className="font-semibold text-lg">{plantCard.name}</h3>
+              <p className="text-sm text-muted-foreground">
+                {plantCard.variety}
+              </p>
               <div className="flex items-center space-x-1 mt-1">
                 <MapPin className="h-3 w-3 text-muted-foreground" />
                 <span className="text-xs text-muted-foreground">
-                  {plant.location.greenhouse} - {plant.location.section} -{" "}
-                  {t("row", { row: plant.location.row })}
+                  {plantCard.location.greenhouse} - {plantCard.location.section}{" "}
+                  - {t("row", { row: plantCard.location.row })}
                 </span>
               </div>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <PlantStatusIndicator status={statusClass} />
-            {plant.alerts.length > 0 && (
-              <Badge className="text-xs">{plant.alerts.length}</Badge>
+            <PlantStatusIndicator status={statusClass} size="sm" />
+            {plantCard.alerts.length > 0 && (
+              <Badge className="text-xs">{plantCard.alerts.length}</Badge>
             )}
           </div>
         </div>
 
         {/* Status Badge */}
         <div className="mb-4">
-          <Badge className="text-xs capitalize">{t(plant.status)}</Badge>
+          <Badge className="text-xs capitalize">{t(plantCard.status)}</Badge>
         </div>
 
         {/* Environmental Data */}
@@ -148,7 +154,7 @@ export function PlantCard({
             />
             <div>
               <p className="text-sm font-medium">
-                {plant.currentTemperature}°C
+                {plantCard.currentTemperature}°C
               </p>
               <p className="text-xs text-muted-foreground">
                 {t("temperature")}
@@ -164,7 +170,7 @@ export function PlantCard({
               })}
             />
             <div>
-              <p className="text-sm font-medium">{plant.humidity}%</p>
+              <p className="text-sm font-medium">{plantCard.humidity}%</p>
               <p className="text-xs text-muted-foreground">{t("humidity")}</p>
             </div>
           </div>
@@ -174,31 +180,31 @@ export function PlantCard({
         <div className="mb-4">
           <div className="flex items-center justify-between text-sm mb-1">
             <span>{t("healthScore")}</span>
-            <span className="font-medium">{plant.healthScore}%</span>
+            <span className="font-medium">{plantCard.healthScore}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
               className={cn("h-2 rounded-full", {
-                "bg-green-500": plant.healthScore >= 80,
+                "bg-green-500": plantCard.healthScore >= 80,
                 "bg-yellow-500":
-                  plant.healthScore >= 60 && plant.healthScore < 80,
-                "bg-red-500": plant.healthScore < 60,
+                  plantCard.healthScore >= 60 && plantCard.healthScore < 80,
+                "bg-red-500": plantCard.healthScore < 60,
               })}
-              style={{ width: `${plant.healthScore}%` }}
+              style={{ width: `${plantCard.healthScore}%` }}
             />
           </div>
         </div>
 
         {/* Alerts */}
-        {plant.alerts.length > 0 && (
+        {plantCard.alerts.length > 0 && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
               <AlertTriangle className="h-4 w-4 text-red-500" />
               <span className="text-sm font-medium text-red-700">
-                {t("alerts", { count: plant.alerts.length })}
+                {t("alerts", { count: plantCard.alerts.length })}
               </span>
             </div>
-            {plant.alerts.slice(0, 2).map((alert, index) => (
+            {plantCard.alerts.slice(0, 2).map((alert, index) => (
               <div key={index} className="text-xs text-red-600 mb-1">
                 <Badge className="mr-2 text-xs">
                   {alert.severity.toUpperCase()}
@@ -206,9 +212,9 @@ export function PlantCard({
                 {alert.message}
               </div>
             ))}
-            {plant.alerts.length > 2 && (
+            {plantCard.alerts.length > 2 && (
               <p className="text-xs text-red-600">
-                {t("moreAlerts", { count: plant.alerts.length - 2 })}
+                {t("moreAlerts", { count: plantCard.alerts.length - 2 })}
               </p>
             )}
           </div>
@@ -221,7 +227,7 @@ export function PlantCard({
             <div>
               <p>{t("planted")}</p>
               <p className="font-medium">
-                {formatDate(plant.plantedDate, "MMM dd")}
+                {formatDate(plantCard.plantedDate, "MMM dd")}
               </p>
             </div>
           </div>
@@ -230,7 +236,7 @@ export function PlantCard({
             <div>
               <p>{t("harvestExpected")}</p>
               <p className="font-medium">
-                {formatDate(plant.expectedHarvestDate, "MMM dd")}
+                {formatDate(plantCard.expectedHarvestDate, "MMM dd")}
               </p>
             </div>
           </div>
@@ -242,7 +248,7 @@ export function PlantCard({
             variant="outline"
             size="sm"
             className="flex-1 agricultural-touch-target bg-transparent"
-            onClick={() => onUpdate(plant.id)}
+            onClick={() => onUpdate(plantCard.id)}
           >
             <Edit className="h-3 w-3 mr-1" />
             {t("update")}
@@ -251,7 +257,7 @@ export function PlantCard({
             variant="outline"
             size="sm"
             className="flex-1 agricultural-touch-target bg-transparent"
-            onClick={() => onViewDetails(plant.id)}
+            onClick={() => onViewDetails(plantCard.id)}
           >
             <Eye className="h-3 w-3 mr-1" />
             {t("details")}

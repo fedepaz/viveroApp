@@ -7,6 +7,7 @@ import { DataTable } from "@/components/data-display/data-table";
 import { Plant } from "../types";
 import { plantColumns } from "./columns";
 import { usePlants } from "../hooks/hooks";
+import { PlantGrid } from "@/features/plant-grid";
 
 export function PlantsDashboard() {
   const { data: plants } = usePlants();
@@ -48,6 +49,7 @@ export function PlantsDashboard() {
         onDelete={handleDelete}
         onExport={handleExport}
       />
+      <PlantGrid />
     </div>
   );
 }

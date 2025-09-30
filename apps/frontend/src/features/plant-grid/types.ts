@@ -1,4 +1,4 @@
-interface PlantInterface {
+interface CardPlantInterface {
   id: string;
   name: string;
   type: "tulip" | "daffodil" | "hyacinth" | "crocus";
@@ -57,7 +57,7 @@ interface UpcomingTasksInterface {
 }
 
 export type {
-  PlantInterface,
+  CardPlantInterface,
   totalPlantsInterface,
   StatusBreakdownInterface,
   RecentActivityInterface,

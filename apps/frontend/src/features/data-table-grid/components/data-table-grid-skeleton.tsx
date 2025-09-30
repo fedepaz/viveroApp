@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function TablesGridSkeleton() {
+export function DataTableGridSkeleton() {
   return (
     <div className="container mx-auto py-8 space-y-8">
       {/* Header Skeleton */}

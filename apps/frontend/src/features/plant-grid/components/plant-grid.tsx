@@ -3,7 +3,7 @@
 "use client";
 
 import { useState } from "react";
-import { PlantCard } from "@/features/plant-management/components/plant-card";
+import { PlantCard } from "@/features/plant-grid/components/plant-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -212,10 +212,10 @@ export function PlantGrid() {
               : "space-y-4"
           }
         >
-          {filteredPlants.map((plant) => (
+          {filteredPlants.map((plantCard) => (
             <PlantCard
-              key={plant.id}
-              plant={plant}
+              key={plantCard.id}
+              plantCard={plantCard}
               onUpdate={handlePlantUpdate}
               onViewDetails={handleViewDetails}
               viewMode={viewMode === "list" ? "compact" : "detailed"}

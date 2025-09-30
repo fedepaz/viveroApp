@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Database } from "lucide-react";
 import { useDataTables } from "../hooks/hooks";
 
-export function TablesGrid() {
+export function DataTableGrid() {
   const { data: tableTypes } = useDataTables();
 
   return (

@@ -5,7 +5,7 @@ import {
   StatusBreakdownInterface,
   totalPlantsInterface,
   UpcomingTasksInterface,
-} from "@/features/plant-management/types";
+} from "@/features/plant-grid/types";
 
 const totalPlants: totalPlantsInterface = {
   totalPlants: 12847,

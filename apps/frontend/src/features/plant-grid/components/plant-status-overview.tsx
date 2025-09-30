@@ -5,7 +5,7 @@
 import { Progress } from "@radix-ui/react-progress";
 import { Filter, MoreHorizontal, Eye } from "lucide-react";
 
-import { PlantStatusIndicator } from "@/features/plant-management/components/plant-status-indicator";
+import { PlantStatusIndicator } from "@/features/plant-grid/components/plant-status-indicator";
 import { useTranslations } from "next-intl"; // Import useTranslations
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";

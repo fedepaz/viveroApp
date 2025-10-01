@@ -1,111 +1,106 @@
 //src/features/dashboard/api/mockDashboardService.ts
 
 import {
-  CriticalAlertInterface,
-  MetricsInterface,
-  EnvironmentalDataInterface,
+  DashboardKpiInterface,
+  AlertInterface,
+  RecentActivityInterface,
 } from "../types";
 
-// Mock data - in production this would come from your API
-const mockDashboardData = {
-  metrics: {
-    totalPlants: 12847,
-    healthyPlants: 11203,
-    plantsNeedingAttention: 1456,
-    criticalAlerts: 188,
-    averageTemperature: 22.3,
-    averageHumidity: 68.5,
-    harvestReadyCount: 2341,
-    productionEfficiency: 94.2,
-  },
-  environmentalData: {
-    greenhouse: {
-      id: "gh-001",
-      name: "Main Production Facility",
-      sections: [
-        {
-          id: "section-a",
-          name: "Section A",
-          sensors: {
-            temperature: {
-              current: 22.3,
-              optimal: { min: 18, max: 24 },
-              trend: "stable" as const,
-              history: [],
-            },
-            humidity: {
-              current: 68.5,
-              optimal: { min: 60, max: 75 },
-              trend: "rising" as const,
-            },
-            light: {
-              current: 15000,
-              dailyTotal: 180000,
-              spectrum: "full" as const,
-            },
-          },
-        },
-      ],
-    },
-    alertThresholds: {
-      temperature: { warning: 26, critical: 30 },
-      humidity: { warning: 80, critical: 90 },
-    },
-  },
-  criticalAlerts: [
-    {
-      id: "alert-001",
-      type: "temperature" as const,
-      severity: "critical" as const,
-      messageKey: "temperatureHigh",
-      location: "Greenhouse B - Section 3",
-      timestamp: new Date(),
-      plantCount: 45,
-    },
-    {
-      id: "alert-002",
-      type: "pest" as const,
-      severity: "high" as const,
-      messageKey: "pestInfestation",
-      location: "Greenhouse A - Section 1",
-      timestamp: new Date(Date.now() - 1800000), // 30 minutes ago
-      plantCount: 120,
-    },
-    {
-      id: "alert-003",
-      type: "humidity" as const,
-      severity: "medium" as const,
-      messageKey: "humidityHigh",
-      location: "Greenhouse C - Section 2",
-      timestamp: new Date(Date.now() - 3600000), // 1 hour ago
-      plantCount: 78,
-    },
-  ],
+const generateKpi = (): DashboardKpiInterface => {
+  return {
+    totalPlants: parseInt((Math.random() * 50000).toFixed(0)),
+    activePlants: parseInt((Math.random() * 50000).toFixed(0)),
+    totalClients: parseInt((Math.random() * 200).toFixed(0)),
+    activeClients: parseInt((Math.random() * 200).toFixed(0)),
+    openInvoices: parseInt((Math.random() * 100).toFixed(0)),
+    monthlyRevenue: parseInt((Math.random() * 100000).toFixed(0)),
+    pendingOrders: parseInt((Math.random() * 50).toFixed(0)),
+    activeUsers: parseInt((Math.random() * 25).toFixed(0)),
+  };
+};
+
+const generateAlert = (count: number): AlertInterface[] => {
+  const types: AlertInterface["type"][] = ["critical", "warning", "info"];
+  const messages = [
+    "Plant #123 is out of stock",
+    "Order #456 has been placed",
+    "New client registered",
+    "New invoice received",
+    "System is down",
+    "User deleted",
+  ];
+
+  const locations = [
+    // Provinces of Argentina
+    "Buenos Aires",
+    "Catamarca",
+    "Chaco",
+    "Chubut",
+    "Corrientes",
+    "Entre Rios",
+    "Formosa",
+  ];
+  return Array.from({ length: count }, (_, i) => ({
+    id: `alert-${i + 1}`,
+    type: types[Math.floor(Math.random() * types.length)],
+    messageKey: messages[Math.floor(Math.random() * messages.length)],
+    location: locations[Math.floor(Math.random() * locations.length)],
+    timestamp: new Date(),
+  }));
+};
+
+const generateRecentActivity = (count: number): RecentActivityInterface[] => {
+  const actions = [
+    "Plant #123 is out of stock",
+    "Order #456 has been placed",
+    "New client registered",
+    "New invoice received",
+    "System is down",
+    "User deleted",
+  ];
+
+  const users = [
+    "John Doe",
+    "Jane Smith",
+    "Alice Johnson",
+    "Bob Lee",
+    "Charlie Brown",
+    "David Jones",
+  ];
+
+  return Array.from({ length: count }, (_, i) => ({
+    id: `activity-${i + 1}`,
+    action: actions[Math.floor(Math.random() * actions.length)],
+    user: users[Math.floor(Math.random() * users.length)],
+    timestamp: new Date(),
+  }));
 };
 // Replace with your actual API call
 // For example, you could fetch data from an API endpoint
 // for now we'll just return mock data
 
 export const mockDashboardService = {
-  async fetchCriticalAlerts(): Promise<CriticalAlertInterface[]> {
+  async fetchKPIs(): Promise<DashboardKpiInterface> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
-    // Simulate receiving data from the API
-    return mockDashboardData.criticalAlerts;
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with KPIs
+    // Simulate receiving KPIs from the API
+    return generateKpi();
   },
-  async fetchMetrics(): Promise<MetricsInterface> {
+
+  async fetchAlerts(): Promise<AlertInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
-    // Simulate receiving data from the API
-    return mockDashboardData.metrics;
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with alerts
+    // Simulate receiving alerts from the API
+    return generateAlert(3);
   },
-  async fetchEnvironmentalData(): Promise<EnvironmentalDataInterface> {
+
+  async fetchRecentActivity(): Promise<RecentActivityInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
-    // Simulate receiving data from the API
-    return mockDashboardData.environmentalData;
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with recent activity
+    // Simulate receiving recent activity from the API
+    return generateRecentActivity(5);
   },
 };

@@ -3,30 +3,38 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { mockDashboardService } from "../api/mockDashboardService";
 
-export const DASHBOARD_QUERY_KEYS = {
-  all: "dashboard" as const,
-  criticalAlerts: () =>
-    [...DASHBOARD_QUERY_KEYS.all, "criticalAlerts"] as const,
-  metrics: () => [...DASHBOARD_QUERY_KEYS.all, "metrics"] as const,
-  environmentalData: () =>
-    [...DASHBOARD_QUERY_KEYS.all, "environmentalData"] as const,
+export const KPI_QUERY_KEY = {
+  all: "kpi" as const,
+  lists: () => [...KPI_QUERY_KEY.all, "lists"] as const,
 };
 
-export function useDashboardCriticalAlerts() {
+export const ALERT_QUERY_KEY = {
+  all: "alerts" as const,
+  lists: () => [...ALERT_QUERY_KEY.all, "lists"] as const,
+};
+
+export const RECENT_ACTIVITY_QUERY_KEY = {
+  all: "recentActivity" as const,
+  lists: () => [...RECENT_ACTIVITY_QUERY_KEY.all, "lists"] as const,
+};
+
+export const useDashboardKPIs = () => {
   return useSuspenseQuery({
-    queryKey: DASHBOARD_QUERY_KEYS.criticalAlerts(),
-    queryFn: mockDashboardService.fetchCriticalAlerts,
+    queryKey: KPI_QUERY_KEY.lists(),
+    queryFn: mockDashboardService.fetchKPIs,
   });
-}
-export function useDashboardMetrics() {
+};
+
+export const useDashboardAlerts = () => {
   return useSuspenseQuery({
-    queryKey: DASHBOARD_QUERY_KEYS.metrics(),
-    queryFn: mockDashboardService.fetchMetrics,
+    queryKey: ALERT_QUERY_KEY.lists(),
+    queryFn: mockDashboardService.fetchAlerts,
   });
-}
-export function useDashboardEnvironmentalData() {
+};
+
+export const useDashboardRecentActivity = () => {
   return useSuspenseQuery({
-    queryKey: DASHBOARD_QUERY_KEYS.environmentalData(),
-    queryFn: mockDashboardService.fetchEnvironmentalData,
+    queryKey: RECENT_ACTIVITY_QUERY_KEY.lists(),
+    queryFn: mockDashboardService.fetchRecentActivity,
   });
-}
+};

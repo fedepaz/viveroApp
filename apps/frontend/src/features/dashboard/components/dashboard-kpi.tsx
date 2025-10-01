@@ -2,7 +2,7 @@
 
 import { KPICard } from "@/components/data-display/kpi-card";
 import { useDashboardKPIs } from "../hooks/hooks";
-import { Sprout, TrendingUp, Users } from "lucide-react";
+import { ShoppingCart, Sprout, TrendingUp, Users } from "lucide-react";
 
 function DashboardKPI() {
   const { data: kpi } = useDashboardKPIs();
@@ -28,6 +28,12 @@ function DashboardKPI() {
         description={`${kpi?.openInvoices} open invoices`}
         icon={TrendingUp}
         trend={{ value: 15.5, label: "from last month", isPositive: true }}
+      />
+      <KPICard
+        title="Pending Orders"
+        value={kpi?.pendingOrders}
+        description="Awaiting approval"
+        icon={ShoppingCart}
       />
     </div>
   );

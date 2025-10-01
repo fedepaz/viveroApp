@@ -22,12 +22,13 @@ const generateKpi = (): DashboardKpiInterface => {
 const generateAlert = (count: number): AlertInterface[] => {
   const types: AlertInterface["type"][] = ["critical", "warning", "info"];
   const messages = [
-    "Plant #123 is out of stock",
-    "Order #456 has been placed",
-    "New client registered",
-    "New invoice received",
-    "System is down",
+    "Limited stock",
+    "Order received",
+    "New client",
+    "Invoice received",
+    "System down",
     "User deleted",
+    "Plant out of stock",
   ];
 
   const locations = [
@@ -101,6 +102,6 @@ export const mockDashboardService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with recent activity
     // Simulate receiving recent activity from the API
-    return generateRecentActivity(5);
+    return generateRecentActivity(4);
   },
 };

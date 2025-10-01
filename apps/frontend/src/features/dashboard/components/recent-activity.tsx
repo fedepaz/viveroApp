@@ -14,12 +14,12 @@ function RecentActivity() {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-3">
         <CardTitle>Recent Activity</CardTitle>
         <CardDescription>Latest actions across all features</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
+      <CardContent className="flex-1 min-h-0 pb-4">
+        <div className="h-full overflow-y-auto pr-1 space-y-3">
           {recentActivity?.map((activity) => (
             <div
               key={activity.id}

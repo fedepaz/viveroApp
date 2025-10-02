@@ -45,8 +45,7 @@ const generatePurchaseOrders = (count: number): PurchaseOrder[] => {
 export const mockPurchaseOrderSevice = {
   async fetchPurchaseOrders(): Promise<PurchaseOrder[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with purchase orders
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with purchase orders
     // Simulate receiving purchase orders from the API
     return generatePurchaseOrders(300);
   },

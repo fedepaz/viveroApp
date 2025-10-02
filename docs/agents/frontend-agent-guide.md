@@ -312,6 +312,26 @@ This pattern is a mandatory part of the frontend development process for any dat
 
 Skeleton loading screens improve perceived performance by showing a placeholder UI that mimics the final layout. This reduces cognitive load for the user and provides a smoother experience than a generic spinner.
 
+#### The Multi-Level Loading Strategy: The Golden Path
+
+To provide the best possible user experience and perceived performance, we will implement a two-tiered loading strategy that combines Next.js's file-based conventions with granular component-level control.
+
+**Level 1: Instant Route Skeleton (`loading.tsx`)**
+
+This is the first and most important loading UI the user sees.
+
+-   **Convention**: For any route segment (e.g., `app/[locale]/clients/`), create a corresponding `loading.tsx` file.
+-   **Behavior**: Next.js will automatically render this file's component *instantly* while the server prepares the actual `page.tsx`. It provides an immediate, static shell of the page.
+-   **Rule of Thumb**: Wherever you create a `page.tsx`, you should create a `loading.tsx` alongside it.
+
+**Level 2: Granular Content Streaming (In-Page `<Suspense>`)**
+
+This is for handling dynamic content *within* a page that has already rendered its initial skeleton.
+
+-   **Convention**: Inside your page or its child components, wrap any component that fetches its own data in a `<Suspense>` boundary.
+-   **Behavior**: This allows the page to render its static layout while the data-heavy components are streamed in as they become ready, replacing their individual skeleton fallbacks.
+-   **Synergy**: This works in concert with `loading.tsx`. The user first sees the route skeleton from `loading.tsx`, and then sees the individual component skeletons from the in-page `<Suspense>` boundaries as the main page component loads.
+
 #### Implementation Rules
 
 - **Mandatory Inclusion**: Every feature in `src/features/{feature-name}/` that fetches data must include a feature-specific Skeleton component.

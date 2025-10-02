@@ -33,8 +33,7 @@ const generateInvoices = (count: number): Invoice[] => {
 export const mockInvoiceService = {
   async fetchInvoices(): Promise<Invoice[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with invoices
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with invoices
     // Simulate receiving invoices from the API
     return generateInvoices(500);
   },

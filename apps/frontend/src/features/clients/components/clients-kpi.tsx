@@ -1,9 +1,13 @@
+//src/features/clients/components/clients-kpi.tsx
+"use client";
+
 import { KPICard } from "@/components/data-display/kpi-card";
-import { useClients } from "../hooks/hooks";
 import { Building2, TrendingUp, UserCheck, Users } from "lucide-react";
 
+import { useClients } from "../hooks/hooks";
+
 function ClientsKPI() {
-  const { data: clients } = useClients();
+  const { data: clients = [] } = useClients();
   const totalClients = clients.length;
   const activeClients = clients.filter(
     (client) => client.status === "active"

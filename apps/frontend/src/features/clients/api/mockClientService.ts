@@ -1,8 +1,9 @@
 //src/features/users/api/mockUserService.ts
+"server-only";
 
 import { Client, UpdateClientDto } from "../types";
 
-const generateUsers = (count: number): Client[] => {
+const generateClients = (count: number): Client[] => {
   const names: string[] = [
     "John Doe",
     "Jane Doe",
@@ -45,44 +46,49 @@ const generateUsers = (count: number): Client[] => {
 // For example, you could fetch users from a database or an API endpoint
 // For now we'll just generate some mock data
 
-export const mockUserService = {
-  async fetchUsers(): Promise<Client[]> {
+export const mockClientService = {
+  async fetchClients(): Promise<Client[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    //Random delay between 1000 and 3000 milliseconds
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000));
+
     // Replace API response with users
     // Simulate receiving users from the API
-    return generateUsers(50);
+    return generateClients(50);
   },
 
-  async fetchUserById(id: string): Promise<Client | null> {
+  async fetchClientById(id: string): Promise<Client | null> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate receiving user from the API
-    const users = generateUsers(50);
+    const users = generateClients(50);
     return users.find((user) => user.id === id) || null;
   },
 
-  async createUser(userCreate: Client): Promise<Client> {
+  async createClient(clientCreate: Client): Promise<Client> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate creating user in the database
     return {
-      ...userCreate,
-      id: `user-${Date.now()}`,
+      ...clientCreate,
+      id: `client-${Date.now()}`,
     };
   },
 
-  async updateUser(id: string, userUpdate: UpdateClientDto): Promise<Client> {
+  async updateClient(
+    id: string,
+    clientUpdate: UpdateClientDto
+  ): Promise<Client> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
     // Replace API response with user
     // Simulate updating user in the database
-    const users = generateUsers(50);
-    const existingUser = users.find((user) => user.id === id);
-    if (!existingUser) throw new Error("User not found");
-    return { ...existingUser, ...userUpdate };
+    const clients = generateClients(50);
+    const existingClient = clients.find((user) => user.id === id);
+    if (!existingClient) throw new Error("User not found");
+    return { ...existingClient, ...clientUpdate };
   },
 
   //async deleteUser(id: string): Promise<void> {

@@ -74,8 +74,7 @@ const dataTable: DataTableInterface[] = [
 export const mockDataTableService = {
   async fetchDataTables(): Promise<DataTableInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return dataTable;
   },

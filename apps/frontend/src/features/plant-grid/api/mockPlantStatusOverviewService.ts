@@ -83,29 +83,25 @@ const upcomingTasks: UpcomingTasksInterface[] = [
 export const mockPlantStatusOverviewService = {
   async fetchTotalPlants(): Promise<totalPlantsInterface> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return totalPlants;
   },
   async fetchStatusBreakdown(): Promise<StatusBreakdownInterface> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return statusBreakdown;
   },
   async fetchRecentActivity(): Promise<RecentActivityInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return recentActivity;
   },
   async fetchUpcomingTasks(): Promise<UpcomingTasksInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return upcomingTasks;
   },

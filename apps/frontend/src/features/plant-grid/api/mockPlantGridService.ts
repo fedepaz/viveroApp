@@ -100,8 +100,7 @@ const mockCardPlants: CardPlantInterface[] = [
 export const mockPlantGridService = {
   async fetchPlants(): Promise<CardPlantInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    //Replace with your actual API call
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); //Replace with your actual API call
     // Simulate receiving data from the API
     return mockCardPlants;
   },

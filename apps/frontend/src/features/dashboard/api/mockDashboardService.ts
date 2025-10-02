@@ -83,24 +83,21 @@ const generateRecentActivity = (count: number): RecentActivityInterface[] => {
 export const mockDashboardService = {
   async fetchKPIs(): Promise<DashboardKpiInterface> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with KPIs
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with KPIs
     // Simulate receiving KPIs from the API
     return generateKpi();
   },
 
   async fetchAlerts(): Promise<AlertInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with alerts
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with alerts
     // Simulate receiving alerts from the API
     return generateAlert(3);
   },
 
   async fetchRecentActivity(): Promise<RecentActivityInterface[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with recent activity
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with recent activity
     // Simulate receiving recent activity from the API
     return generateRecentActivity(4);
   },

@@ -32,8 +32,7 @@ const generateUsers = (count: number): User[] => {
 export const mockUserService = {
   async fetchUsers(): Promise<User[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Replace API response with users
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with users
     // Simulate receiving users from the API
     return generateUsers(150);
   },

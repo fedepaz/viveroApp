@@ -38,8 +38,7 @@ const generatePlants = (count: number): Plant[] => {
 export const mockPlantService = {
   async fetchPlants(): Promise<Plant[]> {
     // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    // Replace API response with plants
+    await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with plants
     // Simulate receiving plants from the API
     return generatePlants(200000);
   },

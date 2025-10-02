@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { mockUserService } from "../api/mockClientService";
+import { mockClientService } from "../api/mockClientService";
 import { Client, UpdateClientDto } from "../types";
 
 export const CLIENT_QUERY_KEYS = {
@@ -20,7 +20,7 @@ export const CLIENT_QUERY_KEYS = {
 export function useClients() {
   return useSuspenseQuery({
     queryKey: CLIENT_QUERY_KEYS.lists(),
-    queryFn: mockUserService.fetchUsers,
+    queryFn: mockClientService.fetchClients,
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }
@@ -28,14 +28,14 @@ export function useClients() {
 export function useClient(id: string) {
   return useSuspenseQuery({
     queryKey: CLIENT_QUERY_KEYS.detail(id),
-    queryFn: () => mockUserService.fetchUserById(id),
+    queryFn: () => mockClientService.fetchClientById(id),
   });
 }
 
 export function useCreateClient() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: mockUserService.createUser,
+    mutationFn: mockClientService.createClient,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: CLIENT_QUERY_KEYS.lists() });
     },
@@ -54,7 +54,7 @@ export function useUpdateClient() {
     }: {
       id: string;
       clientUpdate: UpdateClientDto;
-    }) => mockUserService.updateUser(id, clientUpdate),
+    }) => mockClientService.updateClient(id, clientUpdate),
     onSuccess: (updatedUser: Client) => {
       queryClient.invalidateQueries({ queryKey: CLIENT_QUERY_KEYS.lists() });
       queryClient.setQueryData(

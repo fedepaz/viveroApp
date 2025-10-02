@@ -1,55 +1,32 @@
 //src/features/invoices/components/InvoicesDashboard.tsx
-"use client";
 
-import { DataTable } from "@/components/data-display/data-table";
-import React from "react";
-import { Invoice } from "../types";
-import { invoiceColumns } from "./columns";
-import { useInvoices } from "../hooks/hooks";
+import { DataTableSkeleton } from "@/components/data-display/data-table";
+import React, { Suspense } from "react";
+import { KPICardSkeleton } from "@/components/data-display/kpi-card";
+import { ClientsDataTable } from "@/features/clients/components/clients-data-table";
+import ClientsKPI from "@/features/clients/components/clients-kpi";
+import { clientColumns } from "@/features/clients/components/columns";
 
 export function InvoicesDashboard() {
-  const { data: invoices } = useInvoices();
-  //const createInvoice = useCreateInvoice();
-  //const updateInvoice = useUpdateInvoice();
-  //const deleteInvoice = useDeleteInvoice();
-
-  const handleEdit = (row: Invoice) => {
-    console.log("Edit invoice:", row);
-    //console.log(updateInvoice);
-    // Implement edit functionality
-  };
-
-  const handleDelete = (row: Invoice) => {
-    console.log("Delete invoice:", row);
-    //console.log(deleteInvoice);
-    // Implement delete functionality
-  };
-
-  const handleAdd = () => {
-    console.log("Add new invoice");
-    //console.log(createInvoice);
-    // Implement add functionality
-  };
-
-  const handleExport = () => {
-    console.log("Export invoices data");
-    // Implement export functionality
-  };
-
   return (
     <div className="container mx-auto py-8 space-y-8">
-      <DataTable
-        columns={invoiceColumns}
-        data={invoices}
-        title="Invoice Database"
-        description="Complete financial tracking with payment status and client management"
-        searchKey="invoiceNumber"
-        totalCount={invoices.length}
-        onAdd={handleAdd}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onExport={handleExport}
-      />
+      <Suspense
+        fallback={
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <KPICardSkeleton key={i} />
+            ))}
+          </div>
+        }
+      >
+        <ClientsKPI />
+      </Suspense>
+
+      <Suspense
+        fallback={<DataTableSkeleton columnCount={clientColumns.length} />}
+      >
+        <ClientsDataTable />
+      </Suspense>
     </div>
   );
 }

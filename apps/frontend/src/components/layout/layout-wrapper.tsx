@@ -1,3 +1,5 @@
+//src/components/layout/layout-wrapper.tsx
+
 import type React from "react";
 import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";

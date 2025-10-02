@@ -1,4 +1,5 @@
 //src/features/invoices/api/mockInvoiceService.ts
+"server-only";
 
 import { CreateInvoiceDto, Invoice, UpdateInvoiceDto } from "../types";
 

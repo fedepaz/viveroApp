@@ -1,4 +1,5 @@
 //src/features/purchase-orders/api/mockPurchaseOrderSevice.ts
+"server-only";
 
 import {
   PurchaseOrder,
@@ -10,7 +11,7 @@ const generatePurchaseOrders = (count: number): PurchaseOrder[] => {
   const statuses: PurchaseOrder["status"][] = [
     "pending",
     "approved",
-    "delivered",
+    "received",
     "cancelled",
   ];
   const suppliers = [

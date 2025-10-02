@@ -1,3 +1,5 @@
+//src/features/clients/components/ClientsDashboard.tsx
+
 import { Suspense } from "react";
 import { DataTableSkeleton } from "@/components/data-display/data-table";
 import { clientColumns } from "./columns";

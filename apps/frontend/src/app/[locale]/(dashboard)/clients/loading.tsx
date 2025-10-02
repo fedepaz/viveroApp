@@ -1,13 +1,7 @@
-import { LoadingSpinner } from "@/components/common/loading-spinner";
+//src/app/[locale]/(dashboard)/clients/loading.tsx
 
-/**
- * A placeholder loading component for this route.
- *
- * It's displayed instantly on navigation while the `page.tsx` component
- * and its data dependencies are being prepared on the server.
- *
- * TODO: Replace this with a custom skeleton component that mimics the page's layout.
- */
+import { ClientsDashboardSkeleton } from "@/features/clients";
+
 export default function Loading() {
-  return <LoadingSpinner />;
+  return <ClientsDashboardSkeleton />;
 }

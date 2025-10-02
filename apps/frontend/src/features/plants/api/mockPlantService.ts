@@ -1,4 +1,5 @@
 //src/features/plants/api/mockPlantService.ts
+"server-only";
 
 import { Plant, CreatePlantDto, UpdatePlantDto } from "../types";
 
@@ -14,6 +15,24 @@ const generatePlants = (count: number): Plant[] => {
 
   const statuses: Plant["status"][] = ["healthy", "warning", "critical"];
   const locations = ["A1", "A2", "B1", "B2", "C1", "C2"];
+  const growthStages: Plant["growthStage"][] = [
+    "Seedling",
+    "Juvenile",
+    "Fruiting",
+    "Mature",
+  ];
+  const plantedDates: Plant["plantedDate"][] = [
+    "2024-01-15",
+    "2024-02-01",
+    "2024-03-01",
+    "2024-04-01",
+  ];
+  const lastWateredDates: Plant["lastWatered"][] = [
+    "2024-01-15",
+    "2024-02-01",
+    "2024-03-01",
+    "2024-04-01",
+  ];
 
   return Array.from({ length: count }, (_, i) => ({
     id: `plant-${i + 1}`,
@@ -21,14 +40,10 @@ const generatePlants = (count: number): Plant[] => {
     species: species[Math.floor(Math.random() * species.length)],
     location: `Greenhouse ${locations[Math.floor(Math.random() * locations.length)]}`,
     status: statuses[Math.floor(Math.random() * statuses.length)],
-    plantedDate: new Date(Date.now() - Math.random() * 90 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
-    harvestDate: new Date(Date.now() + Math.random() * 60 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .split("T")[0],
-    temperature: Math.round((18 + Math.random() * 8) * 10) / 10,
-    humidity: Math.round((60 + Math.random() * 30) * 10) / 10,
+    growthStage: growthStages[Math.floor(Math.random() * growthStages.length)],
+    plantedDate: plantedDates[Math.floor(Math.random() * plantedDates.length)],
+    lastWatered:
+      lastWateredDates[Math.floor(Math.random() * lastWateredDates.length)],
   }));
 };
 // Replace with your actual API call

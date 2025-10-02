@@ -1,4 +1,5 @@
 //src/features/users/api/mockUserService.ts
+"server-only";
 
 import { User, CreateUserDto, UpdateUserDto } from "../types";
 

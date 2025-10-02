@@ -1,55 +1,32 @@
 //src/features/plants/components/PlantsDashboard.tsx
 
-"use client";
-
-import React from "react";
-import { DataTable } from "@/components/data-display/data-table";
-import { Plant } from "../types";
+import React, { Suspense } from "react";
+import { DataTableSkeleton } from "@/components/data-display/data-table";
 import { plantColumns } from "./columns";
-import { usePlants } from "../hooks/hooks";
-import { PlantGrid } from "@/features/plant-grid";
+import { KPICardSkeleton } from "@/components/data-display/kpi-card";
+import { PlantsDataTable } from "./plants-data-table";
+import PlantKPIs from "./plants-kpi";
 
 export function PlantsDashboard() {
-  const { data: plants } = usePlants();
-  //const createPlant = useCreatePlant();
-  //const updatePlant = useUpdatePlant();
-  //const deletePlant = useDeletePlant();
-
-  const handleEdit = (row: Plant) => {
-    console.log("Edit plant:", row);
-    // Implement edit functionality
-  };
-
-  const handleDelete = (row: Plant) => {
-    console.log("Delete plant:", row);
-    // Implement delete functionality
-  };
-
-  const handleAdd = () => {
-    console.log("Add new plant");
-    // Implement add functionality
-  };
-
-  const handleExport = () => {
-    console.log("Export plants data");
-    // Implement export functionality
-  };
-
   return (
     <div className="container mx-auto py-8 space-y-8">
-      <DataTable
-        columns={plantColumns}
-        data={plants}
-        title="Plant Database"
-        description="Complete plant inventory with health monitoring and environmental data"
-        searchKey="name"
-        totalCount={plants.length}
-        onAdd={handleAdd}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onExport={handleExport}
-      />
-      <PlantGrid />
+      <Suspense
+        fallback={
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <KPICardSkeleton key={i} />
+            ))}
+          </div>
+        }
+      >
+        <PlantKPIs />
+      </Suspense>
+
+      <Suspense
+        fallback={<DataTableSkeleton columnCount={plantColumns.length} />}
+      >
+        <PlantsDataTable />
+      </Suspense>
     </div>
   );
 }

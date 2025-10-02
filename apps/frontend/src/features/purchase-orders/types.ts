@@ -6,7 +6,7 @@ interface PurchaseOrder {
   supplier: string;
   items: number;
   totalAmount: number;
-  status: "pending" | "approved" | "delivered" | "cancelled";
+  status: "pending" | "approved" | "received" | "cancelled";
   orderDate: string;
   deliveryDate: string;
 }
@@ -16,7 +16,7 @@ interface CreatePurchaseOrderDto {
   supplier: string;
   items: number;
   totalAmount: number;
-  status: "pending" | "approved" | "delivered" | "cancelled";
+  status: "pending" | "approved" | "received" | "cancelled";
   orderDate: string;
   deliveryDate: string;
 }
@@ -25,7 +25,7 @@ interface UpdatePurchaseOrderDto {
   supplier?: string;
   items?: number;
   totalAmount?: number;
-  status?: "pending" | "approved" | "delivered" | "cancelled";
+  status?: "pending" | "approved" | "received" | "cancelled";
   orderDate?: string;
   deliveryDate?: string;
 }

@@ -43,12 +43,14 @@ const generatePurchaseOrders = (count: number): PurchaseOrder[] => {
 // For example, you could fetch purchase orders from a database or an API endpoint
 // For now we'll just generate some mock data
 
+const purchaseOrdersData = generatePurchaseOrders(300);
+
 export const mockPurchaseOrderSevice = {
   async fetchPurchaseOrders(): Promise<PurchaseOrder[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with purchase orders
     // Simulate receiving purchase orders from the API
-    return generatePurchaseOrders(300);
+    return purchaseOrdersData;
   },
 
   async fetchPurchaseOrderById(id: string): Promise<PurchaseOrder | null> {
@@ -56,9 +58,9 @@ export const mockPurchaseOrderSevice = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with purchase order
     // Simulate receiving purchase order from the API
-    const purchaseOrders = generatePurchaseOrders(500);
     return (
-      purchaseOrders.find((purchaseOrder) => purchaseOrder.id === id) || null
+      purchaseOrdersData.find((purchaseOrder) => purchaseOrder.id === id) ||
+      null
     );
   },
 
@@ -69,10 +71,12 @@ export const mockPurchaseOrderSevice = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with purchase order
     // Simulate creating purchase order in the database
-    return {
+    const newPurchaseOrder = {
       ...purchaseOrderCreate,
-      id: `purchaseOrder-${Date.now()}`,
+      id: `po-${Date.now()}`,
     };
+    purchaseOrdersData.push(newPurchaseOrder);
+    return newPurchaseOrder;
   },
 
   async updatePurchaseOrder(
@@ -83,18 +87,35 @@ export const mockPurchaseOrderSevice = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with purchase order
     // Simulate updating purchase order in the database
-    const purchaseOrders = generatePurchaseOrders(500);
-    const existingPurchaseOrder = purchaseOrders.find(
+    const existingPurchaseOrder = purchaseOrdersData.find(
       (purchaseOrder) => purchaseOrder.id === id
     );
     if (!existingPurchaseOrder) throw new Error("Purchase order not found");
-    return { ...existingPurchaseOrder, ...purchaseOrderUpdate };
+    const updatedPurchaseOrder = {
+      ...existingPurchaseOrder,
+      ...purchaseOrderUpdate,
+    };
+    purchaseOrdersData.splice(
+      purchaseOrdersData.indexOf(existingPurchaseOrder),
+      1,
+      updatedPurchaseOrder
+    );
+    return updatedPurchaseOrder;
   },
 
-  //async deletePurchaseOrder(id: string): Promise<void> {
-  //  // Simulate network delay
-  //  await new Promise((resolve) => setTimeout(resolve, 1500));
-  //  // Replace API response with purchase order
-  //  // Simulate deleting purchase order from the database
-  //},
+  async deletePurchaseOrder(id: string): Promise<void> {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with purchase order
+    // Simulate deleting purchase order from the database
+    const existingPurchaseOrder = purchaseOrdersData.find(
+      (purchaseOrder) => purchaseOrder.id === id
+    );
+    if (!existingPurchaseOrder) throw new Error("Purchase order not found");
+    purchaseOrdersData.splice(
+      purchaseOrdersData.indexOf(existingPurchaseOrder),
+      1
+    );
+    return;
+  },
 };

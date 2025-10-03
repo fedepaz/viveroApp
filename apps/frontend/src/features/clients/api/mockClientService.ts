@@ -45,6 +45,7 @@ const generateClients = (count: number): Client[] => {
 // Replace with your actual API call
 // For example, you could fetch users from a database or an API endpoint
 // For now we'll just generate some mock data
+const clientsData = generateClients(50);
 
 export const mockClientService = {
   async fetchClients(): Promise<Client[]> {
@@ -54,7 +55,7 @@ export const mockClientService = {
 
     // Replace API response with users
     // Simulate receiving users from the API
-    return generateClients(50);
+    return clientsData;
   },
 
   async fetchClientById(id: string): Promise<Client | null> {
@@ -62,8 +63,7 @@ export const mockClientService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate receiving user from the API
-    const users = generateClients(50);
-    return users.find((user) => user.id === id) || null;
+    return clientsData.find((user) => user.id === id) || null;
   },
 
   async createClient(clientCreate: Client): Promise<Client> {
@@ -71,10 +71,13 @@ export const mockClientService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate creating user in the database
-    return {
+
+    const newClient = {
       ...clientCreate,
       id: `client-${Date.now()}`,
     };
+    clientsData.push(newClient);
+    return newClient;
   },
 
   async updateClient(
@@ -85,16 +88,21 @@ export const mockClientService = {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     // Replace API response with user
     // Simulate updating user in the database
-    const clients = generateClients(50);
-    const existingClient = clients.find((user) => user.id === id);
+    const existingClient = clientsData.find((user) => user.id === id);
     if (!existingClient) throw new Error("User not found");
-    return { ...existingClient, ...clientUpdate };
+    const updatedClient = { ...existingClient, ...clientUpdate };
+    clientsData.splice(clientsData.indexOf(existingClient), 1, updatedClient);
+    return updatedClient;
   },
 
-  //async deleteUser(id: string): Promise<void> {
-  //  // Simulate network delay
-  //  await new Promise((resolve) => setTimeout(resolve, 1000));
-  //  // Replace API response with user
-  //  // Simulate deleting user from the database
-  //}
+  async deleteUser(id: string): Promise<void> {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Replace API response with user
+    // Simulate deleting user from the database
+    const existingClient = clientsData.find((user) => user.id === id);
+    if (!existingClient) throw new Error("User not found");
+    clientsData.splice(clientsData.indexOf(existingClient), 1);
+    return;
+  },
 };

@@ -29,13 +29,14 @@ const generateUsers = (count: number): User[] => {
 // Replace with your actual API call
 // For example, you could fetch users from a database or an API endpoint
 // For now we'll just generate some mock data
+const usersData = generateUsers(150);
 
 export const mockUserService = {
   async fetchUsers(): Promise<User[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with users
     // Simulate receiving users from the API
-    return generateUsers(150);
+    return usersData;
   },
 
   async fetchUserById(id: string): Promise<User | null> {
@@ -43,8 +44,7 @@ export const mockUserService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate receiving user from the API
-    const users = generateUsers(150);
-    return users.find((user) => user.id === id) || null;
+    return usersData.find((user) => user.id === id) || null;
   },
 
   async createUser(userCreate: CreateUserDto): Promise<User> {
@@ -52,10 +52,12 @@ export const mockUserService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate creating user in the database
-    return {
+    const newUser = {
       ...userCreate,
       id: `user-${Date.now()}`,
     };
+    usersData.push(newUser);
+    return newUser;
   },
 
   async updateUser(id: string, userUpdate: UpdateUserDto): Promise<User> {
@@ -63,16 +65,21 @@ export const mockUserService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user
     // Simulate updating user in the database
-    const users = generateUsers(150);
-    const existingUser = users.find((user) => user.id === id);
+    const existingUser = usersData.find((user) => user.id === id);
     if (!existingUser) throw new Error("User not found");
-    return { ...existingUser, ...userUpdate };
+    const updatedUser = { ...existingUser, ...userUpdate };
+    usersData.splice(usersData.indexOf(existingUser), 1, updatedUser);
+    return updatedUser;
   },
 
-  //async deleteUser(id: string): Promise<void> {
-  //  // Simulate network delay
-  //  await new Promise((resolve) => setTimeout(resolve, 1500));
-  //  // Replace API response with user
-  //  // Simulate deleting user from the database
-  //},
+  async deleteUser(id: string): Promise<void> {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with user
+    // Simulate deleting user from the database
+    const existingUser = usersData.find((user) => user.id === id);
+    if (!existingUser) throw new Error("User not found");
+    usersData.splice(usersData.indexOf(existingUser), 1);
+    return;
+  },
 };

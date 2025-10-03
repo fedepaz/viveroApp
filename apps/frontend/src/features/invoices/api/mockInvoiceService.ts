@@ -4,7 +4,13 @@
 import { CreateInvoiceDto, Invoice, UpdateInvoiceDto } from "../types";
 
 const generateInvoices = (count: number): Invoice[] => {
-  const statuses: Invoice["status"][] = ["pending", "paid", "overdue"];
+  const statuses: Invoice["status"][] = [
+    "draft",
+    "sent",
+    "paid",
+    "overdue",
+    "cancelled",
+  ];
   const clients = [
     "Green Valley Farms",
     "Organic Produce Co",

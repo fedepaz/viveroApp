@@ -80,25 +80,29 @@ const generateRecentActivity = (count: number): RecentActivityInterface[] => {
 // For example, you could fetch data from an API endpoint
 // for now we'll just return mock data
 
+const dashboardData = generateKpi();
+const alertsData = generateAlert(3);
+const recentActivityData = generateRecentActivity(4);
+
 export const mockDashboardService = {
   async fetchKPIs(): Promise<DashboardKpiInterface> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with KPIs
     // Simulate receiving KPIs from the API
-    return generateKpi();
+    return dashboardData;
   },
 
   async fetchAlerts(): Promise<AlertInterface[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with alerts
     // Simulate receiving alerts from the API
-    return generateAlert(3);
+    return alertsData;
   },
 
   async fetchRecentActivity(): Promise<RecentActivityInterface[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with recent activity
     // Simulate receiving recent activity from the API
-    return generateRecentActivity(4);
+    return recentActivityData;
   },
 };

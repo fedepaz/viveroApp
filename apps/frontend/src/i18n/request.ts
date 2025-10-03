@@ -11,6 +11,26 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
+    messages: {
+      ...(await import(`../../messages/${locale}/common.json`)).default,
+      ...(await import(`../../messages/${locale}/main.json`)).default,
+      ...(await import(`../../messages/${locale}/alerts.json`)).default,
+      ...(await import(`../../messages/${locale}/navigation.json`)).default,
+      ...(await import(
+        `../components/layout/dashboard-header/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/common/language-switcher/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/common/theme-toggle/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/data-display/data-table/column-filters/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/data-display/data-table/data-table/messages/${locale}.json`
+      )).default,
+    },
   };
 });

@@ -1,0 +1,21 @@
+{
+  "DataTable": {
+    "openMenu": "Open menu",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "records": "records",
+    "export": "Export",
+    "addNew": "Add New",
+    "searchPlaceholder": "Search {title}...",
+    "columns": "Columns",
+    "noResults": "No results found.",
+    "rowsSelected": "{selectedCount} of {totalCount} row(s) selected.",
+    "rowsPerPage": "Rows per page",
+    "pageInfo": "Page {currentPage} of {pageCount}",
+    "goToFirstPage": "Go to first page",
+    "goToPreviousPage": "Go to previous page",
+    "goToNextPage": "Go to next page",
+    "goToLastPage": "Go to last page"
+  }
+}

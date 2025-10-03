@@ -1,0 +1,20 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "agriManage": "AgriManage",
+    "plantManagement": "Plant Management",
+    "johnDoe": "John Doe",
+    "greenhouseManager": "Greenhouse Manager",
+    "location": "Location",
+    "plantsAffected": "plants affected",
+    "view": "View",
+    "greenhouseName": "Greenhouse",
+    "sectionName": "Section",
+    "minutesAgo": "{count} minutes ago",
+    "hourAgo": "{count} hour ago",
+    "inXHours": "in {count} hours",
+    "tomorrowAt": "Tomorrow at {time}",
+    "plants": "Plants",
+    "mobileNavigation": "Mobile Navigation"
+  }
+}

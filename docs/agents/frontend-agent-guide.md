@@ -197,12 +197,61 @@ export default function NewFeaturePage({ params }: NewFeaturePageProps) {
 }
 ```
 
+**3. Component-Scoped Translation Files**
+
+Instead of a single, large translation file, each feature or component that requires translations manages its own message files. This improves modularity and aligns with the project's "feature-sliced" architecture.
+
+*Example Structure:*
+```
+/src/features/plants/components/
+├── PlantCard.tsx
+└── messages/
+    ├── en.json
+    ├── es.json
+    └── it.json
+```
+
+The JSON files within this folder must be namespaced to the component to prevent key collisions.
+
+*Example for `.../messages/en.json`:*
+```json
+{
+  "PlantCard": {
+    "status": "Status",
+    "plantedOn": "Planted on"
+  }
+}
+```
+
+**4. Centralized Merging of Messages**
+
+The main `next-intl` configuration file (e.g., `i18n.ts`) is responsible for dynamically importing and merging all individual message files into a single `messages` object at runtime.
+
+*Example `getRequestConfig` in `i18n.ts`:*
+```typescript
+import {getRequestConfig} from 'next-intl/server';
+
+export default getRequestConfig(async ({locale}) => {
+  return {
+    messages: {
+      // Load common/global messages
+      ...(await import(`../messages/${locale}/common.json`)).default,
+      
+      // Load component-specific messages
+      ...(await import(`../components/layout/desktop-sidebar/messages/${locale}.json`)).default,
+      ...(await import(`../features/plants/components/PlantCard/messages/${locale}.json`)).default
+    }
+  };
+});
+```
+
 **Key Requirements:**
 
 1.  **Page-Level Locale Handling**: The page component itself must use `use(params)` and `setRequestLocale(locale)`.
-2.  **Child Component Translations**: Any child components (like `FeatureDashboard` above) can then simply use the `useTranslations()` hook to get the correct text.
+2.  **Child Component Translations**: Any child components can then simply use the `useTranslations()` hook to get the correct text.
 3.  **Static Generation**: Pages must export `generateStaticParams` that calls the `generateLocaleStaticParams` helper from `routing.ts`.
-4.  **Translation Files**: All translation strings must be stored in the `messages/` directory (e.g., `messages/en.json`).
+4.  **Component-Scoped Messages**: All translation strings must be colocated with their respective components in a `messages` subfolder and namespaced correctly.
+5.  **Central Merging**: All component message files must be imported and merged in the main `getRequestConfig` function.
 
 ### Core Technology Implementation
 

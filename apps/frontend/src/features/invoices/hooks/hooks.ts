@@ -68,15 +68,15 @@ export function useUpdateInvoice() {
   });
 }
 
-//export function useDeleteInvoice() {
-//  const queryClient = useQueryClient();
-//  return useMutation({
-//    mutationFn: mockInvoiceService.deleteInvoice,
-//    onSuccess: () => {
-//      queryClient.invalidateQueries({ queryKey: INVOICE_QUERY_KEYS.lists() });
-//    },
-//    onError: (error) => {
-//      console.log(error);
-//    },
-//  });
-//}
+export function useDeleteInvoice() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: mockInvoiceService.deleteInvoice,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: INVOICE_QUERY_KEYS.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}

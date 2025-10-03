@@ -3,9 +3,9 @@
 import { DataTableSkeleton } from "@/components/data-display/data-table";
 import React, { Suspense } from "react";
 import { KPICardSkeleton } from "@/components/data-display/kpi-card";
-import { ClientsDataTable } from "@/features/clients/components/clients-data-table";
-import ClientsKPI from "@/features/clients/components/clients-kpi";
-import { clientColumns } from "@/features/clients/components/columns";
+import InvoiceKPIs from "./invoices-kpi";
+import { InvoicesDataTable } from "./invoices-data-table";
+import { invoiceColumns } from "./columns";
 
 export function InvoicesDashboard() {
   return (
@@ -19,13 +19,13 @@ export function InvoicesDashboard() {
           </div>
         }
       >
-        <ClientsKPI />
+        <InvoiceKPIs />
       </Suspense>
 
       <Suspense
-        fallback={<DataTableSkeleton columnCount={clientColumns.length} />}
+        fallback={<DataTableSkeleton columnCount={invoiceColumns.length} />}
       >
-        <ClientsDataTable />
+        <InvoicesDataTable />
       </Suspense>
     </div>
   );

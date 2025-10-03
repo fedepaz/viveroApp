@@ -30,13 +30,14 @@ const generateInvoices = (count: number): Invoice[] => {
 // Replace with your actual API call
 // For example, you could fetch invoices from a database or an API endpoint
 // For now we'll just generate some mock data
+const invoicesData = generateInvoices(500);
 
 export const mockInvoiceService = {
   async fetchInvoices(): Promise<Invoice[]> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, Math.random() * 2000)); // Replace API response with invoices
     // Simulate receiving invoices from the API
-    return generateInvoices(500);
+    return invoicesData;
   },
 
   async fetchInvoiceById(id: string): Promise<Invoice | null> {
@@ -44,8 +45,8 @@ export const mockInvoiceService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with invoice
     // Simulate receiving invoice from the API
-    const invoices = generateInvoices(500);
-    return invoices.find((invoice) => invoice.id === id) || null;
+
+    return invoicesData.find((invoice) => invoice.id === id) || null;
   },
 
   async createInvoice(invoiceCreate: CreateInvoiceDto): Promise<Invoice> {
@@ -53,10 +54,12 @@ export const mockInvoiceService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with invoice
     // Simulate creating invoice in the database
-    return {
+    const newInvoice = {
       ...invoiceCreate,
       id: `invoice-${Date.now()}`,
     };
+    invoicesData.push(newInvoice);
+    return newInvoice;
   },
 
   async updateInvoice(
@@ -67,16 +70,26 @@ export const mockInvoiceService = {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with invoice
     // Simulate updating invoice in the database
-    const invoices = generateInvoices(500);
-    const existingInvoice = invoices.find((invoice) => invoice.id === id);
+
+    const existingInvoice = invoicesData.find((invoice) => invoice.id === id);
     if (!existingInvoice) throw new Error("Invoice not found");
-    return { ...existingInvoice, ...invoiceUpdate };
+    const updatedInvoice = { ...existingInvoice, ...invoiceUpdate };
+    invoicesData.splice(
+      invoicesData.indexOf(existingInvoice),
+      1,
+      updatedInvoice
+    );
+    return updatedInvoice;
   },
 
-  //async deleteInvoice(id: string): Promise<void> {
-  //  // Simulate network delay
-  //  await new Promise((resolve) => setTimeout(resolve, 1500));
-  //  // Replace API response with invoice
-  //  // Simulate deleting invoice from the database
-  //},
+  async deleteInvoice(id: string): Promise<void> {
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Replace API response with invoice
+    // Simulate deleting invoice from the database
+    const existingInvoice = invoicesData.find((invoice) => invoice.id === id);
+    if (!existingInvoice) throw new Error("Invoice not found");
+    invoicesData.splice(invoicesData.indexOf(existingInvoice), 1);
+    return;
+  },
 };

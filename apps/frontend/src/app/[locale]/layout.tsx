@@ -8,6 +8,7 @@ import { LoadingSpinner } from "@/components/common/loading-spinner";
 import { NextIntlClientProvider } from "next-intl";
 import { generateLocaleStaticParams } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
+import getRequestConfig from "../../../src/i18n/request";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
@@ -24,15 +25,16 @@ interface DashboardLayoutProps {
   }>;
 }
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
   params,
 }: DashboardLayoutProps) {
   const { locale } = use(params);
   setRequestLocale(locale);
+  const { messages } = await getRequestConfig({ locale });
   return (
     <ThemeProvider>
-      <NextIntlClientProvider>
+      <NextIntlClientProvider messages={messages}>
         <ReactClientProvider>
           <Suspense fallback={<LoadingSpinner />}>
             <LayoutWrapper>

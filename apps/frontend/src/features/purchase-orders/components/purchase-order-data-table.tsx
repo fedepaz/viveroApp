@@ -5,8 +5,10 @@ import { DataTable } from "@/components/data-display/data-table";
 import { purchaseOrderColumns } from "./columns";
 import { usePurchaseOrders } from "../hooks/hooks";
 import { PurchaseOrder } from "../types";
+import { useTranslations } from "next-intl";
 
 export function PurchaseOrdersDataTable() {
+  const t = useTranslations("PurchaseOrderDataTable");
   const { data: purchaseOrders = [] } = usePurchaseOrders();
 
   //const createPurchaseOrder = useCreatePurchaseOrder();
@@ -37,9 +39,10 @@ export function PurchaseOrdersDataTable() {
     <DataTable
       columns={purchaseOrderColumns}
       data={purchaseOrders}
-      title="Purchase Order Database"
+      title={t("title")}
       description="Complete procurement management with supplier tracking and delivery status"
       searchKey="orderNumber"
+      searchPlaceholder={t("searchPlaceholder")}
       totalCount={purchaseOrders.length}
       onAdd={handleAdd}
       onEdit={handleEdit}

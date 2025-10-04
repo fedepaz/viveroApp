@@ -1,0 +1,10 @@
+{
+  "InvoiceForm": {
+    "title": "Create Invoice",
+    "invoiceNumberLabel": "Invoice Number",
+    "clientLabel": "Client",
+    "amountLabel": "Amount",
+    "statusLabel": "Status",
+    "submitButton": "Save Invoice"
+  }
+}

@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { SortableHeader } from "@/components/data-display/data-table";
 import { Client } from "../types";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 export const clientColumns: ColumnDef<Client>[] = [
   {
@@ -26,22 +27,25 @@ export const clientColumns: ColumnDef<Client>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Name</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("name")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "contactPerson",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Contact Person</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("contactPerson")}</SortableHeader>;
+    },
   },
 
   {
     accessorKey: "email",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Email</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("email")}</SortableHeader>;
+    },
     cell: ({ row }) => (
       <a
         href={`mailto:${row.getValue("email")}`}
@@ -53,15 +57,17 @@ export const clientColumns: ColumnDef<Client>[] = [
   },
   {
     accessorKey: "phone",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Phone</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("phone")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Status</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       const variants: Record<string, "default" | "destructive" | "outline"> = {
@@ -78,23 +84,26 @@ export const clientColumns: ColumnDef<Client>[] = [
   },
   {
     accessorKey: "totalOrders",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Total Orders</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("totalOrders")}</SortableHeader>;
+    },
     cell: ({ row }) => `${row.getValue("totalOrders")}`,
   },
   {
     accessorKey: "totalRevenue",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Total Revenue</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("totalRevenue")}</SortableHeader>;
+    },
     cell: ({ row }) => `${row.getValue("totalRevenue")}`,
   },
   {
     accessorKey: "lastOrder",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Last Order</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("lastOrder")}</SortableHeader>;
+    },
     cell: ({ row }) => `${row.getValue("lastOrder")}`,
   },
 ];

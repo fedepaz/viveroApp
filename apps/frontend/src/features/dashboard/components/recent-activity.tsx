@@ -8,15 +8,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useDashboardRecentActivity } from "../hooks/hooks";
+import { useTranslations } from "next-intl";
 
 function RecentActivity() {
+  const t = useTranslations("RecentActivity");
   const { data: recentActivity } = useDashboardRecentActivity();
 
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle>Recent Activity</CardTitle>
-        <CardDescription>Latest actions across all features</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("noActivity")}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 min-h-0 pb-4">
         <div className="h-full overflow-y-auto pr-1 space-y-3">

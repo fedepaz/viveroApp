@@ -3,20 +3,22 @@
 import { KPICard } from "@/components/data-display/kpi-card";
 import { useDashboardKPIs } from "../hooks/hooks";
 import { ShoppingCart, Sprout, TrendingUp, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function DashboardKPI() {
+  const t = useTranslations("DashboardKpi");
   const { data: kpi } = useDashboardKPIs();
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <KPICard
-        title="Total Plants"
+        title={t("totalPlants")}
         value={kpi?.totalPlants}
         description="Total number of plants"
         icon={Sprout}
         trend={{ value: 12.5, label: "from last month", isPositive: true }}
       />
       <KPICard
-        title="Active Plants"
+        title={t("activePlants")}
         value={kpi?.activePlants}
         description="Number of active plants"
         icon={Users}

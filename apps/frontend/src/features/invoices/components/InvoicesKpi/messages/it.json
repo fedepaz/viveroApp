@@ -1,0 +1,7 @@
+{
+  "InvoicesKpi": {
+    "totalInvoices": "Fatture Totali",
+    "paidInvoices": "Fatture Pagate",
+    "pendingInvoices": "Fatture Pendenti"
+  }
+}

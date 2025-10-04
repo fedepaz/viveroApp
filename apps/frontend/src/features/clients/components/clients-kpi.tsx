@@ -3,10 +3,12 @@
 
 import { KPICard } from "@/components/data-display/kpi-card";
 import { Building2, TrendingUp, UserCheck, Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useClients } from "../hooks/hooks";
 
 function ClientsKPI() {
+  const t = useTranslations("ClientsKpi");
   const { data: clients = [] } = useClients();
   const totalClients = clients.length;
   const activeClients = clients.filter(
@@ -23,14 +25,14 @@ function ClientsKPI() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <KPICard
-        title="Total Clients"
+        title={t("totalClients")}
         value={totalClients.toLocaleString()}
         description="In database"
         icon={Building2}
         trend={{ value: 6.5, label: "from last month", isPositive: true }}
       />
       <KPICard
-        title="Active Clients"
+        title={t("activeClients")}
         value={activeClients.toLocaleString()}
         description={`${prospects} prospects`}
         icon={UserCheck}

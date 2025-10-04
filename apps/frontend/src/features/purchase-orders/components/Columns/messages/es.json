@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "orderNumber": "Número de Pedido",
+    "supplier": "Proveedor",
+    "totalAmount": "Monto Total",
+    "status": "Estado"
+  }
+}

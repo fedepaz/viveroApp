@@ -4,8 +4,10 @@
 import { KPICard } from "@/components/data-display/kpi-card";
 import { usePlants } from "../hooks/hooks";
 import { Sprout, Leaf, AlertTriangle, Droplets } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function PlantKPIs() {
+  const t = useTranslations("PlantsKpi");
   const { data: mockPlants = [] } = usePlants();
   const totalPlants = mockPlants.length;
   const healthyPlants = mockPlants.filter((p) => p.status === "healthy").length;
@@ -19,21 +21,21 @@ function PlantKPIs() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <KPICard
-        title="Total Plants"
+        title={t("totalPlants")}
         value={totalPlants}
         description="Active in system"
         icon={Sprout}
         trend={{ value: 12.5, label: "from last month", isPositive: true }}
       />
       <KPICard
-        title="Healthy Plants"
+        title={t("healthyPlants")}
         value={healthyPlants}
         description={`${((healthyPlants / totalPlants) * 100).toFixed(0)}% of total`}
         icon={Leaf}
         trend={{ value: 5.2, label: "from last week", isPositive: true }}
       />
       <KPICard
-        title="Critical Alerts"
+        title={t("alertPlants")}
         value={criticalPlants}
         description="Require immediate attention"
         icon={AlertTriangle}

@@ -4,8 +4,10 @@
 import { KPICard } from "@/components/data-display/kpi-card";
 import { FileText, DollarSign, CheckCircle2, Clock } from "lucide-react";
 import { useInvoices } from "../hooks/hooks";
+import { useTranslations } from "next-intl";
 
 function InvoiceKPIs() {
+  const t = useTranslations("InvoicesKpi");
   const { data: mockInvoices = [] } = useInvoices();
   const totalInvoices = mockInvoices.length;
   const totalRevenue = mockInvoices.reduce((sum, inv) => sum + inv.amount, 0);
@@ -19,7 +21,7 @@ function InvoiceKPIs() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <KPICard
-        title="Total Invoices"
+        title={t("totalInvoices")}
         value={totalInvoices}
         description="All time"
         icon={FileText}
@@ -33,13 +35,13 @@ function InvoiceKPIs() {
         trend={{ value: 15.2, label: "from last month", isPositive: true }}
       />
       <KPICard
-        title="Paid Invoices"
+        title={t("paidInvoices")}
         value={paidInvoices}
         description={`${totalInvoices - paidInvoices} pending`}
         icon={CheckCircle2}
       />
       <KPICard
-        title="Overdue"
+        title={t("pendingInvoices")}
         value={overdueInvoices}
         description="Require follow-up"
         icon={Clock}

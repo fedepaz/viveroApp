@@ -1,0 +1,10 @@
+{
+  "InvoiceForm": {
+    "title": "Crear Factura",
+    "invoiceNumberLabel": "Número de Factura",
+    "clientLabel": "Cliente",
+    "amountLabel": "Monto",
+    "statusLabel": "Estado",
+    "submitButton": "Guardar Factura"
+  }
+}

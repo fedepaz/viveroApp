@@ -4,8 +4,10 @@
 import { KPICard } from "@/components/data-display/kpi-card";
 import { usePurchaseOrders } from "../hooks/hooks";
 import { ShoppingCart, Package, Clock, CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 function PurchaseOrderKPIs() {
+  const t = useTranslations("PurchaseOrdersKpi");
   const { data: purchaseOrders = [] } = usePurchaseOrders();
   const totalOrders = purchaseOrders.length;
   const totalSpend = purchaseOrders.reduce(
@@ -22,7 +24,7 @@ function PurchaseOrderKPIs() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
       <KPICard
-        title="Total Orders"
+        title={t("totalOrders")}
         value={totalOrders}
         description="All time"
         icon={ShoppingCart}
@@ -36,13 +38,13 @@ function PurchaseOrderKPIs() {
         trend={{ value: 12.8, label: "from last month", isPositive: false }}
       />
       <KPICard
-        title="Pending Approval"
+        title={t("pendingOrders")}
         value={pendingOrders}
         description="Awaiting review"
         icon={Clock}
       />
       <KPICard
-        title="Received"
+        title={t("completedOrders")}
         value={receivedOrders}
         description="Completed orders"
         icon={CheckCircle2}

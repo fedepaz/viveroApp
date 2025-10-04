@@ -10,8 +10,10 @@ import {
 import { useDashboardAlerts } from "../hooks/hooks";
 import { AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 function DashboardAlerts() {
+  const t = useTranslations("DashboardAlerts");
   const { data: alerts } = useDashboardAlerts();
 
   return (
@@ -19,9 +21,9 @@ function DashboardAlerts() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <AlertTriangle className="size-5" />
-          Critical Alerts
+          {t("title")}
         </CardTitle>
-        <CardDescription>Items with critical severity</CardDescription>
+        <CardDescription>{t("noAlerts")}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">

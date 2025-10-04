@@ -2,6 +2,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SortableHeader, StatusBadge } from "@/components/data-display/data-table";
 import { User } from "../types";
+import { useTranslations } from "next-intl";
 
 export const userColumns: ColumnDef<User>[] = [
   {
@@ -25,21 +26,24 @@ export const userColumns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Name</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("name")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "email",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Email</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("email")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "role",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Role</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("role")}</SortableHeader>;
+    },
     cell: ({ row }) => (
       <StatusBadge
         status={row.getValue("role") === "admin" ? "critical" : "info"}
@@ -51,9 +55,10 @@ export const userColumns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Status</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+    },
     cell: ({ row }) => (
       <StatusBadge
         status={row.getValue("status") === "active" ? "healthy" : "inactive"}
@@ -65,14 +70,16 @@ export const userColumns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "department",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Department</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("department")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "lastLogin",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Last Login</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("lastLogin")}</SortableHeader>;
+    },
   },
 ];

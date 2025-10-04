@@ -9,13 +9,15 @@ import {
   UserCircle,
 } from "lucide-react";
 import { useDashboardKPIs } from "../hooks/hooks";
+import { useTranslations } from "next-intl";
 
 function FeatureNavigation() {
+  const t = useTranslations("FeatureNavigation");
   const { data: kpis } = useDashboardKPIs();
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <FeatureCard
-        title="Plant Management"
+        title={t("plants")}
         description="Manage your plant inventory and lifecycle"
         icon={Sprout}
         href="/plants"
@@ -25,28 +27,28 @@ function FeatureNavigation() {
         }}
       />
       <FeatureCard
-        title="Client Management"
+        title={t("clients")}
         description="Track and manage client relationships"
         icon={Users}
         href="/clients"
         stats={{ label: "active clients", value: kpis.activeClients }}
       />
       <FeatureCard
-        title="Invoices"
+        title={t("invoices")}
         description="Create and track invoices"
         icon={FileText}
         href="/invoices"
         stats={{ label: "open invoices", value: kpis.openInvoices }}
       />
       <FeatureCard
-        title="Purchase Orders"
+        title={t("purchaseOrders")}
         description="Manage purchase orders and suppliers"
         icon={ShoppingCart}
         href="/purchase-orders"
         stats={{ label: "pending orders", value: kpis.pendingOrders }}
       />
       <FeatureCard
-        title="User Management"
+        title={t("users")}
         description="Manage system users and permissions"
         icon={UserCircle}
         href="/users"

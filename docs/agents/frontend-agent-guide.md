@@ -223,23 +223,89 @@ The JSON files within this folder must be namespaced to the component to prevent
 }
 ```
 
-**4. Centralized Merging of Messages**
+**4. Centralized Merging of Messages (`src/i18n/request.ts`)**
 
-The main `next-intl` configuration file (e.g., `i18n.ts`) is responsible for dynamically importing and merging all individual message files into a single `messages` object at runtime.
+The `src/i18n/request.ts` file is the main `next-intl` configuration file responsible for dynamically importing and merging all individual message files into a single `messages` object at runtime. This `messages` object is then passed to the `NextIntlClientProvider` in `apps/frontend/src/app/[locale]/layout.tsx` to make translations available to client components.
 
-*Example `getRequestConfig` in `i18n.ts`:*
+*Example `getRequestConfig` in `src/i18n/request.ts`:*
 ```typescript
 import {getRequestConfig} from 'next-intl/server';
+import { hasLocale } from "next-intl";
+import { routing } from "./routing";
 
-export default getRequestConfig(async ({locale}) => {
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : routing.defaultLocale;
+
   return {
+    locale,
     messages: {
       // Load common/global messages
-      ...(await import(`../messages/${locale}/common.json`)).default,
-      
-      // Load component-specific messages
-      ...(await import(`../components/layout/desktop-sidebar/messages/${locale}.json`)).default,
-      ...(await import(`../features/plants/components/PlantCard/messages/${locale}.json`)).default
+      ...(await import(`../../messages/${locale}/common.json`)).default,
+      ...(await import(`../../messages/${locale}/main.json`)).default,
+      ...(await import(`../../messages/${locale}/alerts.json`)).default,
+      ...(await import(`../../messages/${locale}/navigation.json`)).default,
+      ...(await import(
+        `../components/layout/dashboard-header/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/common/language-switcher/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/common/theme-toggle/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/data-display/data-table/column-filters/messages/${locale}.json`
+      )).default,
+      ...(await import(
+        `../components/data-display/data-table/data-table/messages/${locale}.json`
+      )).default,
+
+      // Clients Feature
+      ...(await import(`../features/clients/components/ClientsDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/clients/components/ClientsDashboardSkeleton/messages/${locale}.json`)).default,
+      ...(await import(`../features/clients/components/ClientsDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/clients/components/ClientsKpi/messages/${locale}.json`)).default,
+      ...(await import(`../features/clients/components/Columns/messages/${locale}.json`)).default,
+
+      // Dashboard Feature
+      ...(await import(`../features/dashboard/components/RootDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/dashboard/components/DashboardAlerts/messages/${locale}.json`)).default,
+      ...(await import(`../features/dashboard/components/DashboardKpi/messages/${locale}.json`)).default,
+      ...(await import(`../features/dashboard/components/FeatureNavigation/messages/${locale}.json`)).default,
+      ...(await import(`../features/dashboard/components/RecentActivity/messages/${locale}.json`)).default,
+      ...(await import(`../features/dashboard/components/RootDashboardSkeleton/messages/${locale}.json`)).default,
+
+      // Invoices Feature
+      ...(await import(`../features/invoices/components/InvoicesDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/invoices/components/InvoicesDashboardSkeleton/messages/${locale}.json`)).default,
+      ...(await import(`../features/invoices/components/Columns/messages/${locale}.json`)).default,
+      ...(await import(`../features/invoices/components/InvoiceForm/messages/${locale}.json`)).default,
+      ...(await import(`../features/invoices/components/InvoicesDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/invoices/components/InvoicesKpi/messages/${locale}.json`)).default,
+
+      // Plants Feature
+      ...(await import(`../features/plants/components/PlantsDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/plants/components/PlantDashboardSkeleton/messages/${locale}.json`)).default,
+      ...(await import(`../features/plants/components/PlantsDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/plants/components/PlantsKpi/messages/${locale}.json`)).default,
+      ...(await import(`../features/plants/components/Columns/messages/${locale}.json`)).default,
+
+      // Purchase Orders Feature
+      ...(await import(`../features/purchase-orders/components/PurchaseOrdersDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/purchase-orders/components/PurchaseOrderSkeleton/messages/${locale}.json`)).default,
+      ...(await import(`../features/purchase-orders/components/PurchaseOrderDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/purchase-orders/components/PurchaseOrdersKpi/messages/${locale}.json`)).default,
+      ...(await import(`../features/purchase-orders/components/Columns/messages/${locale}.json`)).default,
+
+      // Users Feature
+      ...(await import(`../features/users/components/UsersDashboard/messages/${locale}.json`)).default,
+      ...(await import(`../features/users/components/UserDashboardSkeleton/messages/${locale}.json`)).default,
+      ...(await import(`../features/users/components/UserDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/users/components/UserKpi/messages/${locale}.json`)).default,
+      ...(await import(`../features/users/components/Columns/messages/${locale}.json`)).default,
     }
   };
 });
@@ -247,11 +313,11 @@ export default getRequestConfig(async ({locale}) => {
 
 **Key Requirements:**
 
-1.  **Page-Level Locale Handling**: The page component itself must use `use(params)` and `setRequestLocale(locale)`.
+1.  **Page-Level Locale Handling**: The page component itself (e.g., `apps/frontend/src/app/[locale]/layout.tsx`) must be an `async` function, use `use(params)` to get the `locale`, call `setRequestLocale(locale)`, and pass the `messages` object (obtained from `getRequestConfig`) to the `NextIntlClientProvider`.
 2.  **Child Component Translations**: Any child components can then simply use the `useTranslations()` hook to get the correct text.
 3.  **Static Generation**: Pages must export `generateStaticParams` that calls the `generateLocaleStaticParams` helper from `routing.ts`.
 4.  **Component-Scoped Messages**: All translation strings must be colocated with their respective components in a `messages` subfolder and namespaced correctly.
-5.  **Central Merging**: All component message files must be imported and merged in the main `getRequestConfig` function.
+5.  **Central Merging**: All component message files must be imported and merged in the `getRequestConfig` function located in `src/i18n/request.ts`.
 
 ### Core Technology Implementation
 

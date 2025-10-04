@@ -1,0 +1,7 @@
+{
+  "Columns": {
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "status": "Estado"
+  }
+}

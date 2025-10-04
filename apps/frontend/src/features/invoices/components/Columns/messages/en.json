@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "invoiceNumber": "Invoice Number",
+    "client": "Client",
+    "amount": "Amount",
+    "status": "Status"
+  }
+}

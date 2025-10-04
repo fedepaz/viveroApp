@@ -5,8 +5,10 @@ import { DataTable } from "@/components/data-display/data-table";
 import { userColumns } from "./columns";
 import { useUsers } from "../hooks/hooks";
 import { User } from "../types";
+import { useTranslations } from "next-intl";
 
 export function UsersDataTable() {
+  const t = useTranslations("UserDataTable");
   const { data: users = [] } = useUsers();
 
   //const createUser = useCreateUser();
@@ -37,9 +39,10 @@ export function UsersDataTable() {
     <DataTable
       columns={userColumns}
       data={users}
-      title="User Database"
+      title={t("title")}
       description="Complete user management with roles, permissions, and activity tracking"
       searchKey="name"
+      searchPlaceholder={t("searchPlaceholder")}
       totalCount={users.length}
       onAdd={handleAdd}
       onEdit={handleEdit}

@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { Invoice, InvoiceFormData, invoiceSchema } from "../types";
+import { useTranslations } from "next-intl";
 
 interface InvoiceFormProps {
   initialData?: Invoice;
@@ -31,6 +32,7 @@ export function InvoiceForm({
   onCancel,
   isSubmitting = false,
 }: InvoiceFormProps) {
+  const t = useTranslations("InvoiceForm");
   const form = useForm<InvoiceFormData>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: initialData
@@ -53,7 +55,7 @@ export function InvoiceForm({
           name="invoiceNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Invoice Number</FormLabel>
+              <FormLabel>{t("invoiceNumberLabel")}</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="INV-001" />
               </FormControl>
@@ -67,7 +69,7 @@ export function InvoiceForm({
           name="client"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Client Name</FormLabel>
+              <FormLabel>{t("clientLabel")}</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="Acme Corp" />
               </FormControl>
@@ -81,7 +83,7 @@ export function InvoiceForm({
           name="amount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Total Amount</FormLabel>
+              <FormLabel>{t("amountLabel")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -97,11 +99,11 @@ export function InvoiceForm({
 
         <div className="flex justify-end space-x-2">
           <Button type="button" variant="outline" onClick={onCancel}>
-            Cancel
+            {t("cancelButton")}
           </Button>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? "Update" : "Create"}
+            {initialData ? t("updateButton") : t("submitButton")}
           </Button>
         </div>
       </form>

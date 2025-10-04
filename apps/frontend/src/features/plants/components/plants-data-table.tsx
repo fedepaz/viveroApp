@@ -5,8 +5,10 @@ import { DataTable } from "@/components/data-display/data-table";
 import { plantColumns } from "./columns";
 import { usePlants } from "../hooks/hooks";
 import { Plant } from "../types";
+import { useTranslations } from "next-intl";
 
 export function PlantsDataTable() {
+  const t = useTranslations("PlantsDataTable");
   const { data: plants = [] } = usePlants();
 
   //const createPlant = useCreatePlant();
@@ -37,9 +39,10 @@ export function PlantsDataTable() {
     <DataTable
       columns={plantColumns}
       data={plants}
-      title="Plant Database"
+      title={t("title")}
       description="Complete plant inventory with health monitoring and environmental data"
       searchKey="name"
+      searchPlaceholder={t("searchPlaceholder")}
       totalCount={plants.length}
       onAdd={handleAdd}
       onEdit={handleEdit}

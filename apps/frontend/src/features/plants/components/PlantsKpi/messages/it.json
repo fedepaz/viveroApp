@@ -1,0 +1,7 @@
+{
+  "PlantsKpi": {
+    "totalPlants": "Piante Totali",
+    "healthyPlants": "Piante Sane",
+    "alertPlants": "Piante con Avvisi"
+  }
+}

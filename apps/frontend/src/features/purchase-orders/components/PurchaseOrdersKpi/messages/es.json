@@ -1,0 +1,7 @@
+{
+  "PurchaseOrdersKpi": {
+    "totalOrders": "Órdenes Totales",
+    "pendingOrders": "Órdenes Pendientes",
+    "completedOrders": "Órdenes Completadas"
+  }
+}

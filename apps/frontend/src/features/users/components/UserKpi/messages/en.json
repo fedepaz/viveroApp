@@ -1,0 +1,7 @@
+{
+  "UserKpi": {
+    "totalUsers": "Total Users",
+    "activeUsers": "Active Users",
+    "newUsersToday": "New Users Today"
+  }
+}

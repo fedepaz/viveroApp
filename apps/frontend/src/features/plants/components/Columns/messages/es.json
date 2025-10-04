@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "name": "Nombre",
+    "type": "Tipo",
+    "status": "Estado",
+    "healthScore": "Puntuación de Salud"
+  }
+}

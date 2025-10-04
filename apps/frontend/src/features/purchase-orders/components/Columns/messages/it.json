@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "orderNumber": "Numero Ordine",
+    "supplier": "Fornitore",
+    "totalAmount": "Importo Totale",
+    "status": "Stato"
+  }
+}

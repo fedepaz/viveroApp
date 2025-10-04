@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "healthScore": "Health Score"
+  }
+}

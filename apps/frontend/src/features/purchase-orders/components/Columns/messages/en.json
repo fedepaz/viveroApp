@@ -1,0 +1,8 @@
+{
+  "Columns": {
+    "orderNumber": "Order Number",
+    "supplier": "Supplier",
+    "totalAmount": "Total Amount",
+    "status": "Status"
+  }
+}

@@ -17,7 +17,7 @@ import { InvoiceForm } from "./invoice-form";
 
 export function InvoicesDataTable() {
   const { data: invoices = [] } = useInvoices();
-  const t = useTranslations("invoicesPage");
+  const t = useTranslations("InvoicesDataTable");
 
   const createInvoice = useCreateInvoice();
   const updateInvoice = useUpdateInvoice();

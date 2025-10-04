@@ -5,6 +5,7 @@ import {
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Invoice } from "../types";
+import { useTranslations } from "next-intl";
 
 const invoiceColumns: ColumnDef<Invoice>[] = [
   {
@@ -28,21 +29,24 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   },
   {
     accessorKey: "invoiceNumber",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Invoice #</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("invoiceNumber")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "client",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Client</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("client")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "amount",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Amount</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("amount")}</SortableHeader>;
+    },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("amount"));
       const formatted = new Intl.NumberFormat("en-US", {
@@ -54,9 +58,10 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Status</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+    },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       const statusMap = {
@@ -73,15 +78,17 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   },
   {
     accessorKey: "createdDate",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Created</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("createdDate")}</SortableHeader>;
+    },
   },
   {
     accessorKey: "dueDate",
-    header: ({ column }) => (
-      <SortableHeader column={column}>Due Date</SortableHeader>
-    ),
+    header: ({ column }) => {
+      const t = useTranslations("Columns");
+      return <SortableHeader column={column}>{t("dueDate")}</SortableHeader>;
+    },
   },
 ];
 

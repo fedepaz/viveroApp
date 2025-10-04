@@ -1,8 +1,21 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { SortableHeader, StatusBadge } from "@/components/data-display/data-table";
+import {
+  SortableHeader,
+  StatusBadge,
+} from "@/components/data-display/data-table";
 import { PurchaseOrder } from "../types";
 import { useTranslations } from "next-intl";
+
+interface HeaderProps {
+  column: ColumnDef<PurchaseOrder>;
+  translationKey: string;
+}
+
+function HeaderComponent({ column, translationKey }: HeaderProps) {
+  const t = useTranslations();
+  return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
 
 export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
@@ -27,29 +40,25 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
     accessorKey: "orderNumber",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("orderNumber")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="orderNumber" />;
     },
   },
   {
     accessorKey: "supplier",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("supplier")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="supplier" />;
     },
   },
   {
     accessorKey: "items",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("items")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="items" />;
     },
   },
   {
     accessorKey: "totalAmount",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("totalAmount")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="totalAmount" />;
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("totalAmount"));
@@ -63,8 +72,7 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
@@ -84,15 +92,13 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
     accessorKey: "orderDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("orderDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="orderDate" />;
     },
   },
   {
     accessorKey: "deliveryDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("deliveryDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="deliveryDate" />;
     },
   },
 ];

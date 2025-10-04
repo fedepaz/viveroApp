@@ -1,8 +1,9 @@
 {
-  "Columns": {
-    "orderNumber": "Número de Pedido",
-    "supplier": "Proveedor",
-    "totalAmount": "Monto Total",
-    "status": "Estado"
-  }
+  "orderNumber": "Número de Pedido",
+  "supplier": "Proveedor",
+  "items": "Artículos",
+  "totalAmount": "Monto Total",
+  "status": "Estado",
+  "orderDate": "Fecha de Pedido",
+  "deliveryDate": "Fecha de Entrega"
 }

@@ -213,7 +213,6 @@ export function DesktopSidebar() {
                   {!isCollapsed && (
                     <div className="flex-1">
                       <p className="font-medium text-sm">{item.title}</p>
-                      <p className="text-xs opacity-75">{item.description}</p>
                     </div>
                   )}
                 </div>

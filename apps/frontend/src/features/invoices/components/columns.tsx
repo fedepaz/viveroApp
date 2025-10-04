@@ -7,6 +7,16 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Invoice } from "../types";
 import { useTranslations } from "next-intl";
 
+interface HeaderProps {
+  column: ColumnDef<Invoice>;
+  translationKey: string;
+}
+
+function HeaderComponent({ column, translationKey }: HeaderProps) {
+  const t = useTranslations();
+  return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
+
 const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     id: "select",
@@ -30,22 +40,19 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     accessorKey: "invoiceNumber",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("invoiceNumber")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="invoiceNumber" />;
     },
   },
   {
     accessorKey: "client",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("client")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="client" />;
     },
   },
   {
     accessorKey: "amount",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("amount")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="amount" />;
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("amount"));
@@ -59,8 +66,7 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
@@ -79,15 +85,13 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     accessorKey: "createdDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("createdDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="createdDate" />;
     },
   },
   {
     accessorKey: "dueDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("dueDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="dueDate" />;
     },
   },
 ];

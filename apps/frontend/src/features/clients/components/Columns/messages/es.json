@@ -1,7 +1,10 @@
 {
-  "Columns": {
-    "name": "Nombre",
-    "email": "Correo Electrónico",
-    "status": "Estado"
-  }
+  "name": "Nombre",
+  "email": "Correo Electrónico",
+  "status": "Estado",
+  "contactPerson": "Persona de Contacto",
+  "phone": "Teléfono",
+  "totalOrders": "Total de Pedidos",
+  "totalRevenue": "Ingresos Totales",
+  "lastOrder": "Último Pedido"
 }

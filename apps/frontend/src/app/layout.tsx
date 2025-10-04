@@ -2,12 +2,12 @@
 
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { enUS, esES, itIT } from "@clerk/localizations";
+import { enUS, esES, itIT, ptBR } from "@clerk/localizations";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { shadcn } from "@clerk/themes";
 
-type LocaleKey = "en" | "es" | "it";
+type LocaleKey = "en" | "es" | "it" | "pt";
 
 export const metadata: Metadata = {
   title: "AgriManage - Agricultural Management System",
@@ -19,6 +19,7 @@ const localizations = {
   en: enUS,
   es: esES,
   it: itIT,
+  pt: ptBR,
 } as const;
 
 // Read cookie safely on the server. If cookie is missing or invalid, fall back to `en`.
@@ -32,7 +33,10 @@ export default async function RootLayout({
   const cookieLocale = cookieStore.get("NEXT_LOCALE")?.value;
   const locale = (
     cookieLocale &&
-    (cookieLocale === "en" || cookieLocale === "es" || cookieLocale === "it")
+    (cookieLocale === "en" ||
+      cookieLocale === "es" ||
+      cookieLocale === "it" ||
+      cookieLocale === "pt")
       ? (cookieLocale as LocaleKey)
       : "en"
   ) as LocaleKey;

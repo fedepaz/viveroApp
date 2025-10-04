@@ -1,8 +1,8 @@
 {
-  "Columns": {
-    "invoiceNumber": "Invoice Number",
-    "client": "Client",
-    "amount": "Amount",
-    "status": "Status"
-  }
+  "invoiceNumber": "Invoice Number",
+  "client": "Client",
+  "amount": "Amount",
+  "status": "Status",
+  "createdDate": "Created Date",
+  "dueDate": "Due Date"
 }

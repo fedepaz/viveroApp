@@ -14,7 +14,7 @@ import { MobileNavigation } from "./mobile-navigation";
 import { LanguageSwitcher } from "@/components/common/language-switcher";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { useTranslations } from "next-intl";
-import { SignedIn, UserButton, SignedOut, UserProfile } from "@clerk/nextjs";
+import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
 import { Skeleton } from "../ui/skeleton";
 import { shadcn } from "@clerk/themes";
 import { Input } from "../ui/input";

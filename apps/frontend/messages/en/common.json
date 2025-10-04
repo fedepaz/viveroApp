@@ -1,20 +1,13 @@
 {
   "common": {
-    "loading": "Loading...",
+    "mobileNavigation": "Mobile Navigation",
     "agriManage": "AgriManage",
     "plantManagement": "Plant Management",
     "johnDoe": "John Doe",
     "greenhouseManager": "Greenhouse Manager",
-    "location": "Location",
-    "plantsAffected": "plants affected",
-    "view": "View",
-    "greenhouseName": "Greenhouse",
-    "sectionName": "Section",
-    "minutesAgo": "{count} minutes ago",
-    "hourAgo": "{count} hour ago",
-    "inXHours": "in {count} hours",
-    "tomorrowAt": "Tomorrow at {time}",
-    "plants": "Plants",
-    "mobileNavigation": "Mobile Navigation"
+    "confirmDelete": "Are you sure you want to delete {id}?",
+    "deleteSuccess": "Successfully deleted.",
+    "deleteError": "Failed to delete.",
+    "exportSuccess": "Export successful."
   }
 }

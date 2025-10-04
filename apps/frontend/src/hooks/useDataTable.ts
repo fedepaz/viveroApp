@@ -15,7 +15,7 @@ export function useDataTableActions<T extends { id: string }>({
   onDelete,
   onExport,
 }: UseDataTableActionsOptions<T>) {
-  const t = useTranslations(`${entityName}Page`);
+  const t = useTranslations("common");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEntity, setSelectedEntity] = useState<T | null>(null);

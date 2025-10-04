@@ -1,8 +1,20 @@
 {
   "common": {
-    "save": "Guardar",
-    "cancel": "Cancelar",
     "loading": "Cargando...",
-    "error": "Ocurrió un error"
+    "agriManage": "AgriManage",
+    "plantManagement": "Gestión de Plantas",
+    "johnDoe": "John Doe",
+    "greenhouseManager": "Gerente de Invernadero",
+    "location": "Ubicación",
+    "plantsAffected": "plantas afectadas",
+    "view": "Ver",
+    "greenhouseName": "Invernadero",
+    "sectionName": "Sección",
+    "minutesAgo": "hace {count} minutos",
+    "hourAgo": "hace {count} hora",
+    "inXHours": "en {count} horas",
+    "tomorrowAt": "Mañana a las {time}",
+    "plants": "Plantas",
+    "mobileNavigation": "Navegación Móvil"
   }
 }

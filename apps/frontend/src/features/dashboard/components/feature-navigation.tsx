@@ -18,41 +18,41 @@ function FeatureNavigation() {
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <FeatureCard
         title={t("plants")}
-        description="Manage your plant inventory and lifecycle"
+        description={t("managePlantInventory")}
         icon={Sprout}
         href="/plants"
         stats={{
-          label: "active plants",
+          label: t("activePlants"),
           value: kpis.activePlants.toLocaleString(),
         }}
       />
       <FeatureCard
         title={t("clients")}
-        description="Track and manage client relationships"
+        description={t("manageClients")}
         icon={Users}
         href="/clients"
-        stats={{ label: "active clients", value: kpis.activeClients }}
+        stats={{ label: t("activeClients"), value: kpis.activeClients }}
       />
       <FeatureCard
         title={t("invoices")}
-        description="Create and track invoices"
+        description={t("manageInvoices")}
         icon={FileText}
         href="/invoices"
-        stats={{ label: "open invoices", value: kpis.openInvoices }}
+        stats={{ label: t("openInvoices"), value: kpis.openInvoices }}
       />
       <FeatureCard
         title={t("purchaseOrders")}
-        description="Manage purchase orders and suppliers"
+        description={t("managePurchaseOrders")}
         icon={ShoppingCart}
         href="/purchase-orders"
-        stats={{ label: "pending orders", value: kpis.pendingOrders }}
+        stats={{ label: t("pendingOrders"), value: kpis.pendingOrders }}
       />
       <FeatureCard
         title={t("users")}
-        description="Manage system users and permissions"
+        description={t("manageUsers")}
         icon={UserCircle}
         href="/users"
-        stats={{ label: "active users", value: kpis.activeUsers }}
+        stats={{ label: t("activeUsers"), value: kpis.activeUsers }}
       />
     </div>
   );

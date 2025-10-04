@@ -8,14 +8,14 @@ import {
 
 const generateKpi = (): DashboardKpiInterface => {
   return {
-    totalPlants: parseInt((Math.random() * 50000).toFixed(0)),
-    activePlants: parseInt((Math.random() * 50000).toFixed(0)),
-    totalClients: parseInt((Math.random() * 200).toFixed(0)),
-    activeClients: parseInt((Math.random() * 200).toFixed(0)),
-    openInvoices: parseInt((Math.random() * 100).toFixed(0)),
-    monthlyRevenue: parseInt((Math.random() * 100000).toFixed(0)),
-    pendingOrders: parseInt((Math.random() * 50).toFixed(0)),
-    activeUsers: parseInt((Math.random() * 25).toFixed(0)),
+    totalPlants: 1500,
+    activePlants: 500,
+    totalClients: 200,
+    activeClients: 200,
+    openInvoices: 100,
+    monthlyRevenue: 100000,
+    pendingOrders: 50,
+    activeUsers: 25,
   };
 };
 

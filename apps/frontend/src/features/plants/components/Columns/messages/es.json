@@ -1,8 +1,12 @@
 {
-  "Columns": {
-    "name": "Nombre",
-    "type": "Tipo",
-    "status": "Estado",
-    "healthScore": "Puntuación de Salud"
-  }
+  "name": "Nombre",
+  "type": "Tipo",
+  "status": "Estado",
+  "healthScore": "Puntuación de Salud",
+  "species": "Especie",
+  "location": "Ubicación",
+  "temperature": "Temperatura",
+  "humidity": "Humedad",
+  "plantedDate": "Fecha de Plantación",
+  "harvestDate": "Fecha de Cosecha"
 }

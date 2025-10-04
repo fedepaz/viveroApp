@@ -13,28 +13,28 @@ function DashboardKPI() {
       <KPICard
         title={t("totalPlants")}
         value={kpi?.totalPlants}
-        description="Total number of plants"
+        description={t("totalPlantsDescription")}
         icon={Sprout}
-        trend={{ value: 12.5, label: "from last month", isPositive: true }}
+        trend={{ value: 12.5, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
         title={t("activePlants")}
         value={kpi?.activePlants}
-        description="Number of active plants"
+        description={t("activePlantsDescription")}
         icon={Users}
-        trend={{ value: 8.2, label: "from last month", isPositive: true }}
+        trend={{ value: 8.2, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
-        title="Monthly Revenue"
+        title={t("monthlyRevenue")}
         value={`${(kpi?.monthlyRevenue / 1000).toFixed(1)} $`}
-        description={`${kpi?.openInvoices} open invoices`}
+        description={t("openInvoices", { count: kpi?.openInvoices })}
         icon={TrendingUp}
-        trend={{ value: 15.5, label: "from last month", isPositive: true }}
+        trend={{ value: 15.5, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
-        title="Pending Orders"
+        title={t("pendingOrders")}
         value={kpi?.pendingOrders}
-        description="Awaiting approval"
+        description={t("awaitingApproval")}
         icon={ShoppingCart}
       />
     </div>

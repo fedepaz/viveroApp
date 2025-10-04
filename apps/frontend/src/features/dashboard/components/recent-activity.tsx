@@ -33,7 +33,8 @@ function RecentActivity() {
               <div className="flex-1">
                 <p className="text-sm font-medium">{activity.action}</p>
                 <p className="text-xs text-muted-foreground">
-                  by {activity.user} • {activity.timestamp.toISOString()}
+                  {t("byUser", { user: activity.user })} •{" "}
+                  {activity.timestamp.toISOString()}
                 </p>
               </div>
             </div>

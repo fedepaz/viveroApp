@@ -1,8 +1,21 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { SortableHeader, StatusBadge } from "@/components/data-display/data-table";
+import {
+  SortableHeader,
+  StatusBadge,
+} from "@/components/data-display/data-table";
 import { User } from "../types";
 import { useTranslations } from "next-intl";
+
+interface HeaderProps {
+  column: ColumnDef<User>;
+  translationKey: string;
+}
+
+function HeaderComponent({ column, translationKey }: HeaderProps) {
+  const t = useTranslations();
+  return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
 
 export const userColumns: ColumnDef<User>[] = [
   {
@@ -27,22 +40,19 @@ export const userColumns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("name")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="name" />;
     },
   },
   {
     accessorKey: "email",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("email")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="email" />;
     },
   },
   {
     accessorKey: "role",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("role")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="role" />;
     },
     cell: ({ row }) => (
       <StatusBadge
@@ -56,8 +66,7 @@ export const userColumns: ColumnDef<User>[] = [
   {
     accessorKey: "status",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => (
       <StatusBadge
@@ -71,15 +80,13 @@ export const userColumns: ColumnDef<User>[] = [
   {
     accessorKey: "department",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("department")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="department" />;
     },
   },
   {
     accessorKey: "lastLogin",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("lastLogin")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="lastLogin" />;
     },
   },
 ];

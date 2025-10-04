@@ -1,8 +1,21 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { SortableHeader, StatusBadge } from "@/components/data-display/data-table";
+import {
+  SortableHeader,
+  StatusBadge,
+} from "@/components/data-display/data-table";
 import { Plant } from "../types";
 import { useTranslations } from "next-intl";
+
+interface HeaderProps {
+  column: ColumnDef<Plant>;
+  translationKey: string;
+}
+
+function HeaderComponent({ column, translationKey }: HeaderProps) {
+  const t = useTranslations();
+  return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
 
 export const plantColumns: ColumnDef<Plant>[] = [
   {
@@ -27,29 +40,25 @@ export const plantColumns: ColumnDef<Plant>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("name")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="name" />;
     },
   },
   {
     accessorKey: "species",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("species")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="species" />;
     },
   },
   {
     accessorKey: "location",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("location")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="location" />;
     },
   },
   {
     accessorKey: "status",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("status")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => (
       <StatusBadge
@@ -63,31 +72,27 @@ export const plantColumns: ColumnDef<Plant>[] = [
   {
     accessorKey: "temperature",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("temperature")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="temperature" />;
     },
     cell: ({ row }) => `${row.getValue("temperature")}°C`,
   },
   {
     accessorKey: "humidity",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("humidity")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="humidity" />;
     },
     cell: ({ row }) => `${row.getValue("humidity")}%`,
   },
   {
     accessorKey: "plantedDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("plantedDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="plantedDate" />;
     },
   },
   {
     accessorKey: "harvestDate",
     header: ({ column }) => {
-      const t = useTranslations("Columns");
-      return <SortableHeader column={column}>{t("harvestDate")}</SortableHeader>;
+      return <HeaderComponent column={column} translationKey="harvestDate" />;
     },
   },
 ];

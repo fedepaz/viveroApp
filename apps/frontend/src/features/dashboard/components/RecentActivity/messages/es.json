@@ -1,6 +1,7 @@
 {
   "RecentActivity": {
     "title": "Actividad Reciente",
-    "noActivity": "No hay actividad reciente"
+    "noActivity": "No hay actividad reciente para mostrar.",
+    "byUser": "por {user}"
   }
 }

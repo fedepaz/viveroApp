@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { Suspense, use } from "react";
+import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 
 import { NextIntlClientProvider } from "next-intl";
@@ -29,9 +29,11 @@ export default async function DashboardLayout({
   children,
   params,
 }: DashboardLayoutProps) {
-  const { locale } = use(params);
+  const { locale } = await params;
   setRequestLocale(locale);
-  const { messages } = await getRequestConfig({ locale });
+  const { messages } = await getRequestConfig({
+    requestLocale: Promise.resolve(locale),
+  });
   return (
     <ThemeProvider>
       <NextIntlClientProvider messages={messages}>

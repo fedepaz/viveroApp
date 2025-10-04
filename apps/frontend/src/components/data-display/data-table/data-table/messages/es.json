@@ -1,0 +1,21 @@
+{
+  "DataTable": {
+    "openMenu": "Abrir menú",
+    "actions": "Acciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "records": "registros",
+    "export": "Exportar",
+    "addNew": "Añadir Nuevo",
+    "searchPlaceholder": "Buscar {title}...",
+    "columns": "Columnas",
+    "noResults": "No se encontraron resultados.",
+    "rowsSelected": "{selectedCount} de {totalCount} fila(s) seleccionada(s).",
+    "rowsPerPage": "Filas por página",
+    "pageInfo": "Página {currentPage} de {pageCount}",
+    "goToFirstPage": "Ir a la primera página",
+    "goToPreviousPage": "Ir a la página anterior",
+    "goToNextPage": "Ir a la página siguiente",
+    "goToLastPage": "Ir a la última página"
+  }
+}

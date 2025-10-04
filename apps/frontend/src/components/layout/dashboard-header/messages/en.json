@@ -1,13 +1,7 @@
 {
   "dashboard": {
-    "title": "AgriManage",
-    "search": "Search plants, locations, or alerts...",
-    "notifications": "Notifications",
-    "settings": "Settings",
-    "profile": "Profile Settings",
-    "team": "Team Management",
-    "preferences": "System Preferences",
-    "signout": "Sign Out",
-    "userRole": "Greenhouse Manager"
+    "title": "Dashboard",
+    "search": "Search",
+    "userRole": "User Role"
   }
 }

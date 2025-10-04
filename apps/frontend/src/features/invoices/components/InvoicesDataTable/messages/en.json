@@ -1,6 +1,10 @@
 {
   "InvoicesDataTable": {
     "title": "Invoices Data Table",
-    "searchPlaceholder": "Search invoices..."
+    "description": "Complete user management with roles, permissions, and activity tracking",
+    "createTitle": "Create New Invoice",
+    "createDescription": "Fill in the details below to create a new invoice.",
+    "editTitle": "Edit Invoice",
+    "editDescription": "Update the details for this invoice."
   }
 }

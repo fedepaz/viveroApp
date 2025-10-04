@@ -1,21 +1,6 @@
 {
   "alerts": {
     "criticalAlerts": "Critical Alerts",
-    "temperatureIssues": "Temperature issues in {location}",
-    "title": "Critical Alerts",
-    "view": "View",
-    "viewAll": "View All {count} Alerts",
-    "plantsAffected": "plants affected",
-    "severity": {
-      "low": "LOW",
-      "medium": "MEDIUM",
-      "high": "HIGH",
-      "critical": "CRITICAL"
-    },
-    "messages": {
-      "temperatureHigh": "Temperature exceeds safe limits in {location}",
-      "pestInfestation": "Aphid infestation detected in tulip cultivation area",
-      "humidityHigh": "Humidity levels approaching upper threshold"
-    }
+    "temperatureIssues": "Temperature issues in {location}"
   }
 }

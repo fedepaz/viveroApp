@@ -1,8 +1,9 @@
 {
-  "Columns": {
-    "orderNumber": "Order Number",
-    "supplier": "Supplier",
-    "totalAmount": "Total Amount",
-    "status": "Status"
-  }
+  "orderNumber": "Order Number",
+  "supplier": "Supplier",
+  "items": "Items",
+  "totalAmount": "Total Amount",
+  "status": "Status",
+  "orderDate": "Order Date",
+  "deliveryDate": "Delivery Date"
 }

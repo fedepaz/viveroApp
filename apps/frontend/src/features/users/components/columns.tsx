@@ -1,4 +1,4 @@
-import { type ColumnDef } from "@tanstack/react-table";
+import { Row, Table, type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   SortableHeader,
@@ -7,38 +7,74 @@ import {
 import { User } from "../types";
 import { useTranslations } from "next-intl";
 
+interface CellProps {
+  row?: Row<User>;
+  table?: Table<User>;
+}
+
+function CellComponent({ row, table }: CellProps) {
+  const t = useTranslations();
+  if (row) {
+    return (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label={t("selectRow")}
+      />
+    );
+  }
+  if (table) {
+    return (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label={t("selectAll")}
+      />
+    );
+  }
+  if (!row || !table) return null;
+}
+
 interface HeaderProps {
   column: ColumnDef<User>;
   translationKey: string;
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("UserDataTable");
+  const t = useTranslations();
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
+
+function CellBadgeRoleComponent({ row }: CellProps) {
+  const t = useTranslations();
+  if (!row) return null;
+  const role = row.getValue("role") as string;
+  return (
+    <StatusBadge status={role === "admin" ? "critical" : "info"}>
+      {t(role)}
+    </StatusBadge>
+  );
+}
+
+function CellBadgeStatusComponent({ row }: CellProps) {
+  const t = useTranslations();
+  if (!row) return null;
+  const status = row.getValue("status") as string;
+  return (
+    <StatusBadge status={status === "active" ? "healthy" : "inactive"}>
+      {t(status)}
+    </StatusBadge>
+  );
 }
 
 export const userColumns: ColumnDef<User>[] = [
   {
     id: "select",
     header: ({ table }) => {
-      const t = useTranslations("UserDataTable");
-      return (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label={t("selectAll")}
-        />
-      );
+      return <CellComponent table={table} />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("UserDataTable");
-      return (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label={t("selectRow")}
-        />
-      );
+      return <CellComponent row={row} />;
     },
     enableSorting: false,
     enableHiding: false,
@@ -61,13 +97,7 @@ export const userColumns: ColumnDef<User>[] = [
       return <HeaderComponent column={column} translationKey="role" />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("UserDataTable");
-      const role = row.getValue("role") as string;
-      return (
-        <StatusBadge status={role === "admin" ? "critical" : "info"}>
-          {t(role)}
-        </StatusBadge>
-      );
+      return <CellBadgeRoleComponent row={row} />;
     },
   },
   {
@@ -76,13 +106,7 @@ export const userColumns: ColumnDef<User>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("UserDataTable");
-      const status = row.getValue("status") as string;
-      return (
-        <StatusBadge status={status === "active" ? "healthy" : "inactive"}>
-          {t(status)}
-        </StatusBadge>
-      );
+      return <CellBadgeStatusComponent row={row} />;
     },
   },
   {

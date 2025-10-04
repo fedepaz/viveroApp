@@ -1,21 +1,19 @@
 {
-  "UserDataTable": {
-    "title": "Utenti",
-    "description": "Gestione completa degli utenti con ruoli, permessi e tracciamento delle attività",
-    "searchPlaceholder": "Cerca utenti...",
-    "selectAll": "Seleziona tutto",
-    "selectRow": "Seleziona riga",
-    "admin": "Amministratore",
-    "user": "Utente",
-    "active": "Attivo",
-    "inactive": "Inattivo",
-    "worker": "Lavoratore",
-    "manager": "Manager",
-    "role": "Ruolo",
-    "department": "Dipartimento",
-    "lastLogin": "Ultimo Accesso",
-    "name": "Nome",
-    "email": "Email",
-    "status": "Stato"
-  }
+  "title": "Utenti",
+  "description": "Gestione completa degli utenti con ruoli, permessi e tracciamento delle attività",
+  "searchPlaceholder": "Cerca utenti...",
+  "selectAll": "Seleziona tutto",
+  "selectRow": "Seleziona riga",
+  "admin": "Amministratore",
+  "user": "Utente",
+  "active": "Attivo",
+  "inactive": "Inattivo",
+  "worker": "Lavoratore",
+  "manager": "Manager",
+  "role": "Ruolo",
+  "department": "Dipartimento",
+  "lastLogin": "Ultimo Accesso",
+  "name": "Nome",
+  "email": "Email",
+  "status": "Stato"
 }

@@ -1,13 +1,11 @@
 {
-  "UserKpi": {
-    "totalUsers": "Usuarios Totales",
-    "inSystem": "En el sistema",
-    "fromLastMonth": "del mes pasado",
-    "activeUsers": "Usuarios Activos",
-    "inactive": "{count, plural, one {# inactivo} other {# inactivos}}",
-    "newUsersToday": "Nuevos Usuarios Hoy",
-    "needAttention": "Necesitan atención",
-    "administrators": "Administradores",
-    "fullAccess": "Acceso completo"
-  }
+  "totalUsers": "Usuarios Totales",
+  "inSystem": "En el sistema",
+  "fromLastMonth": "del mes pasado",
+  "activeUsers": "Usuarios Activos",
+
+  "newUsersToday": "Nuevos Usuarios Hoy",
+  "needAttention": "Necesitan atención",
+  "administrators": "Administradores",
+  "fullAccess": "Acceso completo"
 }

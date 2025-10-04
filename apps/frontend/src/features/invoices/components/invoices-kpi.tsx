@@ -7,8 +7,8 @@ import { useInvoices } from "../hooks/hooks";
 import { useTranslations } from "next-intl";
 
 function InvoiceKPIs() {
-  const t = useTranslations("InvoicesKpi");
   const { data: mockInvoices = [] } = useInvoices();
+  const t = useTranslations("InvoicesKpi");
   const totalInvoices = mockInvoices.length;
   const totalRevenue = mockInvoices.reduce((sum, inv) => sum + inv.amount, 0);
   const paidInvoices = mockInvoices.filter(

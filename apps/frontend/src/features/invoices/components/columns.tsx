@@ -1,11 +1,46 @@
+//src/features/invoices/components/columns.tsx
+
 import {
   SortableHeader,
   StatusBadge,
 } from "@/components/data-display/data-table";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { ColumnDef } from "@tanstack/react-table";
+
+import { ColumnDef, Row, Table } from "@tanstack/react-table";
 import { Invoice } from "../types";
 import { useLocale, useTranslations } from "next-intl";
+import { Checkbox } from "@/components/ui/checkbox";
+
+interface CellProps {
+  row?: Row<Invoice>;
+  table?: Table<Invoice>;
+}
+
+function CellComponent({ row, table }: CellProps) {
+  const t = useTranslations();
+
+  if (table) {
+    return (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label={t("selectAll")}
+      />
+    );
+  }
+
+  if (row) {
+    return (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label={t("selectRow")}
+      />
+    );
+  }
+  if (!row || !table) {
+    return null;
+  }
+}
 
 interface HeaderProps {
   column: ColumnDef<Invoice>;
@@ -13,32 +48,47 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("InvoicesDataTable");
+  const t = useTranslations("Columns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
+}
+
+function CellBadgeComponent({ row }: CellProps) {
+  const t = useTranslations("Columns");
+  if (!row) return null;
+  const status = row.getValue("status") as string;
+  const statusMap = {
+    draft: "info",
+    sent: "healthy",
+    paid: "active",
+    overdue: "pending",
+    cancelled: "inactive",
+  } as const;
+  return (
+    <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
+      {t(status)}
+    </StatusBadge>
+  );
+}
+
+function CellAmountComponent({ row }: CellProps) {
+  const locale = useLocale();
+  if (!row) return null;
+  const amount = Number.parseFloat(row.getValue("amount"));
+  const formatted = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "EUR",
+  }).format(amount);
+  return <div className="font-medium">{formatted}</div>;
 }
 
 const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     id: "select",
     header: ({ table }) => {
-      const t = useTranslations("InvoicesDataTable");
-      return (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label={t("selectAll")}
-        />
-      );
+      return <CellComponent table={table} />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("InvoicesDataTable");
-      return (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label={t("selectRow")}
-        />
-      );
+      return <CellComponent row={row} />;
     },
     enableSorting: false,
     enableHiding: false,
@@ -61,13 +111,7 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
       return <HeaderComponent column={column} translationKey="amount" />;
     },
     cell: ({ row }) => {
-      const locale = useLocale();
-      const amount = Number.parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency: "EUR",
-      }).format(amount);
-      return <div className="font-medium">{formatted}</div>;
+      return <CellAmountComponent row={row} />;
     },
   },
   {
@@ -76,18 +120,7 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("InvoicesDataTable");
-      const status = row.getValue("status") as string;
-      const statusMap = {
-        paid: "healthy",
-        pending: "warning",
-        overdue: "critical",
-      } as const;
-      return (
-        <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
-          {t(status)}
-        </StatusBadge>
-      );
+      return <CellBadgeComponent row={row} />;
     },
   },
   {

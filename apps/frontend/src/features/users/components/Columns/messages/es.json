@@ -1,8 +1,6 @@
 {
-  "Columns": {
-    "name": "Nombre",
-    "email": "Correo Electrónico",
-    "role": "Rol",
-    "status": "Estado"
-  }
+  "name": "Nombre",
+  "email": "Correo Electrónico",
+  "role": "Rol",
+  "status": "Estado"
 }

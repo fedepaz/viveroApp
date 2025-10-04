@@ -1,4 +1,4 @@
-import { type ColumnDef } from "@tanstack/react-table";
+import { Row, Table, type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   SortableHeader,
@@ -7,38 +7,81 @@ import {
 import { PurchaseOrder } from "../types";
 import { useLocale, useTranslations } from "next-intl";
 
+interface CellProps {
+  row?: Row<PurchaseOrder>;
+  table?: Table<PurchaseOrder>;
+}
+
+function CellComponent({ row, table }: CellProps) {
+  const t = useTranslations("Columns");
+  if (table) {
+    return (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label={t("selectAll")}
+      />
+    );
+  }
+  if (row) {
+    return (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label={t("selectRow")}
+      />
+    );
+  }
+  if (!row || !table) {
+    return null;
+  }
+}
+
 interface HeaderProps {
   column: ColumnDef<PurchaseOrder>;
   translationKey: string;
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("PurchaseOrderDataTable");
+  const t = useTranslations("Columns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
+function CellTotalAmountComponent({ row }: CellProps) {
+  const locale = useLocale();
+  if (!row) return null;
+  const amount = Number.parseFloat(row.getValue("totalAmount"));
+  const formatted = new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: "EUR",
+  }).format(amount);
+  return <div className="font-medium">{formatted}</div>;
+}
+
+function CellBadgeComponent({ row }: CellProps) {
+  const t = useTranslations("PurchaseOrderDataTable");
+  if (!row) return null;
+  const status = row.getValue("status") as string;
+  const statusMap = {
+    delivered: "healthy",
+    approved: "info",
+    pending: "warning",
+    cancelled: "critical",
+  } as const;
+  return (
+    <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
+      {t(status)}
+    </StatusBadge>
+  );
+}
 export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
     id: "select",
     header: ({ table }) => {
-      const t = useTranslations("PurchaseOrderDataTable");
-      return (
-        <Checkbox
-          checked={table.getIsAllPageRowsSelected()}
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label={t("selectAll")}
-        />
-      );
+      return <CellComponent table={table} />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("PurchaseOrderDataTable");
-      return (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label={t("selectRow")}
-        />
-      );
+      return <CellComponent row={row} />;
     },
     enableSorting: false,
     enableHiding: false,
@@ -67,13 +110,7 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
       return <HeaderComponent column={column} translationKey="totalAmount" />;
     },
     cell: ({ row }) => {
-      const locale = useLocale();
-      const amount = Number.parseFloat(row.getValue("totalAmount"));
-      const formatted = new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency: "EUR",
-      }).format(amount);
-      return <div className="font-medium">{formatted}</div>;
+      return <CellTotalAmountComponent row={row} />;
     },
   },
   {
@@ -82,19 +119,7 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
-      const t = useTranslations("PurchaseOrderDataTable");
-      const status = row.getValue("status") as string;
-      const statusMap = {
-        delivered: "healthy",
-        approved: "info",
-        pending: "warning",
-        cancelled: "critical",
-      } as const;
-      return (
-        <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
-          {t(status)}
-        </StatusBadge>
-      );
+      return <CellBadgeComponent row={row} />;
     },
   },
   {

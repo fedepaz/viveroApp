@@ -1,8 +1,6 @@
 {
-  "Columns": {
-    "name": "Nome",
-    "email": "Email",
-    "role": "Ruolo",
-    "status": "Stato"
-  }
+  "name": "Nome",
+  "email": "Email",
+  "role": "Ruolo",
+  "status": "Stato"
 }

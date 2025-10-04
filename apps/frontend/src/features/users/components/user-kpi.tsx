@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useUsers } from "../hooks/hooks";
 
 function UserKPIs() {
-  const t = useTranslations("UserKpi");
+  const t = useTranslations();
   const { data: mockUsers = [] } = useUsers();
   const totalUsers = mockUsers.length;
   const activeUsers = mockUsers.filter((u) => u.status === "active").length;
@@ -23,12 +23,7 @@ function UserKPIs() {
         icon={Users}
         trend={{ value: 5.0, label: t("fromLastMonth"), isPositive: true }}
       />
-      <KPICard
-        title={t("activeUsers")}
-        value={activeUsers}
-        description={t("inactive", { count: inactiveUsers })}
-        icon={UserCheck}
-      />
+      <KPICard title={t("activeUsers")} value={activeUsers} icon={UserCheck} />
       <KPICard
         title={t("newUsersToday")}
         value={inactiveUsers}

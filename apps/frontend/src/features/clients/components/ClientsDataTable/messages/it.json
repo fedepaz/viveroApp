@@ -15,6 +15,10 @@
     "status": "Stato",
     "totalOrders": "Ordini Totali",
     "totalRevenue": "Entrate Totali",
-    "lastOrder": "Ultimo Ordine"
+    "lastOrder": "Ultimo Ordine",
+    "createTitle": "Crea Nuovo Cliente",
+    "createDescription": "Compila i dettagli qui sotto per creare un nuovo cliente.",
+    "editTitle": "Modifica Cliente",
+    "editDescription": "Aggiorna i dettagli per questo cliente."
   }
 }

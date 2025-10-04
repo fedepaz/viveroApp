@@ -95,7 +95,7 @@ export const mockClientService = {
     return updatedClient;
   },
 
-  async deleteUser(id: string): Promise<void> {
+  async deleteClient(id: string): Promise<void> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
     // Replace API response with user

@@ -1,8 +1,10 @@
 {
-  "invoiceNumber": "Número de Factura",
-  "client": "Cliente",
-  "amount": "Monto",
-  "status": "Estado",
-  "createdDate": "Fecha de Creación",
-  "dueDate": "Fecha de Vencimiento"
+  "Columns": {
+    "invoiceNumber": "Número de Factura",
+    "client": "Cliente",
+    "amount": "Monto",
+    "status": "Estado",
+    "createdDate": "Fecha de Creación",
+    "dueDate": "Fecha de Vencimiento"
+  }
 }

@@ -67,15 +67,15 @@ export function useUpdateUser() {
   });
 }
 
-//export function useDeleteUser() {
-//  const queryClient = useQueryClient();
-//  return useMutation({
-//    mutationFn: mockUserService.deleteUser,
-//    onSuccess: () => {
-//      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.lists() });
-//    },
-//    onError: (error) => {
-//      console.log(error);
-//    },
-//  });
-//}
+export function useDeleteUser() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: mockUserService.deleteUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEYS.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}

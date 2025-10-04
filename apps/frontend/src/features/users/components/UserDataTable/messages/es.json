@@ -1,21 +1,19 @@
 {
-  "UserDataTable": {
-    "title": "Usuarios",
-    "description": "Gestión completa de usuarios con roles, permisos y seguimiento de actividad",
-    "searchPlaceholder": "Buscar usuarios...",
-    "selectAll": "Seleccionar todo",
-    "selectRow": "Seleccionar fila",
-    "admin": "Administrador",
-    "user": "Usuario",
-    "active": "Activo",
-    "inactive": "Inactivo",
-    "worker": "Trabajador",
-    "manager": "Gerente",
-    "role": "Rol",
-    "department": "Departamento",
-    "lastLogin": "Último Inicio de Sesión",
-    "name": "Nombre",
-    "email": "Correo Electrónico",
-    "status": "Estado"
-  }
+  "title": "Usuarios",
+  "description": "Gestión completa de usuarios con roles, permisos y seguimiento de actividad",
+  "searchPlaceholder": "Buscar usuarios...",
+  "selectAll": "Seleccionar todo",
+  "selectRow": "Seleccionar fila",
+  "admin": "Administrador",
+  "user": "Usuario",
+  "active": "Activo",
+  "inactive": "Inactivo",
+  "worker": "Trabajador",
+  "manager": "Gerente",
+  "role": "Rol",
+  "department": "Departamento",
+  "lastLogin": "Último Inicio de Sesión",
+  "name": "Nombre",
+  "email": "Correo Electrónico",
+  "status": "Estado"
 }

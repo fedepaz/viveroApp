@@ -7,7 +7,7 @@ import { Sprout, Leaf, AlertTriangle, Droplets } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 function PlantKPIs() {
-  const t = useTranslations("PlantsKpi");
+  const t = useTranslations();
   const { data: mockPlants = [] } = usePlants();
   const totalPlants = mockPlants.length;
   const healthyPlants = mockPlants.filter((p) => p.status === "healthy").length;
@@ -30,7 +30,9 @@ function PlantKPIs() {
       <KPICard
         title={t("healthyPlants")}
         value={healthyPlants}
-        description={t("ofTotal", { percentage: ((healthyPlants / totalPlants) * 100).toFixed(0) })}
+        description={t("ofTotal", {
+          percentage: ((healthyPlants / totalPlants) * 100).toFixed(0),
+        })}
         icon={Leaf}
         trend={{ value: 5.2, label: t("fromLastWeek"), isPositive: true }}
       />

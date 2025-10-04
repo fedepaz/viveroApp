@@ -68,15 +68,15 @@ export function useUpdatePlant() {
   });
 }
 
-//export function useDeletePlant() {
-//  const queryClient = useQueryClient();
-//  return useMutation({
-//    mutationFn: mockPlantService.deletePlant,
-//    onSuccess: () => {
-//      queryClient.invalidateQueries({ queryKey: PLANT_QUERY_KEYS.lists() });
-//    },
-//    onError: (error) => {
-//      console.log(error);
-//    },
-//  });
-//}
+export function useDeletePlant() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: mockPlantService.deletePlant,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: PLANT_QUERY_KEYS.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}

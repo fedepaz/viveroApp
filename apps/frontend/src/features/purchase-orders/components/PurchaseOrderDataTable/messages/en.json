@@ -9,6 +9,17 @@
     "approved": "Approved",
     "pending": "Pending",
     "cancelled": "Cancelled",
-    "received": "Received"
+    "received": "Received",
+    "createTitle": "Create New Purchase Order",
+    "createDescription": "Fill in the details below to create a new purchase order.",
+    "editTitle": "Edit Purchase Order",
+    "editDescription": "Update the details for this purchase order.",
+    "orderNumber": "Order Number",
+    "supplier": "Supplier",
+    "items": "Items",
+    "totalAmount": "Total Amount",
+    "status": "Status",
+    "orderDate": "Order Date",
+    "deliveryDate": "Delivery Date"
   }
 }

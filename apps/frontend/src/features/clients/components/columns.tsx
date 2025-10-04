@@ -1,9 +1,37 @@
-import { type ColumnDef } from "@tanstack/react-table";
+import { Row, Table, type ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SortableHeader } from "@/components/data-display/data-table";
 import { Client } from "../types";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
+
+interface CellProps {
+  row?: Row<Client>;
+  table?: Table<Client>;
+}
+
+function CellComponent({ row, table }: CellProps) {
+  const t = useTranslations("ClientsDataTable");
+  if (row) {
+    return (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label={t("selectRow")}
+      />
+    );
+  }
+  if (table) {
+    return (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label={t("selectAll")}
+      />
+    );
+  }
+  if (!row || !table) return null;
+}
 
 interface HeaderProps {
   column: ColumnDef<Client>;
@@ -15,23 +43,31 @@ function HeaderComponent({ column, translationKey }: HeaderProps) {
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
+function CellBadgeComponent({ row }: CellProps) {
+  const t = useTranslations("ClientsDataTable");
+  if (!row) return null;
+  const status = row.getValue("status") as string;
+  const variants: Record<string, "default" | "destructive" | "outline"> = {
+    active: "default",
+    inactive: "destructive",
+    prospect: "outline",
+  };
+  return (
+    <Badge variant={variants[status]} className="capitalize">
+      {t(status)}
+    </Badge>
+  );
+}
+
 export const clientColumns: ColumnDef<Client>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      return <CellComponent table={table} />;
+    },
+    cell: ({ row }) => {
+      return <CellComponent row={row} />;
+    },
     enableSorting: false,
     enableHiding: false,
   },
@@ -74,17 +110,7 @@ export const clientColumns: ColumnDef<Client>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
-      const status = row.getValue("status") as string;
-      const variants: Record<string, "default" | "destructive" | "outline"> = {
-        active: "default",
-        inactive: "destructive",
-        prospect: "outline",
-      };
-      return (
-        <Badge variant={variants[status]} className="capitalize">
-          {status}
-        </Badge>
-      );
+      return <CellBadgeComponent row={row} />;
     },
   },
   {

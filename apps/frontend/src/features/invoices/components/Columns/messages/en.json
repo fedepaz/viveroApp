@@ -1,8 +1,15 @@
 {
-  "invoiceNumber": "Invoice Number",
-  "client": "Client",
-  "amount": "Amount",
-  "status": "Status",
-  "createdDate": "Created Date",
-  "dueDate": "Due Date"
+  "Columns": {
+    "invoiceNumber": "Invoice Number",
+    "client": "Client",
+    "amount": "Amount",
+    "status": "Status",
+    "createdDate": "Created Date",
+    "dueDate": "Due Date",
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "cancelled": "Cancelled"
+  }
 }

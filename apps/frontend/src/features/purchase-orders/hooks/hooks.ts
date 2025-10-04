@@ -73,15 +73,15 @@ export function useUpdatePurchaseOrder() {
   });
 }
 
-//export function useDeletePurchaseOrder() {
-//  const queryClient = useQueryClient();
-//  return useMutation({
-//    mutationFn: mockPurchaseOrderSevice.deletePurchaseOrder,
-//    onSuccess: () => {
-//      queryClient.invalidateQueries({ queryKey: PURCHASE_ORDER_QUERY_KEYS.lists() });
-//    },
-//    onError: (error) => {
-//      console.log(error);
-//    },
-//  });
-//}
+export function useDeletePurchaseOrder() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: mockPurchaseOrderSevice.deletePurchaseOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: PURCHASE_ORDER_QUERY_KEYS.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}

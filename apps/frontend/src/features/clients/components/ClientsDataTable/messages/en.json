@@ -7,6 +7,10 @@
     "selectRow": "Select row",
     "active": "Active",
     "inactive": "Inactive",
-    "prospect": "Prospect"
+    "prospect": "Prospect",
+    "createTitle": "Create New Client",
+    "createDescription": "Fill in the details below to create a new client.",
+    "editTitle": "Edit Client",
+    "editDescription": "Update the details for this client."
   }
 }

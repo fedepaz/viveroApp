@@ -66,17 +66,17 @@ export function useUpdateClient() {
       console.log(error);
     },
   });
+}
 
-  //export function useDeleteClient() {
-  //  const queryClient = useQueryClient();
-  //  return useMutation({
-  //    mutationFn: mockClientService.deleteClient,
-  //    onSuccess: () => {
-  //      queryClient.invalidateQueries({ queryKey: CLIENT_QUERY_KEYS.lists() });
-  //    },
-  //    onError: (error) => {
-  //      console.log(error);
-  //    },
-  //  });
-  //}
+export function useDeleteClient() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: mockClientService.deleteClient,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: CLIENT_QUERY_KEYS.lists() });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 }

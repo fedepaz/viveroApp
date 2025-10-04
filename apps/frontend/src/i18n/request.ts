@@ -80,6 +80,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
           `../features/clients/components/Columns/messages/${locale}.json`
         )
       ).default,
+      ...(
+        await import(
+          `../features/clients/components/ClientForm/messages/${locale}.json`
+        )
+      ).default,
 
       // Dashboard Feature
       ...(
@@ -171,6 +176,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
           `../features/plants/components/Columns/messages/${locale}.json`
         )
       ).default,
+      ...(
+        await import(
+          `../features/plants/components/PlantForm/messages/${locale}.json`
+        )
+      ).default,
 
       // Purchase Orders Feature
       ...(
@@ -198,6 +208,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
           `../features/purchase-orders/components/Columns/messages/${locale}.json`
         )
       ).default,
+      ...(
+        await import(
+          `../features/purchase-orders/components/PurchaseOrderForm/messages/${locale}.json`
+        )
+      ).default,
 
       // Users Feature
       ...(
@@ -223,6 +238,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...(
         await import(
           `../features/users/components/Columns/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../features/users/components/UserForm/messages/${locale}.json`
         )
       ).default,
     },

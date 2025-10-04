@@ -57,7 +57,7 @@ export function InvoiceForm({
             <FormItem>
               <FormLabel>{t("invoiceNumberLabel")}</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="INV-001" />
+                <Input {...field} placeholder={t("invoiceNumberPlaceholder")} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -71,7 +71,7 @@ export function InvoiceForm({
             <FormItem>
               <FormLabel>{t("clientLabel")}</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Acme Corp" />
+                <Input {...field} placeholder={t("clientPlaceholder")} />
               </FormControl>
               <FormMessage />
             </FormItem>

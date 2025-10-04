@@ -2,21 +2,24 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export function LoadingSpinner() {
+  const t = useTranslations("LoadingSpinner");
+
   const funnyMessages = [
-    "Compilando con Internet Explorer 6...",
-    "Esperando que Flash Player se actualice...",
-    "Desfragmentando el disco duro del servidor...",
-    "Reiniciando Windows ME por tercera vez...",
-    "Descargando 56k de pura nostalgia...",
-    "Buscando drivers en DriverGuide.com...",
-    "Esperando que termine de cargar RealPlayer...",
-    "Liberando memoria con el Task Manager...",
-    "Rogando que no sea un Blue Screen...",
-    "Conectando por dial-up a las 3 AM...",
-    "Instalando 47 toolbars de Ask Jeeves...",
-    "Esperando que WinRAR deje de pedir licencia...",
+    t("message1"),
+    t("message2"),
+    t("message3"),
+    t("message4"),
+    t("message5"),
+    t("message6"),
+    t("message7"),
+    t("message8"),
+    t("message9"),
+    t("message10"),
+    t("message11"),
+    t("message12"),
   ];
 
   const randomMessage =

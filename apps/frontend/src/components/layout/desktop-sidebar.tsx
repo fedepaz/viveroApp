@@ -61,27 +61,27 @@ export function DesktopSidebar() {
 
   const secondaryItems = [
     {
-      title: "Plants",
+      title: t("plants"),
       href: "/plants",
       icon: Sprout,
     },
     {
-      title: "Clients",
+      title: t("clients"),
       href: "/clients",
       icon: Users,
     },
     {
-      title: "Invoices",
+      title: t("invoices"),
       href: "/invoices",
       icon: FileText,
     },
     {
-      title: "Purchase Orders",
+      title: t("purchaseOrders"),
       href: "/purchase-orders",
       icon: ShoppingCart,
     },
     {
-      title: "Users",
+      title: t("users"),
       href: "/users",
       icon: UserCircle,
     },

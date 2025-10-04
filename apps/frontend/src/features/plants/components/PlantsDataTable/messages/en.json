@@ -1,6 +1,14 @@
 {
   "PlantsDataTable": {
-    "title": "Plants Data Table",
-    "searchPlaceholder": "Search plants..."
+    "title": "Plants",
+    "description": "Complete plant inventory with health monitoring and environmental data",
+    "searchPlaceholder": "Search plants...",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "healthy": "Healthy",
+    "warning": "Warning",
+    "critical": "Critical",
+    "temperatureValue": "{value}°C",
+    "humidityValue": "{value}%"
   }
 }

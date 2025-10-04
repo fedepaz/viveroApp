@@ -1,6 +1,22 @@
 {
   "PlantsDataTable": {
-    "title": "Tabella Dati Piante",
-    "searchPlaceholder": "Cerca piante..."
+    "title": "Piante",
+    "description": "Inventario completo delle piante con monitoraggio della salute e dati ambientali",
+    "searchPlaceholder": "Cerca piante...",
+    "selectAll": "Seleziona tutto",
+    "selectRow": "Seleziona riga",
+    "healthy": "Sano",
+    "warning": "Avvertimento",
+    "critical": "Critico",
+    "temperatureValue": "{value}°C",
+    "humidityValue": "{value}%",
+    "name": "Nome",
+    "species": "Specie",
+    "location": "Posizione",
+    "status": "Stato",
+    "temperature": "Temperatura",
+    "humidity": "Umidità",
+    "plantedDate": "Data di Piantagione",
+    "harvestDate": "Data di Raccolta"
   }
 }

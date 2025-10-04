@@ -19,26 +19,26 @@ function UserKPIs() {
       <KPICard
         title={t("totalUsers")}
         value={totalUsers}
-        description="In system"
+        description={t("inSystem")}
         icon={Users}
-        trend={{ value: 5.0, label: "from last month", isPositive: true }}
+        trend={{ value: 5.0, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
         title={t("activeUsers")}
         value={activeUsers}
-        description={`${inactiveUsers} inactive`}
+        description={t("inactive", { count: inactiveUsers })}
         icon={UserCheck}
       />
       <KPICard
         title={t("newUsersToday")}
         value={inactiveUsers}
-        description="Need attention"
+        description={t("needAttention")}
         icon={UserX}
       />
       <KPICard
-        title="Administrators"
+        title={t("administrators")}
         value={adminUsers}
-        description="Full access"
+        description={t("fullAccess")}
         icon={Shield}
       />
     </div>

@@ -26,27 +26,27 @@ function PurchaseOrderKPIs() {
       <KPICard
         title={t("totalOrders")}
         value={totalOrders}
-        description="All time"
+        description={t("allTime")}
         icon={ShoppingCart}
-        trend={{ value: 10.5, label: "from last month", isPositive: true }}
+        trend={{ value: 10.5, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
-        title="Total Spend"
+        title={t("totalSpend")}
         value={`€${(totalSpend / 1000).toFixed(1)}k`}
-        description="From all orders"
+        description={t("fromAllOrders")}
         icon={Package}
-        trend={{ value: 12.8, label: "from last month", isPositive: false }}
+        trend={{ value: 12.8, label: t("fromLastMonth"), isPositive: false }}
       />
       <KPICard
         title={t("pendingOrders")}
         value={pendingOrders}
-        description="Awaiting review"
+        description={t("awaitingReview")}
         icon={Clock}
       />
       <KPICard
         title={t("completedOrders")}
         value={receivedOrders}
-        description="Completed orders"
+        description={t("completedOrdersDescription")}
         icon={CheckCircle2}
       />
     </div>

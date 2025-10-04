@@ -40,7 +40,7 @@ export function PlantsDataTable() {
       columns={plantColumns}
       data={plants}
       title={t("title")}
-      description="Complete plant inventory with health monitoring and environmental data"
+      description={t("description")}
       searchKey="name"
       searchPlaceholder={t("searchPlaceholder")}
       totalCount={plants.length}

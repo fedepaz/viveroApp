@@ -40,7 +40,7 @@ export function PurchaseOrdersDataTable() {
       columns={purchaseOrderColumns}
       data={purchaseOrders}
       title={t("title")}
-      description="Complete procurement management with supplier tracking and delivery status"
+      description={t("description")}
       searchKey="orderNumber"
       searchPlaceholder={t("searchPlaceholder")}
       totalCount={purchaseOrders.length}

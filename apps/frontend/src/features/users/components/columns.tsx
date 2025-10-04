@@ -13,27 +13,33 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations();
+  const t = useTranslations("UserDataTable");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 export const userColumns: ColumnDef<User>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      const t = useTranslations("UserDataTable");
+      return (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t("selectAll")}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const t = useTranslations("UserDataTable");
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={t("selectRow")}
+        />
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
@@ -54,28 +60,30 @@ export const userColumns: ColumnDef<User>[] = [
     header: ({ column }) => {
       return <HeaderComponent column={column} translationKey="role" />;
     },
-    cell: ({ row }) => (
-      <StatusBadge
-        status={row.getValue("role") === "admin" ? "critical" : "info"}
-      >
-        {String(row.getValue("role")).charAt(0).toUpperCase() +
-          String(row.getValue("role")).slice(1)}
-      </StatusBadge>
-    ),
+    cell: ({ row }) => {
+      const t = useTranslations("UserDataTable");
+      const role = row.getValue("role") as string;
+      return (
+        <StatusBadge status={role === "admin" ? "critical" : "info"}>
+          {t(role)}
+        </StatusBadge>
+      );
+    },
   },
   {
     accessorKey: "status",
     header: ({ column }) => {
       return <HeaderComponent column={column} translationKey="status" />;
     },
-    cell: ({ row }) => (
-      <StatusBadge
-        status={row.getValue("status") === "active" ? "healthy" : "inactive"}
-      >
-        {String(row.getValue("status")).charAt(0).toUpperCase() +
-          String(row.getValue("status")).slice(1)}
-      </StatusBadge>
-    ),
+    cell: ({ row }) => {
+      const t = useTranslations("UserDataTable");
+      const status = row.getValue("status") as string;
+      return (
+        <StatusBadge status={status === "active" ? "healthy" : "inactive"}>
+          {t(status)}
+        </StatusBadge>
+      );
+    },
   },
   {
     accessorKey: "department",

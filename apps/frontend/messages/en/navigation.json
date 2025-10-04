@@ -15,6 +15,9 @@
     "clientManagement": "Client Management",
     "supplyTracking": "Supply Tracking",
     "performanceMetrics": "Performance Metrics",
-    "systemConfiguration": "System Configuration"
+    "systemConfiguration": "System Configuration",
+    "invoices": "Invoices",
+    "purchaseOrders": "Purchase Orders",
+    "users": "Users"
   }
 }

@@ -1,6 +1,14 @@
 {
   "PlantsDataTable": {
-    "title": "Tabla de Datos de Plantas",
-    "searchPlaceholder": "Buscar plantas..."
+    "title": "Plantas",
+    "description": "Inventario completo de plantas con monitoreo de salud y datos ambientales",
+    "searchPlaceholder": "Buscar plantas...",
+    "selectAll": "Seleccionar todo",
+    "selectRow": "Seleccionar fila",
+    "healthy": "Saludable",
+    "warning": "Advertencia",
+    "critical": "Crítico",
+    "temperatureValue": "{value}°C",
+    "humidityValue": "{value}%"
   }
 }

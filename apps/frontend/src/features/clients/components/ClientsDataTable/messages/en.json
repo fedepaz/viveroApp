@@ -1,6 +1,12 @@
 {
   "ClientsDataTable": {
-    "title": "Clients Data Table",
-    "searchPlaceholder": "Search clients..."
+    "title": "Clients",
+    "description": "Manage your clients and view their details.",
+    "searchPlaceholder": "Search clients...",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "active": "Active",
+    "inactive": "Inactive",
+    "prospect": "Prospect"
   }
 }

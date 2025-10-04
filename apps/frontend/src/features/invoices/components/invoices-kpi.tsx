@@ -23,27 +23,27 @@ function InvoiceKPIs() {
       <KPICard
         title={t("totalInvoices")}
         value={totalInvoices}
-        description="All time"
+        description={t("allTime")}
         icon={FileText}
-        trend={{ value: 8.3, label: "from last month", isPositive: true }}
+        trend={{ value: 8.3, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
-        title="Total Revenue"
+        title={t("totalRevenue")}
         value={`€${(totalRevenue / 1000).toFixed(1)}k`}
-        description="From all invoices"
+        description={t("fromAllInvoices")}
         icon={DollarSign}
-        trend={{ value: 15.2, label: "from last month", isPositive: true }}
+        trend={{ value: 15.2, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
         title={t("paidInvoices")}
         value={paidInvoices}
-        description={`${totalInvoices - paidInvoices} pending`}
+        description={t("pending", { count: totalInvoices - paidInvoices })}
         icon={CheckCircle2}
       />
       <KPICard
         title={t("pendingInvoices")}
         value={overdueInvoices}
-        description="Require follow-up"
+        description={t("requireFollowUp")}
         icon={Clock}
       />
     </div>

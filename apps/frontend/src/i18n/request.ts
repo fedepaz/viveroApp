@@ -35,7 +35,17 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
+          `../components/common/LoadingSpinner/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
           `../components/data-display/data-table/column-filters/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../components/data-display/data-table/data-table/messages/${locale}.json`
         )
       ).default,
       ...(

@@ -1,6 +1,15 @@
 {
   "UserDataTable": {
-    "title": "Users Data Table",
-    "searchPlaceholder": "Search users..."
+    "title": "Users",
+    "description": "Complete user management with roles, permissions, and activity tracking",
+    "searchPlaceholder": "Search users...",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "admin": "Admin",
+    "user": "User",
+    "active": "Active",
+    "inactive": "Inactive",
+    "worker": "Worker",
+    "manager": "Manager"
   }
 }

@@ -1,6 +1,20 @@
 {
   "ClientsDataTable": {
-    "title": "Tabella Dati Clienti",
-    "searchPlaceholder": "Cerca clienti..."
+    "title": "Clienti",
+    "description": "Gestisci i tuoi clienti e visualizza i loro dettagli.",
+    "searchPlaceholder": "Cerca clienti...",
+    "selectAll": "Seleziona tutto",
+    "selectRow": "Seleziona riga",
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "prospect": "Potenziale",
+    "name": "Nome",
+    "contactPerson": "Persona di Contatto",
+    "email": "Email",
+    "phone": "Telefono",
+    "status": "Stato",
+    "totalOrders": "Ordini Totali",
+    "totalRevenue": "Entrate Totali",
+    "lastOrder": "Ultimo Ordine"
   }
 }

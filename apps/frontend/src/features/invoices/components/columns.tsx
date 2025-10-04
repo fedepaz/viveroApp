@@ -5,7 +5,7 @@ import {
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Invoice } from "../types";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface HeaderProps {
   column: ColumnDef<Invoice>;
@@ -13,27 +13,33 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations();
+  const t = useTranslations("InvoicesDataTable");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 const invoiceColumns: ColumnDef<Invoice>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      const t = useTranslations("InvoicesDataTable");
+      return (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t("selectAll")}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const t = useTranslations("InvoicesDataTable");
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={t("selectRow")}
+        />
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
@@ -55,8 +61,9 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
       return <HeaderComponent column={column} translationKey="amount" />;
     },
     cell: ({ row }) => {
+      const locale = useLocale();
       const amount = Number.parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat(locale, {
         style: "currency",
         currency: "EUR",
       }).format(amount);
@@ -69,6 +76,7 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
+      const t = useTranslations("InvoicesDataTable");
       const status = row.getValue("status") as string;
       const statusMap = {
         paid: "healthy",
@@ -77,7 +85,7 @@ const invoiceColumns: ColumnDef<Invoice>[] = [
       } as const;
       return (
         <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
-          {status.charAt(0).toUpperCase() + status.slice(1)}
+          {t(status)}
         </StatusBadge>
       );
     },

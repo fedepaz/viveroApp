@@ -1,6 +1,21 @@
 {
   "PurchaseOrderDataTable": {
-    "title": "Tabella Dati Ordini di Acquisto",
-    "searchPlaceholder": "Cerca ordini di acquisto..."
+    "title": "Ordini di Acquisto",
+    "description": "Gestione completa degli acquisti con tracciamento dei fornitori e stato di consegna",
+    "searchPlaceholder": "Cerca ordini di acquisto...",
+    "selectAll": "Seleziona tutto",
+    "selectRow": "Seleziona riga",
+    "delivered": "Consegnato",
+    "approved": "Approvato",
+    "pending": "In sospeso",
+    "cancelled": "Annullato",
+    "received": "Ricevuto",
+    "orderNumber": "Numero Ordine",
+    "supplier": "Fornitore",
+    "items": "Articoli",
+    "totalAmount": "Importo Totale",
+    "status": "Stato",
+    "orderDate": "Data Ordine",
+    "deliveryDate": "Data Consegna"
   }
 }

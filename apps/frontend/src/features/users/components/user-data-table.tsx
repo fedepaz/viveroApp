@@ -40,7 +40,7 @@ export function UsersDataTable() {
       columns={userColumns}
       data={users}
       title={t("title")}
-      description="Complete user management with roles, permissions, and activity tracking"
+      description={t("description")}
       searchKey="name"
       searchPlaceholder={t("searchPlaceholder")}
       totalCount={users.length}

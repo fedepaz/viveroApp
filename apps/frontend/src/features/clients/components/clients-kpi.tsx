@@ -27,27 +27,27 @@ function ClientsKPI() {
       <KPICard
         title={t("totalClients")}
         value={totalClients.toLocaleString()}
-        description="In database"
+        description={t("inDatabase")}
         icon={Building2}
-        trend={{ value: 6.5, label: "from last month", isPositive: true }}
+        trend={{ value: 6.5, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
         title={t("activeClients")}
         value={activeClients.toLocaleString()}
-        description={`${prospects} prospects`}
+        description={t("prospects", { count: prospects })}
         icon={UserCheck}
       />
       <KPICard
-        title="Total Revenue"
+        title={t("totalRevenue")}
         value={`€${(totalRevenue / 1000).toFixed(0)}k`}
-        description="From all clients"
+        description={t("fromAllClients")}
         icon={TrendingUp}
-        trend={{ value: 18.2, label: "from last month", isPositive: true }}
+        trend={{ value: 18.2, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
-        title="New Prospects"
+        title={t("newProspects")}
         value={prospects}
-        description="Potential clients"
+        description={t("potentialClients")}
         icon={Users}
       />
     </div>

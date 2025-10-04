@@ -23,27 +23,27 @@ function PlantKPIs() {
       <KPICard
         title={t("totalPlants")}
         value={totalPlants}
-        description="Active in system"
+        description={t("activeInSystem")}
         icon={Sprout}
-        trend={{ value: 12.5, label: "from last month", isPositive: true }}
+        trend={{ value: 12.5, label: t("fromLastMonth"), isPositive: true }}
       />
       <KPICard
         title={t("healthyPlants")}
         value={healthyPlants}
-        description={`${((healthyPlants / totalPlants) * 100).toFixed(0)}% of total`}
+        description={t("ofTotal", { percentage: ((healthyPlants / totalPlants) * 100).toFixed(0) })}
         icon={Leaf}
-        trend={{ value: 5.2, label: "from last week", isPositive: true }}
+        trend={{ value: 5.2, label: t("fromLastWeek"), isPositive: true }}
       />
       <KPICard
         title={t("alertPlants")}
         value={criticalPlants}
-        description="Require immediate attention"
+        description={t("requireImmediateAttention")}
         icon={AlertTriangle}
       />
       <KPICard
-        title="Ready for Harvest"
+        title={t("readyForHarvest")}
         value={readyForHarvest}
-        description="Mature or fruiting stage"
+        description={t("matureOrFruitingStage")}
         icon={Droplets}
       />
     </div>

@@ -130,7 +130,7 @@ export function MobileNavigation() {
               </span>
             </div>
             <p className="text-xs text-red-600 mt-1">
-              {tAlerts("temperatureIssues", { location: "Greenhouse B" })}
+              {tAlerts("temperatureIssues", { location: `Greenhouse B` })}
             </p>
           </div>
 

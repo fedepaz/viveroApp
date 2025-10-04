@@ -2,14 +2,12 @@
   "navigation": {
     "dashboard": "Tablero",
     "plants": "Plantas",
-    "monitoring": "Monitoreo",
-    "reports": "Informes",
-    "settings": "Configuración",
-    "environment": "Entorno",
+    "environment": "Ambiente",
     "tasks": "Tareas",
-    "analytics": "Análisis",
+    "analytics": "Analíticas",
     "clients": "Clientes",
     "inventory": "Inventario",
+    "settings": "Configuración",
     "overviewAndAlerts": "Resumen y Alertas",
     "plantManagement": "Gestión de Plantas",
     "climateMonitoring": "Monitoreo Climático",
@@ -18,9 +16,8 @@
     "supplyTracking": "Seguimiento de Suministros",
     "performanceMetrics": "Métricas de Rendimiento",
     "systemConfiguration": "Configuración del Sistema",
-    "FeatureNavigation": {
-      "purchaseOrders": "Órdenes de Compra",
-      "users": "Usuarios"
-    }
+    "invoices": "Facturas",
+    "purchaseOrders": "Órdenes de Compra",
+    "users": "Usuarios"
   }
 }

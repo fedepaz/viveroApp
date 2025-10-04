@@ -1,7 +1,14 @@
 {
   "PlantsKpi": {
     "totalPlants": "Total Plants",
+    "activeInSystem": "Active in system",
+    "fromLastMonth": "from last month",
     "healthyPlants": "Healthy Plants",
-    "alertPlants": "Plants with Alerts"
+    "ofTotal": "{percentage}% of total",
+    "fromLastWeek": "from last week",
+    "alertPlants": "Alert Plants",
+    "requireImmediateAttention": "Require immediate attention",
+    "readyForHarvest": "Ready for Harvest",
+    "matureOrFruitingStage": "Mature or fruiting stage"
   }
 }

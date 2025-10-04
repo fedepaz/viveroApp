@@ -1,1 +1,13 @@
-{}
+{
+  "common": {
+    "mobileNavigation": "Navigazione Mobile",
+    "agriManage": "AgriManage",
+    "plantManagement": "Gestione delle piante",
+    "johnDoe": "John Doe",
+    "greenhouseManager": "Responsabile della serra",
+    "confirmDelete": "Sei sicuro di voler eliminare {id}?",
+    "deleteSuccess": "Eliminato con successo.",
+    "deleteError": "Errore durante l'eliminazione.",
+    "exportSuccess": "Esportazione riuscita."
+  }
+}

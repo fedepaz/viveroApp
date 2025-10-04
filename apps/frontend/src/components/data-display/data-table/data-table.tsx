@@ -48,6 +48,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useTranslations } from "next-intl";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -78,6 +79,7 @@ export function DataTable<TData, TValue>({
 
   totalCount,
 }: DataTableProps<TData, TValue>) {
+  const t = useTranslations("DataTable");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -97,16 +99,17 @@ export function DataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">{t("openMenu")}
+</span>
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {onEdit && (
                 <DropdownMenuItem onClick={() => onEdit(row.original)}>
-                  Edit
+                  {t("edit")}
                 </DropdownMenuItem>
               )}
               {onDelete && (
@@ -114,7 +117,7 @@ export function DataTable<TData, TValue>({
                   onClick={() => onDelete(row.original)}
                   className="text-destructive"
                 >
-                  Delete
+                  {t("delete")}
                 </DropdownMenuItem>
               )}
             </DropdownMenuContent>
@@ -124,7 +127,7 @@ export function DataTable<TData, TValue>({
     };
 
     return [...columns, actionColumn];
-  }, [columns, onEdit, onDelete]);
+  }, [columns, onEdit, onDelete, t]);
 
   const table = useReactTable({
     data,
@@ -161,19 +164,19 @@ export function DataTable<TData, TValue>({
           <div className="flex items-center space-x-2">
             {totalCount && (
               <Badge variant="secondary" className="text-sm">
-                {totalCount.toLocaleString()} records
+                {t("records", { count: totalCount })}
               </Badge>
             )}
             {onExport && (
               <Button variant="outline" size="sm" onClick={onExport}>
                 <Download className="mr-2 h-4 w-4" />
-                Export
+                {t("export")}
               </Button>
             )}
             {onAdd && (
               <Button size="sm" onClick={onAdd}>
                 <Plus className="mr-2 h-4 w-4" />
-                Add New
+                {t("addNew")}
               </Button>
             )}
           </div>
@@ -184,7 +187,7 @@ export function DataTable<TData, TValue>({
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={`Search ${title.toLowerCase()}...`}
+              placeholder={t("searchPlaceholder", { title: title.toLowerCase() })}
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(String(event.target.value))}
               className="pl-8"
@@ -194,7 +197,8 @@ export function DataTable<TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
                 <Filter className="mr-2 h-4 w-4" />
-                Columns <ChevronDown className="ml-2 h-4 w-4" />
+                {t("columns")}
+                <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -262,7 +266,7 @@ export function DataTable<TData, TValue>({
                     colSpan={enhancedColumns.length}
                     className="h-24 text-center"
                   >
-                    No results found.
+                    {t("noResultsFound")}
                   </TableCell>
                 </TableRow>
               )}
@@ -271,12 +275,14 @@ export function DataTable<TData, TValue>({
         </div>
         <div className="flex items-center justify-between space-x-2 py-4">
           <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
+            {t("rowsSelected", {
+              selected: table.getFilteredSelectedRowModel().rows.length,
+              total: table.getFilteredRowModel().rows.length,
+            })}
           </div>
           <div className="flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-2">
-              <p className="text-sm font-medium">Rows per page</p>
+              <p className="text-sm font-medium">{t("rowsPerPage")}</p>
               <select
                 value={table.getState().pagination.pageSize}
                 onChange={(e) => {
@@ -292,8 +298,10 @@ export function DataTable<TData, TValue>({
               </select>
             </div>
             <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
-              {table.getPageCount()}
+              {t("pageInfo", {
+                currentPage: table.getState().pagination.pageIndex + 1,
+                pageCount: table.getPageCount(),
+              })}
             </div>
             <div className="flex items-center space-x-2">
               <Button
@@ -302,7 +310,8 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to first page</span>
+                <span className="sr-only">{t("goToFirstPage")}
+</span>
                 {"<<"}
               </Button>
               <Button
@@ -311,7 +320,8 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to previous page</span>
+                <span className="sr-only">{t("goToPreviousPage")}
+</span>
                 {"<"}
               </Button>
               <Button
@@ -320,7 +330,8 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to next page</span>
+                <span className="sr-only">{t("goToNextPage")}
+</span>
                 {">"}
               </Button>
               <Button
@@ -329,7 +340,8 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to last page</span>
+                <span className="sr-only">{t("goToLastPage")}
+</span>
                 {">>"}
               </Button>
             </div>

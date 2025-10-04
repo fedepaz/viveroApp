@@ -9,7 +9,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { generateLocaleStaticParams } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import getRequestConfig from "../../../src/i18n/request";
-import { LayoutWrapper } from "@/components/layout/layout-wrapper";
+
+import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { ReactClientProvider } from "@/providers/query-client-provider";
@@ -39,10 +41,16 @@ export default async function DashboardLayout({
       <NextIntlClientProvider messages={messages}>
         <ReactClientProvider>
           <Suspense fallback={<LoadingSpinner />}>
-            <LayoutWrapper>
+            <div className="flex flex-col h-screen">
               <DashboardHeader />
-              {children}
-            </LayoutWrapper>
+              <div className="flex flex-1">
+                <DesktopSidebar />
+                <main className="flex-1 overflow-auto pb-16 md:pb-0">
+                  {children}
+                </main>
+              </div>
+              <BottomNavigation />
+            </div>
           </Suspense>
         </ReactClientProvider>
       </NextIntlClientProvider>

@@ -5,7 +5,7 @@ import {
   StatusBadge,
 } from "@/components/data-display/data-table";
 import { PurchaseOrder } from "../types";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface HeaderProps {
   column: ColumnDef<PurchaseOrder>;
@@ -13,27 +13,33 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations();
+  const t = useTranslations("PurchaseOrderDataTable");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      const t = useTranslations("PurchaseOrderDataTable");
+      return (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t("selectAll")}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const t = useTranslations("PurchaseOrderDataTable");
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={t("selectRow")}
+        />
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
@@ -61,8 +67,9 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
       return <HeaderComponent column={column} translationKey="totalAmount" />;
     },
     cell: ({ row }) => {
+      const locale = useLocale();
       const amount = Number.parseFloat(row.getValue("totalAmount"));
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat(locale, {
         style: "currency",
         currency: "EUR",
       }).format(amount);
@@ -75,6 +82,7 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
       return <HeaderComponent column={column} translationKey="status" />;
     },
     cell: ({ row }) => {
+      const t = useTranslations("PurchaseOrderDataTable");
       const status = row.getValue("status") as string;
       const statusMap = {
         delivered: "healthy",
@@ -84,7 +92,7 @@ export const purchaseOrderColumns: ColumnDef<PurchaseOrder>[] = [
       } as const;
       return (
         <StatusBadge status={statusMap[status as keyof typeof statusMap]}>
-          {status.charAt(0).toUpperCase() + status.slice(1)}
+          {t(status)}
         </StatusBadge>
       );
     },

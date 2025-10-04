@@ -1,6 +1,14 @@
 {
   "PurchaseOrderDataTable": {
-    "title": "Purchase Orders Data Table",
-    "searchPlaceholder": "Search purchase orders..."
+    "title": "Purchase Orders",
+    "description": "Complete procurement management with supplier tracking and delivery status",
+    "searchPlaceholder": "Search purchase orders...",
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "delivered": "Delivered",
+    "approved": "Approved",
+    "pending": "Pending",
+    "cancelled": "Cancelled",
+    "received": "Received"
   }
 }

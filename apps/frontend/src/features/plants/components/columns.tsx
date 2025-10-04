@@ -5,7 +5,7 @@ import {
   StatusBadge,
 } from "@/components/data-display/data-table";
 import { Plant } from "../types";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface HeaderProps {
   column: ColumnDef<Plant>;
@@ -13,27 +13,33 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations();
+  const t = useTranslations("PlantsDataTable");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 export const plantColumns: ColumnDef<Plant>[] = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      const t = useTranslations("PlantsDataTable");
+      return (
+        <Checkbox
+          checked={table.getIsAllPageRowsSelected()}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t("selectAll")}
+        />
+      );
+    },
+    cell: ({ row }) => {
+      const t = useTranslations("PlantsDataTable");
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label={t("selectRow")}
+        />
+      );
+    },
     enableSorting: false,
     enableHiding: false,
   },
@@ -60,28 +66,37 @@ export const plantColumns: ColumnDef<Plant>[] = [
     header: ({ column }) => {
       return <HeaderComponent column={column} translationKey="status" />;
     },
-    cell: ({ row }) => (
-      <StatusBadge
-        status={row.getValue("status") as "healthy" | "warning" | "critical"}
-      >
-        {String(row.getValue("status")).charAt(0).toUpperCase() +
-          String(row.getValue("status")).slice(1)}
-      </StatusBadge>
-    ),
+    cell: ({ row }) => {
+      const t = useTranslations("PlantsDataTable");
+      const status = row.getValue("status") as string;
+      return (
+        <StatusBadge
+          status={row.getValue("status") as "healthy" | "warning" | "critical"}
+        >
+          {t(status)}
+        </StatusBadge>
+      );
+    },
   },
   {
     accessorKey: "temperature",
     header: ({ column }) => {
       return <HeaderComponent column={column} translationKey="temperature" />;
     },
-    cell: ({ row }) => `${row.getValue("temperature")}°C`,
+    cell: ({ row }) => {
+      const t = useTranslations("PlantsDataTable");
+      return t("temperatureValue", { value: row.getValue("temperature") });
+    },
   },
   {
     accessorKey: "humidity",
     header: ({ column }) => {
       return <HeaderComponent column={column} translationKey="humidity" />;
     },
-    cell: ({ row }) => `${row.getValue("humidity")}%`,
+    cell: ({ row }) => {
+      const t = useTranslations("PlantsDataTable");
+      return t("humidityValue", { value: row.getValue("humidity") });
+    },
   },
   {
     accessorKey: "plantedDate",

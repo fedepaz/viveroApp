@@ -4,45 +4,31 @@
 import { Suspense } from "react";
 import DashboardKPI from "./dashboard-kpi";
 import FeatureNavigation from "./feature-navigation";
-import { KPICardSkeleton } from "@/components/data-display/kpi-card";
 import DashboardAlerts from "./dashboard-alerts";
 import RecentActivity from "./recent-activity";
-import { FeatureCardSkeleton } from "@/components/data-display/feature-card";
+import { DashboardKPISkeleton } from "./dashboard-kpi-skeleton";
+import { FeatureNavigationSkeleton } from "./feature-navigation-skeleton";
+import { DashboardAlertsSkeleton } from "./dashboard-alerts-skeleton";
+import { RecentActivitySkeleton } from "./recent-activity-skeleton";
 
 export function RootDashboard() {
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <KPICardSkeleton key={i} />
-            ))}
-          </div>
-        }
-      >
+      <Suspense fallback={<DashboardKPISkeleton />}>
         <DashboardKPI />
       </Suspense>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <Suspense
-            fallback={
-              <div className="grid gap-4 md:grid-cols-2">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <FeatureCardSkeleton key={i} />
-                ))}
-              </div>
-            }
-          >
+          <Suspense fallback={<FeatureNavigationSkeleton />}>
             <FeatureNavigation />
           </Suspense>
         </div>
         <div className="space-y-6">
-          <Suspense fallback={<KPICardSkeleton />}>
+          <Suspense fallback={<DashboardAlertsSkeleton />}>
             <DashboardAlerts />
           </Suspense>
-          <Suspense fallback={<KPICardSkeleton />}>
+          <Suspense fallback={<RecentActivitySkeleton />}>
             <RecentActivity />
           </Suspense>
         </div>

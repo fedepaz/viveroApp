@@ -5,6 +5,11 @@
     "amount": "Monto",
     "status": "Estado",
     "createdDate": "Fecha de Creación",
-    "dueDate": "Fecha de Vencimiento"
+    "dueDate": "Fecha de Vencimiento",
+    "draft": "Draft",
+    "sent": "Sent",
+    "paid": "Paid",
+    "overdue": "Overdue",
+    "cancelled": "Cancelled"
   }
 }

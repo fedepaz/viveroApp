@@ -1,6 +1,16 @@
 {
-  "name": "Nombre",
-  "email": "Correo Electrónico",
-  "role": "Rol",
-  "status": "Estado"
+  "Columns": {
+    "selectRow": "Select row",
+    "selectAll": "Select all",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "status": "Estado",
+    "department": "Department",
+    "lastLogin": "Last Login",
+    "active": "Active",
+    "inactive": "Inactive",
+    "admin": "Admin",
+    "user": "User"
+  }
 }

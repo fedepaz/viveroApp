@@ -2,6 +2,12 @@
   "InvoicesKpi": {
     "totalInvoices": "Facturas Totales",
     "paidInvoices": "Facturas Pagadas",
-    "pendingInvoices": "Facturas Pendientes"
+    "pendingInvoices": "Facturas Pendientes",
+    "allTime": "All time",
+    "fromLastMonth": "from last month",
+    "totalRevenue": "Total Revenue",
+    "fromAllInvoices": "From all invoices",
+    "pending": "{count, plural, one {# pending} other {# pending}}",
+    "requireFollowUp": "Require follow-up"
   }
 }

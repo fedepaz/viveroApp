@@ -32,7 +32,7 @@ export function PlantForm({
   onCancel,
   isSubmitting = false,
 }: PlantFormProps) {
-  const t = useTranslations();
+  const t = useTranslations("PlantForm");
   const form = useForm<PlantFormData>({
     resolver: zodResolver(plantSchema),
     defaultValues: initialData

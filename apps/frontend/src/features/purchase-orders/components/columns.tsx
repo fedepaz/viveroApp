@@ -59,7 +59,7 @@ function CellTotalAmountComponent({ row }: CellProps) {
 }
 
 function CellBadgeComponent({ row }: CellProps) {
-  const t = useTranslations("PurchaseOrderDataTable");
+  const t = useTranslations("Columns");
   if (!row) return null;
   const status = row.getValue("status") as string;
   const statusMap = {

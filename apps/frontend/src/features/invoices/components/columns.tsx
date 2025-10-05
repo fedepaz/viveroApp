@@ -16,7 +16,7 @@ interface CellProps {
 }
 
 function CellComponent({ row, table }: CellProps) {
-  const t = useTranslations();
+  const t = useTranslations("Columns");
 
   if (table) {
     return (

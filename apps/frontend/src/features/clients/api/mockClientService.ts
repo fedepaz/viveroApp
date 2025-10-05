@@ -1,7 +1,7 @@
 //src/features/users/api/mockUserService.ts
 "server-only";
 
-import { Client, UpdateClientDto } from "../types";
+import { Client, CreateClientDto, UpdateClientDto } from "../types";
 
 const generateClients = (count: number): Client[] => {
   const names: string[] = [
@@ -66,7 +66,7 @@ export const mockClientService = {
     return clientsData.find((user) => user.id === id) || null;
   },
 
-  async createClient(clientCreate: Client): Promise<Client> {
+  async createClient(clientCreate: CreateClientDto): Promise<Client> {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 1500));
     // Replace API response with user

@@ -1,6 +1,16 @@
 {
-  "name": "Nome",
-  "email": "Email",
-  "role": "Ruolo",
-  "status": "Stato"
+  "Columns": {
+    "selectRow": "Select row",
+    "selectAll": "Select all",
+    "name": "Nome",
+    "email": "Email",
+    "role": "Ruolo",
+    "status": "Stato",
+    "department": "Department",
+    "lastLogin": "Last Login",
+    "active": "Active",
+    "inactive": "Inactive",
+    "admin": "Admin",
+    "user": "User"
+  }
 }

@@ -1,10 +1,12 @@
 {
-  "totalUsers": "Total Users",
-  "inSystem": "In system",
-  "fromLastMonth": "from last month",
-  "activeUsers": "Active Users",
-  "newUsersToday": "New Users Today",
-  "needAttention": "Need attention",
-  "administrators": "Administrators",
-  "fullAccess": "Full access"
+  "UserKpi": {
+    "totalUsers": "Total Users",
+    "inSystem": "In system",
+    "fromLastMonth": "from last month",
+    "activeUsers": "Active Users",
+    "newUsersToday": "New Users Today",
+    "needAttention": "Need attention",
+    "administrators": "Administrators",
+    "fullAccess": "Full access"
+  }
 }

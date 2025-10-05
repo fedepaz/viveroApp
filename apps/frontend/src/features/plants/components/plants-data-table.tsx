@@ -17,7 +17,7 @@ import { PlantForm } from "./plants-form";
 
 export function PlantsDataTable() {
   const { data: plants = [] } = usePlants();
-  const t = useTranslations();
+  const t = useTranslations("PlantsDataTable");
 
   const createPlant = useCreatePlant();
   const updatePlant = useUpdatePlant();

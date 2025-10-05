@@ -1,7 +1,6 @@
 {
   "InvoicesDataTable": {
     "title": "Tabla de Datos de Facturas",
-    "searchPlaceholder": "Buscar facturas...",
     "description": "Gestión completa de usuarios con roles, permisos y seguimiento de actividad",
     "createTitle": "Crear Nueva Factura",
     "createDescription": "Rellene los detalles a continuación para crear una nueva factura.",

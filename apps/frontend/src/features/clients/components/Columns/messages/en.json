@@ -1,10 +1,12 @@
 {
-  "name": "Name",
-  "email": "Email",
-  "status": "Status",
-  "contactPerson": "Contact Person",
-  "phone": "Phone",
-  "totalOrders": "Total Orders",
-  "totalRevenue": "Total Revenue",
-  "lastOrder": "Last Order"
+  "Columns": {
+    "name": "Name",
+    "contactPerson": "Contact Person",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Status",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "lastOrder": "Last Order"
+  }
 }

@@ -1,8 +1,17 @@
 {
   "Columns": {
+    "selectAll": "Select all",
+    "selectRow": "Select row",
     "orderNumber": "Numero Ordine",
     "supplier": "Fornitore",
+    "items": "Items",
     "totalAmount": "Importo Totale",
-    "status": "Stato"
+    "status": "Stato",
+    "orderDate": "Order Date",
+    "deliveryDate": "Delivery Date",
+    "delivered": "Delivered",
+    "approved": "Approved",
+    "pending": "Pending",
+    "cancelled": "Cancelled"
   }
 }

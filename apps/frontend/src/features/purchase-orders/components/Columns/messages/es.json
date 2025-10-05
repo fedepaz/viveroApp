@@ -1,9 +1,17 @@
 {
-  "orderNumber": "Número de Pedido",
-  "supplier": "Proveedor",
-  "items": "Artículos",
-  "totalAmount": "Monto Total",
-  "status": "Estado",
-  "orderDate": "Fecha de Pedido",
-  "deliveryDate": "Fecha de Entrega"
+  "Columns": {
+    "selectAll": "Select all",
+    "selectRow": "Select row",
+    "orderNumber": "Número de Pedido",
+    "supplier": "Proveedor",
+    "items": "Artículos",
+    "totalAmount": "Monto Total",
+    "status": "Estado",
+    "orderDate": "Fecha de Pedido",
+    "deliveryDate": "Fecha de Entrega",
+    "delivered": "Delivered",
+    "approved": "Approved",
+    "pending": "Pending",
+    "cancelled": "Cancelled"
+  }
 }

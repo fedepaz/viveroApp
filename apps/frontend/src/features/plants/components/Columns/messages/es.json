@@ -1,12 +1,16 @@
 {
-  "name": "Nombre",
-  "type": "Tipo",
-  "status": "Estado",
-  "healthScore": "Puntuación de Salud",
-  "species": "Especie",
-  "location": "Ubicación",
-  "temperature": "Temperatura",
-  "humidity": "Humedad",
-  "plantedDate": "Fecha de Plantación",
-  "harvestDate": "Fecha de Cosecha"
+  "Columns": {
+    "selectRow": "Select row",
+    "selectAll": "Select all",
+    "name": "Nombre",
+    "species": "Especie",
+    "location": "Ubicación",
+    "status": "Estado",
+    "growthStage": "Growth Stage",
+    "plantedDate": "Fecha de Plantación",
+    "lastWatered": "Last Watered",
+    "healthy": "Healthy",
+    "warning": "Warning",
+    "critical": "Critical"
+  }
 }

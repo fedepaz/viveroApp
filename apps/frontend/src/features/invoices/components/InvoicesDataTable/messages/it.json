@@ -1,6 +1,10 @@
 {
   "InvoicesDataTable": {
     "title": "Tabella Dati Fatture",
-    "searchPlaceholder": "Cerca fatture..."
+    "description": "Complete invoice management with statuses, dates, and more.",
+    "createTitle": "Create New Invoice",
+    "createDescription": "Fill in the details below to create a new invoice.",
+    "editTitle": "Edit Invoice",
+    "editDescription": "Update the details for this invoice."
   }
 }

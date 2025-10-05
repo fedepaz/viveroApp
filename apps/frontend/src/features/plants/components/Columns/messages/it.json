@@ -1,6 +1,16 @@
 {
-  "name": "Nome",
-  "type": "Tipo",
-  "status": "Stato",
-  "healthScore": "Punteggio Salute"
+  "Columns": {
+    "selectRow": "Select row",
+    "selectAll": "Select all",
+    "name": "Nome",
+    "species": "Species",
+    "location": "Location",
+    "status": "Stato",
+    "growthStage": "Growth Stage",
+    "plantedDate": "Planted Date",
+    "lastWatered": "Last Watered",
+    "healthy": "Healthy",
+    "warning": "Warning",
+    "critical": "Critical"
+  }
 }

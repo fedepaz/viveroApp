@@ -1,3 +1,5 @@
+//src/features/clients/types.ts
+
 import { z } from "zod";
 
 interface Client {
@@ -18,6 +20,9 @@ interface CreateClientDto {
   email: string;
   phone: string;
   status: "active" | "inactive" | "prospect";
+  totalOrders: number;
+  totalRevenue: number;
+  lastOrder: string;
 }
 
 interface UpdateClientDto {
@@ -26,6 +31,9 @@ interface UpdateClientDto {
   email?: string;
   phone?: string;
   status?: "active" | "inactive" | "prospect";
+  totalOrders?: number;
+  totalRevenue?: number;
+  lastOrder?: string;
 }
 
 const clientSchema = z.object({
@@ -34,6 +42,9 @@ const clientSchema = z.object({
   email: z.string().email("Invalid email"),
   phone: z.string().min(1, "Phone number is required"),
   status: z.enum(["active", "inactive", "prospect"]),
+  totalOrders: z.number().positive("Total orders must be positive"),
+  totalRevenue: z.number().positive("Total revenue must be positive"),
+  lastOrder: z.string(),
 });
 
 type ClientFormData = z.infer<typeof clientSchema>;

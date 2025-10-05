@@ -1,10 +1,12 @@
 {
-  "totalUsers": "Utenti Totali",
-  "inSystem": "Nel sistema",
-  "fromLastMonth": "dall'ultimo mese",
-  "activeUsers": "Utenti Attivi",
-  "newUsersToday": "Nuovi Utenti Oggi",
-  "needAttention": "Richiedono attenzione",
-  "administrators": "Amministratori",
-  "fullAccess": "Accesso completo"
+  "UserKpi": {
+    "totalUsers": "Utenti Totali",
+    "inSystem": "Nel sistema",
+    "fromLastMonth": "dall'ultimo mese",
+    "activeUsers": "Utenti Attivi",
+    "newUsersToday": "Nuovi Utenti Oggi",
+    "needAttention": "Richiedono attenzione",
+    "administrators": "Amministratori",
+    "fullAccess": "Accesso completo"
+  }
 }

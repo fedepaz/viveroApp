@@ -2,6 +2,11 @@
   "Columns": {
     "name": "Nome",
     "email": "Email",
-    "status": "Stato"
+    "status": "Stato",
+    "contactPerson": "Contact Person",
+    "phone": "Phone",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "lastOrder": "Last Order"
   }
 }

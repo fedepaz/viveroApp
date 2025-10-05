@@ -17,7 +17,7 @@ import { UserForm } from "./user-form";
 
 export function UsersDataTable() {
   const { data: users = [] } = useUsers();
-  const t = useTranslations();
+  const t = useTranslations("UsersDataTable");
 
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();

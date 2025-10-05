@@ -1,12 +1,14 @@
 {
-  "totalPlants": "Plantas Totales",
-  "activeInSystem": "Activas en el sistema",
-  "fromLastMonth": "del mes pasado",
-  "healthyPlants": "Plantas Saludables",
-  "ofTotal": "{percentage}% del total",
-  "fromLastWeek": "de la semana pasada",
-  "alertPlants": "Plantas en Alerta",
-  "requireImmediateAttention": "Requieren atención inmediata",
-  "readyForHarvest": "Listas para Cosechar",
-  "matureOrFruitingStage": "Etapa madura o de fructificación"
+  "PlantsKpi": {
+    "totalPlants": "Plantas Totales",
+    "activeInSystem": "Activas en el sistema",
+    "fromLastMonth": "del mes pasado",
+    "healthyPlants": "Plantas Saludables",
+    "ofTotal": "{percentage}% del total",
+    "fromLastWeek": "de la semana pasada",
+    "alertPlants": "Plantas en Alerta",
+    "requireImmediateAttention": "Requieren atención inmediata",
+    "readyForHarvest": "Listas para Cosechar",
+    "matureOrFruitingStage": "Etapa madura o de fructificación"
+  }
 }

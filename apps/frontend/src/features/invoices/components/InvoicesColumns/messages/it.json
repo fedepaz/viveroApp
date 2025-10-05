@@ -1,9 +1,9 @@
 {
-  "Columns": {
-    "invoiceNumber": "Invoice Number",
-    "client": "Client",
-    "amount": "Amount",
-    "status": "Status",
+  "InvoicesColumns": {
+    "invoiceNumber": "Numero Fattura",
+    "client": "Cliente",
+    "amount": "Importo",
+    "status": "Stato",
     "createdDate": "Created Date",
     "dueDate": "Due Date",
     "draft": "Draft",

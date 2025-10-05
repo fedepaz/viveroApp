@@ -16,7 +16,7 @@ interface CellProps {
 }
 
 function CellComponent({ row, table }: CellProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("InvoicesColumns");
 
   if (table) {
     return (
@@ -48,12 +48,12 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("InvoicesColumns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 function CellBadgeComponent({ row }: CellProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("InvoicesColumns");
   if (!row) return null;
   const status = row.getValue("status") as string;
   const statusMap = {

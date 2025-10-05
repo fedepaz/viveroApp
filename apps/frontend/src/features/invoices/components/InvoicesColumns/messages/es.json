@@ -1,5 +1,5 @@
 {
-  "Columns": {
+  "InvoicesColumns": {
     "invoiceNumber": "Número de Factura",
     "client": "Cliente",
     "amount": "Monto",

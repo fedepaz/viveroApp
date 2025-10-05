@@ -1,0 +1,15 @@
+{
+  "clientsColumns": {
+    "selectRow": "Select row",
+    "selectAll": "Select all",
+    "name": "Nome",
+    "contactPerson": "Contact Person",
+    "email": "Email",
+    "phone": "Phone",
+    "status": "Stato",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "lastOrder": "Last Order",
+    "Prospect": "Prospect"
+  }
+}

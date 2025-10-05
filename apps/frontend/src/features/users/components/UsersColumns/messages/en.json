@@ -1,11 +1,11 @@
 {
-  "Columns": {
+  "UsersColumns": {
     "selectRow": "Select row",
     "selectAll": "Select all",
-    "name": "Nome",
+    "name": "Name",
     "email": "Email",
-    "role": "Ruolo",
-    "status": "Stato",
+    "role": "Role",
+    "status": "Status",
     "department": "Department",
     "lastLogin": "Last Login",
     "active": "Active",

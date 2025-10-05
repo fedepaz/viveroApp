@@ -77,7 +77,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/clients/components/Columns/messages/${locale}.json`
+          `../features/clients/components/ClientsColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -131,7 +131,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/invoices/components/Columns/messages/${locale}.json`
+          `../features/invoices/components/InvoicesColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -173,7 +173,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/plants/components/Columns/messages/${locale}.json`
+          `../features/plants/components/PlantsColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -237,7 +237,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/users/components/Columns/messages/${locale}.json`
+          `../features/users/components/UsersColumns/messages/${locale}.json`
         )
       ).default,
       ...(

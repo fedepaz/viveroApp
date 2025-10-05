@@ -13,7 +13,7 @@ interface CellProps {
 }
 
 function CellComponent({ row, table }: CellProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("PurchaseOrdersColumns");
   if (table) {
     return (
       <Checkbox
@@ -43,7 +43,7 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("PurchaseOrdersColumns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
@@ -59,7 +59,7 @@ function CellTotalAmountComponent({ row }: CellProps) {
 }
 
 function CellBadgeComponent({ row }: CellProps) {
-  const t = useTranslations("Columns");
+  const t = useTranslations("PurchaseOrdersColumns");
   if (!row) return null;
   const status = row.getValue("status") as string;
   const statusMap = {

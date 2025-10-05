@@ -11,6 +11,8 @@
     "active": "Active",
     "inactive": "Inactive",
     "admin": "Admin",
-    "user": "User"
+    "user": "User",
+    "manager": "Manager",
+    "worker": "Worker"
   }
 }

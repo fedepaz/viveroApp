@@ -9,5 +9,11 @@
     "deleteSuccess": "Eliminato con successo.",
     "deleteError": "Errore durante l'eliminazione.",
     "exportSuccess": "Esportazione riuscita."
+  },
+  "NotFound": {
+    "title": "Pagina non trovata",
+    "description": "La pagina che stai cercando non esiste.",
+    "backToHome": "Torna alla Home",
+    "goBack": "Indietro"
   }
 }

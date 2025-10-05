@@ -1,16 +1,18 @@
 {
   "UsersColumns": {
-    "selectRow": "Select row",
-    "selectAll": "Select all",
+    "selectRow": "Seleccionar fila",
+    "selectAll": "Seleccionar todo",
     "name": "Nombre",
     "email": "Correo Electrónico",
     "role": "Rol",
     "status": "Estado",
-    "department": "Department",
-    "lastLogin": "Last Login",
-    "active": "Active",
-    "inactive": "Inactive",
-    "admin": "Admin",
-    "user": "User"
+    "department": "Departamento",
+    "lastLogin": "Último acceso",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "admin": "Administrador",
+    "user": "Usuario",
+    "manager": "Gerente",
+    "worker": "Trabajador"
   }
 }

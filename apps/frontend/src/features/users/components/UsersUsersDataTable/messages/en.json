@@ -1,6 +1,6 @@
 {
-  "UsersDataTable": {
-    "title": "Usuarios",
+  "UsersUsersDataTable": {
+    "title": "Users",
     "description": "Complete user management with roles, permissions, and activity tracking",
     "searchPlaceholder": "Search users...",
     "selectAll": "Select all",
@@ -10,6 +10,10 @@
     "active": "Active",
     "inactive": "Inactive",
     "worker": "Worker",
-    "manager": "Manager"
+    "manager": "Manager",
+    "createTitle": "Create User",
+    "createDescription": "Create a new user and assign a role.",
+    "editTitle": "Edit User",
+    "editDescription": "Edit an existing user's details and role."
   }
 }

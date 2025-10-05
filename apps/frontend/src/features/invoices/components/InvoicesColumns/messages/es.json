@@ -10,6 +10,8 @@
     "sent": "Sent",
     "paid": "Paid",
     "overdue": "Overdue",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "selectAll": "Seleccionar todo",
+    "selectRow": "Seleccionar fila"
   }
 }

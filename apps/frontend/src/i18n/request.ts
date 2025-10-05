@@ -205,7 +205,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/purchase-orders/components/Columns/messages/${locale}.json`
+          `../features/purchase-orders/components/PurchaseOrdersColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -227,7 +227,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/users/components/UserDataTable/messages/${locale}.json`
+          `../features/users/components/UsersUsersDataTable/messages/${locale}.json`
         )
       ).default,
       ...(

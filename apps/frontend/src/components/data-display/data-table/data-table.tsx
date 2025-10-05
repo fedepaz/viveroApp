@@ -99,8 +99,7 @@ export function DataTable<TData, TValue>({
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">{t("openMenu")}
-</span>
+                <span className="sr-only">{t("openMenu")}</span>
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -187,7 +186,9 @@ export function DataTable<TData, TValue>({
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder={t("searchPlaceholder", { title: title.toLowerCase() })}
+              placeholder={t("searchPlaceholder", {
+                title: title.toLowerCase(),
+              })}
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(String(event.target.value))}
               className="pl-8"
@@ -197,7 +198,7 @@ export function DataTable<TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
                 <Filter className="mr-2 h-4 w-4" />
-                {t("columns")}
+                {t("columns.title")}
                 <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -215,7 +216,7 @@ export function DataTable<TData, TValue>({
                         column.toggleVisibility(!!value)
                       }
                     >
-                      {column.id}
+                      {t(`columns.${column.id}`)}
                     </DropdownMenuCheckboxItem>
                   );
                 })}
@@ -310,8 +311,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">{t("goToFirstPage")}
-</span>
+                <span className="sr-only">{t("goToFirstPage")}</span>
                 {"<<"}
               </Button>
               <Button
@@ -320,8 +320,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">{t("goToPreviousPage")}
-</span>
+                <span className="sr-only">{t("goToPreviousPage")}</span>
                 {"<"}
               </Button>
               <Button
@@ -330,8 +329,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">{t("goToNextPage")}
-</span>
+                <span className="sr-only">{t("goToNextPage")}</span>
                 {">"}
               </Button>
               <Button
@@ -340,8 +338,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">{t("goToLastPage")}
-</span>
+                <span className="sr-only">{t("goToLastPage")}</span>
                 {">>"}
               </Button>
             </div>

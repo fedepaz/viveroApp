@@ -1,7 +1,7 @@
 {
-  "clientsColumns": {
-    "selectRow": "Select row",
-    "selectAll": "Select all",
+  "ClientsColumns": {
+    "selectRow": "Seleccionar fila",
+    "selectAll": "Seleccionar todo",
     "name": "Nombre",
     "contactPerson": "Persona de Contacto",
     "email": "Correo Electrónico",
@@ -10,6 +10,8 @@
     "totalOrders": "Total de Pedidos",
     "totalRevenue": "Ingresos Totales",
     "lastOrder": "Último Pedido",
-    "Prospect": "Prospecto"
+    "prospect": "Prospecto",
+    "active": "Activo",
+    "inactive": "Inactivo"
   }
 }

@@ -1,15 +1,17 @@
 {
-  "clientsColumns": {
-    "selectRow": "Select row",
-    "selectAll": "Select all",
+  "ClientsColumns": {
+    "selectRow": "Seleziona riga",
+    "selectAll": "Seleziona tutto",
     "name": "Nome",
-    "contactPerson": "Contact Person",
+    "contactPerson": "Persona di Contatto",
     "email": "Email",
-    "phone": "Phone",
+    "phone": "Telefono",
     "status": "Stato",
-    "totalOrders": "Total Orders",
-    "totalRevenue": "Total Revenue",
-    "lastOrder": "Last Order",
-    "Prospect": "Prospect"
+    "totalOrders": "Ordini Totali",
+    "totalRevenue": "Ricavo Totale",
+    "lastOrder": "Ultimo Ordine",
+    "prospect": "Potenziale Cliente",
+    "active": "Attivo",
+    "inactive": "Inattivo"
   }
 }

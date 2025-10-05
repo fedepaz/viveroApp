@@ -1,5 +1,5 @@
 {
-  "Columns": {
+  "PurchaseOrdersColumns": {
     "selectAll": "Select all",
     "selectRow": "Select row",
     "orderNumber": "Order Number",
@@ -12,6 +12,7 @@
     "delivered": "Delivered",
     "approved": "Approved",
     "pending": "Pending",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "received": "Received"
   }
 }

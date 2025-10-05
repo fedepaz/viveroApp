@@ -298,12 +298,12 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...(await import(`../features/purchase-orders/components/PurchaseOrderSkeleton/messages/${locale}.json`)).default,
       ...(await import(`../features/purchase-orders/components/PurchaseOrderDataTable/messages/${locale}.json`)).default,
       ...(await import(`../features/purchase-orders/components/PurchaseOrdersKpi/messages/${locale}.json`)).default,
-      ...(await import(`../features/purchase-orders/components/Columns/messages/${locale}.json`)).default,
+      ...(await import(`../features/purchase-orders/components/PurchaseOrdersColumns/messages/${locale}.json`)).default,
 
       // Users Feature
       ...(await import(`../features/users/components/UsersDashboard/messages/${locale}.json`)).default,
       ...(await import(`../features/users/components/UserDashboardSkeleton/messages/${locale}.json`)).default,
-      ...(await import(`../features/users/components/UserDataTable/messages/${locale}.json`)).default,
+      ...(await import(`../features/users/components/UsersUsersDataTable/messages/${locale}.json`)).default,
       ...(await import(`../features/users/components/UserKpi/messages/${locale}.json`)).default,
       ...(await import(`../features/users/components/Columns/messages/${locale}.json`)).default,
     }

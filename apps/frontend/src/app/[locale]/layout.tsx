@@ -5,8 +5,8 @@ import type React from "react";
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
 
-import { NextIntlClientProvider } from "next-intl";
-import { generateLocaleStaticParams } from "@/i18n/routing";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { generateLocaleStaticParams, routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import getRequestConfig from "../../../src/i18n/request";
 
@@ -15,6 +15,7 @@ import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { ReactClientProvider } from "@/providers/query-client-provider";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -36,6 +37,11 @@ export default async function DashboardLayout({
   const { messages } = await getRequestConfig({
     requestLocale: Promise.resolve(locale),
   });
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <ThemeProvider>
       <NextIntlClientProvider messages={messages}>

@@ -13,7 +13,7 @@ interface CellProps {
 }
 
 function CellComponent({ row, table }: CellProps) {
-  const t = useTranslations("UsersColumns");
+  const t = useTranslations("UserColumns");
   if (row) {
     return (
       <Checkbox
@@ -41,12 +41,12 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("UsersColumns");
+  const t = useTranslations("UserColumns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 function CellBadgeRoleComponent({ row }: CellProps) {
-  const t = useTranslations("UsersColumns");
+  const t = useTranslations("UserColumns");
   if (!row) return null;
   const role = row.getValue("role") as string;
   return (
@@ -57,7 +57,7 @@ function CellBadgeRoleComponent({ row }: CellProps) {
 }
 
 function CellBadgeStatusComponent({ row }: CellProps) {
-  const t = useTranslations("UsersColumns");
+  const t = useTranslations("UserColumns");
   if (!row) return null;
   const status = row.getValue("status") as string;
   return (

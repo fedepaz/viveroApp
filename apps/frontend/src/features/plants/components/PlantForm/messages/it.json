@@ -7,7 +7,7 @@
     "locationLabel": "Posizione",
     "locationPlaceholder": "Inserisci la posizione della pianta",
     "statusLabel": "Stato",
-    "selectStatusPlaceholder": "Seleziona uno stato",
+    "statusPlaceholder": "Inserisci lo stato della pianta",
     "healthyStatus": "Sano",
     "warningStatus": "Avvertimento",
     "criticalStatus": "Critico",
@@ -15,7 +15,9 @@
     "growthStageLabel": "Fase di Crescita",
     "growthStagePlaceholder": "Inserisci la fase di crescita",
     "plantedDateLabel": "Data di Piantagione",
+    "plantedDatePlaceholder": "Inserisci la data di piantagione",
     "lastWateredLabel": "Ultima Irrigazione",
+    "lastWateredPlaceholder": "Inserisci la data dell'ultima irrigazione",
     "cancelButton": "Annulla",
     "submitButton": "Invia",
     "updateButton": "Aggiorna"

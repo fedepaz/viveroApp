@@ -47,10 +47,10 @@ export default async function DashboardLayout({
       <NextIntlClientProvider messages={messages}>
         <ReactClientProvider>
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="flex flex-col h-screen">
-              <DashboardHeader />
-              <div className="flex flex-1">
-                <DesktopSidebar />
+            <div className="flex  h-screen overflow-hidden">
+              <DesktopSidebar />
+              <div className="flex flex-1 flex-col overflow-hidden">
+                <DashboardHeader />
                 <main className="flex-1 overflow-auto pb-16 md:pb-0">
                   {children}
                 </main>

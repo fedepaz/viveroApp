@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,10 +10,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
-import { PurchaseOrder, PurchaseOrderFormData, purchaseOrderSchema } from "../types";
+import {
+  PurchaseOrder,
+  PurchaseOrderFormData,
+  purchaseOrderSchema,
+} from "../types";
 import { useTranslations } from "next-intl";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface PurchaseOrderFormProps {
   initialData?: PurchaseOrder;
@@ -26,8 +34,6 @@ interface PurchaseOrderFormProps {
 export function PurchaseOrderForm({
   initialData,
   onSubmit,
-  onCancel,
-  isSubmitting = false,
 }: PurchaseOrderFormProps) {
   const t = useTranslations("PurchaseOrderForm");
   const form = useForm<PurchaseOrderFormData>({
@@ -129,9 +135,15 @@ export function PurchaseOrderForm({
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="pending">{t("pendingStatus")}</SelectItem>
-                  <SelectItem value="approved">{t("approvedStatus")}</SelectItem>
-                  <SelectItem value="received">{t("receivedStatus")}</SelectItem>
-                  <SelectItem value="cancelled">{t("cancelledStatus")}</SelectItem>
+                  <SelectItem value="approved">
+                    {t("approvedStatus")}
+                  </SelectItem>
+                  <SelectItem value="received">
+                    {t("receivedStatus")}
+                  </SelectItem>
+                  <SelectItem value="cancelled">
+                    {t("cancelledStatus")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -166,16 +178,6 @@ export function PurchaseOrderForm({
             </FormItem>
           )}
         />
-
-        <div className="flex justify-end space-x-2">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            {t("cancelButton")}
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? t("updateButton") : t("submitButton")}
-          </Button>
-        </div>
       </form>
     </Form>
   );

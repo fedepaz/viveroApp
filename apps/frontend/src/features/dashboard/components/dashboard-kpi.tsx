@@ -6,7 +6,7 @@ import { ShoppingCart, Sprout, TrendingUp, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 function DashboardKPI() {
-  const t = useTranslations("DashboardKpi");
+  const t = useTranslations("DashboardKPIs");
   const { data: kpi } = useDashboardKPIs();
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

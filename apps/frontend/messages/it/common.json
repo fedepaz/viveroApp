@@ -5,15 +5,13 @@
     "plantManagement": "Gestione delle piante",
     "johnDoe": "John Doe",
     "greenhouseManager": "Responsabile della serra",
-    "confirmDelete": "Sei sicuro di voler eliminare {id}?",
+    "areYouSure": "Sei sicuro?",
+    "confirmDelete": "Questo eliminerà permanentemente {count, plural, one {1 elemento} other {# elementi}}.",
+    "cancelButton": "Annulla",
+    "deletingButton": "Eliminazione in corso...",
+    "deleteButton": "Elimina",
     "deleteSuccess": "Eliminato con successo.",
     "deleteError": "Errore durante l'eliminazione.",
     "exportSuccess": "Esportazione riuscita."
-  },
-  "NotFound": {
-    "title": "Pagina non trovata",
-    "description": "La pagina che stai cercando non esiste.",
-    "backToHome": "Torna alla Home",
-    "goBack": "Indietro"
   }
 }

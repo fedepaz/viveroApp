@@ -3,8 +3,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
-
 import {
   Form,
   FormControl,
@@ -15,7 +13,6 @@ import {
 } from "@/components/ui/form";
 
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
 import { Plant, PlantFormData, plantSchema } from "../types";
 import { useTranslations } from "next-intl";
 
@@ -26,12 +23,7 @@ interface PlantFormProps {
   isSubmitting?: boolean;
 }
 
-export function PlantForm({
-  initialData,
-  onSubmit,
-  onCancel,
-  isSubmitting = false,
-}: PlantFormProps) {
+export function PlantForm({ initialData, onSubmit }: PlantFormProps) {
   const t = useTranslations("PlantForm");
   const form = useForm<PlantFormData>({
     resolver: zodResolver(plantSchema),
@@ -148,16 +140,6 @@ export function PlantForm({
             </FormItem>
           )}
         />
-
-        <div className="flex justify-end space-x-2">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            {t("cancelButton")}
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? t("updateButton") : t("submitButton")}
-          </Button>
-        </div>
       </form>
     </Form>
   );

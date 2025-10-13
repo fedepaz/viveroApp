@@ -12,7 +12,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
 export function LanguageSwitcher() {
-  const t = useTranslations("language");
+  const t = useTranslations("LanguageSwitcher");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();

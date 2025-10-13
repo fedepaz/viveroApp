@@ -15,7 +15,10 @@
     "lastWatered": "Última limpieza",
     "createTitle": "Crear Nueva Planta",
     "createDescription": "Rellene los detalles a continuación para crear una nueva planta.",
-    "editTitle": "Editar Planta",
-    "editDescription": "Actualice los detalles de esta planta."
+    "editTitle": "Editar Planta: {name}",
+    "editDescription": "Actualice los detalles de {name}.",
+    "addNew": "Añadir Nueva Planta",
+    "update": "Actualizar",
+    "create": "Crear"
   }
 }

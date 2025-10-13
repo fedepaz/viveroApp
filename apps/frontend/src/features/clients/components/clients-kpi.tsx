@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { useClients } from "../hooks/hooks";
 
 function ClientsKPI() {
-  const t = useTranslations("ClientsKpi");
+  const t = useTranslations("ClientKPIs");
   const { data: clients = [] } = useClients();
   const totalClients = clients.length;
   const activeClients = clients.filter(

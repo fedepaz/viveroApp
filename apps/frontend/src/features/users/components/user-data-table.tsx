@@ -8,47 +8,69 @@ import {
   useUpdateUser,
   useUsers,
 } from "../hooks/hooks";
-import { CreateUserDto, UpdateUserDto, User } from "../types";
 import { useTranslations } from "next-intl";
-import { DataTable } from "@/components/data-display/data-table";
-import { EntityModal } from "@/components/forms/entity-modal";
+import {
+  DataTable,
+  FloatingActionButton,
+  SlideOverForm,
+} from "@/components/data-display/data-table";
 import { userColumns } from "./columns";
 import { UserForm } from "./user-form";
+import { useState } from "react";
+import { User } from "../types";
 
 export function UsersDataTable() {
   const { data: users = [] } = useUsers();
-  const t = useTranslations("UsersUsersDataTable");
+  const t = useTranslations("UsersDataTable");
+
+  const [slideOverOpen, setSlideOverOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [formData, setFormData] = useState<Partial<User>>({});
 
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
   const deleteUser = useDeleteUser();
-  const {
-    isCreateModalOpen,
-    isEditModalOpen,
-    selectedEntity,
-    handleAdd,
-    handleEdit,
-    handleDelete,
-    handleExport,
-    closeCreateModal,
-    closeEditModal,
-  } = useDataTableActions<User>({
-    entityName: "Users",
+
+  const {} = useDataTableActions<User>({
+    entityName: t("entityName"),
     onDelete: (id) => deleteUser.mutateAsync(id),
   });
 
-  const handleCreateSubmit = async (data: CreateUserDto) => {
-    await createUser.mutateAsync(data);
-    closeCreateModal();
+  const handleEdit = (row: User) => {
+    setSelectedUser(row);
+    setFormData(row);
+    setSlideOverOpen(true);
   };
 
-  const handleEditSubmit = async (data: UpdateUserDto) => {
-    if (selectedEntity) {
+  const handleAdd = () => {
+    setSelectedUser(null);
+    setFormData({
+      name: "",
+      email: "",
+      role: "manager",
+      department: "",
+      status: "active",
+    });
+    setSlideOverOpen(true);
+  };
+  const handleDelete = (rows: User[]) => {
+    console.log("Delete Users:", rows);
+  };
+
+  const handleExport = (
+    format: "csv" | "excel" | "json" | "pdf",
+    selectedRows: User[]
+  ) => {
+    console.log("Export Users:", selectedRows);
+  };
+
+  const handleSave = async () => {
+    if (selectedUser) {
       await updateUser.mutateAsync({
-        id: selectedEntity.id,
-        userUpdate: data,
+        id: selectedUser.id,
+        userUpdate: formData,
       });
-      closeEditModal();
+      setSlideOverOpen(false);
     }
   };
 
@@ -61,40 +83,34 @@ export function UsersDataTable() {
         description={t("description")}
         searchKey="name"
         totalCount={users.length}
-        onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        onExport={() => handleExport(users)}
+        onExport={handleExport}
+        onQuickEdit={(user) => console.log(`Quick edit user: ${user.name}`)}
       />
+      <FloatingActionButton onClick={handleAdd} label={t("addNew")} />
 
-      {/* Create Modal */}
-      <EntityModal
-        open={isCreateModalOpen}
-        onOpenChange={closeCreateModal}
-        title={t("createTitle")}
-        description={t("createDescription")}
+      <SlideOverForm
+        open={slideOverOpen}
+        onOpenChange={setSlideOverOpen}
+        title={selectedUser ? t("editTitle", { name: selectedUser.name }) : t("createTitle")}
+        description={
+          selectedUser
+            ? t("editDescription", { name: selectedUser.name })
+            : t("createUserDescription")
+        }
+        onSave={handleSave}
+        onCancel={() => setSlideOverOpen(false)}
+        saveLabel={selectedUser ? t("updateButton") : t("createButton")}
       >
-        <UserForm
-          onSubmit={handleCreateSubmit}
-          onCancel={closeCreateModal}
-          isSubmitting={createUser.isPending}
-        />
-      </EntityModal>
-
-      {/* Edit Modal */}
-      <EntityModal
-        open={isEditModalOpen}
-        onOpenChange={closeEditModal}
-        title={t("editTitle")}
-        description={t("editDescription")}
-      >
-        <UserForm
-          initialData={selectedEntity || undefined}
-          onSubmit={handleEditSubmit}
-          onCancel={closeEditModal}
-          isSubmitting={updateUser.isPending}
-        />
-      </EntityModal>
+        <div className="space-y-2">
+          <UserForm
+            onSubmit={handleSave}
+            onCancel={() => setSlideOverOpen(false)}
+            isSubmitting={createUser.isPending}
+          />
+        </div>
+      </SlideOverForm>
     </>
   );
 }

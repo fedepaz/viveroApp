@@ -56,8 +56,6 @@ const generateRecentActivity = (count: number): RecentActivityInterface[] => {
     "Order #456 has been placed",
     "New client registered",
     "New invoice received",
-    "System is down",
-    "User deleted",
   ];
 
   const users = [
@@ -65,14 +63,12 @@ const generateRecentActivity = (count: number): RecentActivityInterface[] => {
     "Jane Smith",
     "Alice Johnson",
     "Bob Lee",
-    "Charlie Brown",
-    "David Jones",
   ];
 
   return Array.from({ length: count }, (_, i) => ({
     id: `activity-${i + 1}`,
-    action: actions[Math.floor(Math.random() * actions.length)],
-    user: users[Math.floor(Math.random() * users.length)],
+    action: actions[i % actions.length],
+    user: users[i % users.length],
     timestamp: new Date(),
   }));
 };

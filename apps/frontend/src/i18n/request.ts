@@ -20,18 +20,16 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ...(await import(`../../messages/${locale}/navigation.json`)).default,
       ...(
         await import(
-          `../components/layout/dashboard-header/messages/${locale}.json`
+          `../components/layout/DashboardHeader/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../components/common/language-switcher/messages/${locale}.json`
+          `../components/common/LanguageSwitcher/messages/${locale}.json`
         )
       ).default,
       ...(
-        await import(
-          `../components/common/theme-toggle/messages/${locale}.json`
-        )
+        await import(`../components/common/ThemeToggle/messages/${locale}.json`)
       ).default,
       ...(
         await import(
@@ -40,7 +38,12 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../components/data-display/data-table/column-filters/messages/${locale}.json`
+          `../components/common/NotFoundPage/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../components/data-display/data-table/DataTableFacetedFilter/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -50,7 +53,22 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../components/data-display/data-table/data-table/messages/${locale}.json`
+          `../components/data-display/data-table/SlideOverForm/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../components/data-display/data-table/ExportDropdown/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../components/data-display/data-table/FloatingActionButton/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../components/data-display/data-table/InlineEditRow/messages/${locale}.json`
         )
       ).default,
 
@@ -72,17 +90,22 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/clients/components/ClientsKpi/messages/${locale}.json`
+          `../features/clients/components/ClientKPIs/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../features/clients/components/ClientsColumns/messages/${locale}.json`
+          `../features/clients/components/ClientColumns/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
           `../features/clients/components/ClientForm/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
+          `../features/clients/components/CellComponent/messages/${locale}.json`
         )
       ).default,
 
@@ -99,7 +122,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/dashboard/components/DashboardKpi/messages/${locale}.json`
+          `../features/dashboard/components/DashboardKPIs/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -131,7 +154,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/invoices/components/InvoicesColumns/messages/${locale}.json`
+          `../features/invoices/components/InvoiceColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -146,7 +169,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/invoices/components/InvoicesKpi/messages/${locale}.json`
+          `../features/invoices/components/InvoiceKPIs/messages/${locale}.json`
         )
       ).default,
 
@@ -168,7 +191,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/plants/components/PlantsKpi/messages/${locale}.json`
+          `../features/plants/components/PlantKPIs/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -195,17 +218,17 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/purchase-orders/components/PurchaseOrderDataTable/messages/${locale}.json`
+          `../features/purchase-orders/components/PurchaseOrdersDataTable/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../features/purchase-orders/components/PurchaseOrdersKpi/messages/${locale}.json`
+          `../features/purchase-orders/components/PurchaseOrderKPIs/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../features/purchase-orders/components/PurchaseOrdersColumns/messages/${locale}.json`
+          `../features/purchase-orders/components/PurchaseOrderColumns/messages/${locale}.json`
         )
       ).default,
       ...(
@@ -227,17 +250,17 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
-          `../features/users/components/UsersUsersDataTable/messages/${locale}.json`
+          `../features/users/components/UsersDataTable/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../features/users/components/UserKpi/messages/${locale}.json`
+          `../features/users/components/UserKPIs/messages/${locale}.json`
         )
       ).default,
       ...(
         await import(
-          `../features/users/components/UsersColumns/messages/${locale}.json`
+          `../features/users/components/UserColumns/messages/${locale}.json`
         )
       ).default,
       ...(

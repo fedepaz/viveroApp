@@ -7,7 +7,7 @@ import { Sprout, Leaf, AlertTriangle, Droplets } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 function PlantKPIs() {
-  const t = useTranslations("PlantsKpi");
+  const t = useTranslations("PlantKPIs");
   const { data: mockPlants = [] } = usePlants();
   const totalPlants = mockPlants.length;
   const healthyPlants = mockPlants.filter((p) => p.status === "healthy").length;

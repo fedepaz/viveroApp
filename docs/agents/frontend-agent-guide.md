@@ -118,6 +118,10 @@ src/
 │   ├── dashboard/          # Layout components (e.g., <DashboardShell />)
 │   ├── forms/              # Reusable form primitives (e.g., <FormSection />)
 │   └── data-display/       # Generic tables, charts, visualizations
+│       └── data-table/     # DataTable and related components
+│           ├── data-table.tsx
+│           ├── slide-over-form.tsx
+│           └── floating-action-button.tsx
 ├── i18n/                   # Internationalization config
 ├── lib/                    # Utilities and configurations
 │   ├── api/                # ONLY shared API clients/utils (e.g., `createClient`)
@@ -204,11 +208,12 @@ Instead of a single, large translation file, each feature or component that requ
 *Example Structure:*
 ```
 /src/features/plants/components/
-├── PlantCard.tsx
-└── messages/
-    ├── en.json
-    ├── es.json
-    └── it.json
+└── PlantCard/
+    ├── index.tsx
+    └── messages/
+        ├── en.json
+        ├── es.json
+        └── it.json
 ```
 
 The JSON files within this folder must be namespaced to the component to prevent key collisions.
@@ -220,6 +225,61 @@ The JSON files within this folder must be namespaced to the component to prevent
     "status": "Status",
     "plantedOn": "Planted on"
   }
+}
+```
+
+### State Management for Forms
+
+For managing form state, especially in the context of the `DataTable` and `SlideOverForm`, the following pattern should be used:
+
+1.  **Local State Management:** The state for the `SlideOverForm` (e.g., its visibility, the entity being edited) should be managed within the parent component that renders the `DataTable` (e.g., `ClientsDataTable`). Use the `useState` hook for this.
+
+2.  **Data Flow:**
+    *   When the user clicks the "Add" or "Edit" button, the parent component updates its state to open the `SlideOverForm` and passes the relevant data (or an empty object for creation) to it.
+    *   The `SlideOverForm` contains the actual form logic, which is encapsulated in a dedicated form component (e.g., `ClientForm`).
+    *   When the user submits the form, the `SlideOverForm` calls an `onSubmit` function passed down from the parent component.
+    *   The parent component is responsible for making the API call (via TanStack Query mutations) and handling the success/error states.
+
+*Example in `ClientsDataTable.tsx`:*
+```typescript
+export function ClientsDataTable() {
+  const [slideOverOpen, setSlideOverOpen] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+
+  const handleEdit = (row: Client) => {
+    setSelectedClient(row);
+    setSlideOverOpen(true);
+  };
+
+  const handleAdd = () => {
+    setSelectedClient(null);
+    setSlideOverOpen(true);
+  };
+
+  const handleSave = async () => {
+    // ... logic to save or update the client
+    setSlideOverOpen(false);
+  };
+
+  return (
+    <>
+      <DataTable
+        // ... other props
+        onEdit={handleEdit}
+      />
+      <FloatingActionButton onClick={handleAdd} />
+      <SlideOverForm
+        open={slideOverOpen}
+        onOpenChange={setSlideOverOpen}
+        onSave={handleSave}
+        // ... other props
+      >
+        <ClientForm
+          // ... props
+        />
+      </SlideOverForm>
+    </>
+  );
 }
 ```
 

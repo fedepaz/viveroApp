@@ -11,7 +11,7 @@ interface CellProps {
 }
 
 function CellComponent({ row, table }: CellProps) {
-  const t = useTranslations("ClientsColumns");
+  const t = useTranslations("ClientColumns");
   if (row) {
     return (
       <Checkbox
@@ -30,7 +30,7 @@ function CellComponent({ row, table }: CellProps) {
       />
     );
   }
-  if (!row || !table) return null;
+  return null;
 }
 
 interface HeaderProps {
@@ -39,12 +39,12 @@ interface HeaderProps {
 }
 
 function HeaderComponent({ column, translationKey }: HeaderProps) {
-  const t = useTranslations("ClientsColumns");
+  const t = useTranslations("ClientColumns");
   return <SortableHeader column={column}>{t(translationKey)}</SortableHeader>;
 }
 
 function CellBadgeComponent({ row }: CellProps) {
-  const t = useTranslations("ClientsColumns");
+  const t = useTranslations("ClientColumns");
   if (!row) return null;
   const status = row.getValue("status") as string;
   const variants: Record<string, "default" | "destructive" | "outline"> = {

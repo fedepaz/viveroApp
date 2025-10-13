@@ -12,7 +12,7 @@ export function ThemeToggle() {
 
   const mounted = useIsMounted();
 
-  const t = useTranslations("themeToggle");
+  const t = useTranslations("ThemeToggle");
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");

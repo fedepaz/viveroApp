@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useUsers } from "../hooks/hooks";
 
 function UserKPIs() {
-  const t = useTranslations("UserKpi");
+  const t = useTranslations("UserKPIs");
   const { data: mockUsers = [] } = useUsers();
   const totalUsers = mockUsers.length;
   const activeUsers = mockUsers.filter((u) => u.status === "active").length;

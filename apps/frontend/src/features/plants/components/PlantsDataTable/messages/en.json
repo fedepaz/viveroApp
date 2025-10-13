@@ -15,7 +15,10 @@
     "lastWatered": "Last Watered",
     "createTitle": "Create New Plant",
     "createDescription": "Fill in the details below to create a new plant.",
-    "editTitle": "Edit Plant",
-    "editDescription": "Update the details for this plant."
+    "editTitle": "Edit Plant: {name}",
+    "editDescription": "Update the details for {name}.",
+    "addNew": "Add New Plant",
+    "update": "Update",
+    "create": "Create"
   }
 }

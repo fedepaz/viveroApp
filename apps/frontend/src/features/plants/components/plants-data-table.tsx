@@ -1,7 +1,11 @@
 //src/features/plants/components/plants-data-table.tsx
 "use client";
 
-import { DataTable } from "@/components/data-display/data-table";
+import {
+  DataTable,
+  FloatingActionButton,
+  SlideOverForm,
+} from "@/components/data-display/data-table";
 import { plantColumns } from "./columns";
 import {
   useCreatePlant,
@@ -9,50 +13,68 @@ import {
   usePlants,
   useUpdatePlant,
 } from "../hooks/hooks";
-import { CreatePlantDto, Plant, UpdatePlantDto } from "../types";
+import { Plant } from "../types";
 import { useTranslations } from "next-intl";
 import { useDataTableActions } from "@/hooks/useDataTable";
-import { EntityModal } from "@/components/forms/entity-modal";
 import { PlantForm } from "./plants-form";
+import { useState } from "react";
 
 export function PlantsDataTable() {
   const { data: plants = [] } = usePlants();
   const t = useTranslations("PlantsDataTable");
 
+  const [slideOverOpen, setSlideOverOpen] = useState(false);
+  const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
+  const [formData, setFormData] = useState<Partial<Plant>>({});
+
   const createPlant = useCreatePlant();
   const updatePlant = useUpdatePlant();
   const deletePlant = useDeletePlant();
 
-  const {
-    isCreateModalOpen,
-    isEditModalOpen,
-    selectedEntity,
-    handleAdd,
-    handleEdit,
-    handleDelete,
-    handleExport,
-    closeCreateModal,
-    closeEditModal,
-  } = useDataTableActions<Plant>({
+  const {} = useDataTableActions<Plant>({
     entityName: "Plants",
     onDelete: (id) => deletePlant.mutateAsync(id),
   });
 
-  const handleCreateSubmit = async (data: CreatePlantDto) => {
-    await createPlant.mutateAsync(data);
-    closeCreateModal();
+  const handleEdit = (row: Plant) => {
+    setSelectedPlant(row);
+    setFormData(row);
+    setSlideOverOpen(true);
   };
 
-  const handleEditSubmit = async (data: UpdatePlantDto) => {
-    if (selectedEntity) {
+  const handleAdd = () => {
+    setSelectedPlant(null);
+    setFormData({
+      name: "",
+      species: "",
+      location: "",
+      status: "healthy",
+      growthStage: "",
+      plantedDate: "",
+      lastWatered: "",
+    });
+    setSlideOverOpen(true);
+  };
+  const handleDelete = (rows: Plant[]) => {
+    console.log("Delete Plants:", rows);
+  };
+
+  const handleExport = (
+    format: "csv" | "excel" | "json" | "pdf",
+    selectedRows: Plant[]
+  ) => {
+    console.log("Export Plants:", selectedRows);
+  };
+
+  const handleSave = async () => {
+    if (selectedPlant) {
       await updatePlant.mutateAsync({
-        id: selectedEntity.id,
-        plantUpdate: data,
+        id: selectedPlant.id,
+        plantUpdate: formData,
       });
-      closeEditModal();
+      setSlideOverOpen(false);
     }
   };
-
   return (
     <>
       <DataTable
@@ -62,40 +84,34 @@ export function PlantsDataTable() {
         description={t("description")}
         searchKey="name"
         totalCount={plants.length}
-        onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        onExport={() => handleExport(plants)}
+        onExport={handleExport}
+        onQuickEdit={(plant) => console.log(`Quick edit plant: ${plant.name}`)}
       />
 
-      {/* Create Modal */}
-      <EntityModal
-        open={isCreateModalOpen}
-        onOpenChange={closeCreateModal}
-        title={t("createTitle")}
-        description={t("createDescription")}
+      <FloatingActionButton onClick={handleAdd} label={t("addNew")} />
+      <SlideOverForm
+        open={slideOverOpen}
+        onOpenChange={setSlideOverOpen}
+        title={selectedPlant ? t("editTitle", { name: selectedPlant.name }) : t("createTitle")}
+        description={
+          selectedPlant
+            ? t("editDescription", { name: selectedPlant.name })
+            : t("createDescription")
+        }
+        onSave={handleSave}
+        onCancel={() => setSlideOverOpen(false)}
+        saveLabel={selectedPlant ? t("update") : t("create")}
       >
-        <PlantForm
-          onSubmit={handleCreateSubmit}
-          onCancel={closeCreateModal}
-          isSubmitting={createPlant.isPending}
-        />
-      </EntityModal>
-
-      {/* Edit Modal */}
-      <EntityModal
-        open={isEditModalOpen}
-        onOpenChange={closeEditModal}
-        title={t("editTitle")}
-        description={t("editDescription")}
-      >
-        <PlantForm
-          initialData={selectedEntity || undefined}
-          onSubmit={handleEditSubmit}
-          onCancel={closeEditModal}
-          isSubmitting={updatePlant.isPending}
-        />
-      </EntityModal>
+        <div className="space-y-2">
+          <PlantForm
+            onSubmit={handleSave}
+            onCancel={() => setSlideOverOpen(false)}
+            isSubmitting={createPlant.isPending}
+          />
+        </div>
+      </SlideOverForm>
     </>
   );
 }

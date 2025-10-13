@@ -1,7 +1,11 @@
 //src/features/purchase-orders/components/purchase-order-data-table.tsx
 "use client";
 
-import { DataTable } from "@/components/data-display/data-table";
+import {
+  DataTable,
+  FloatingActionButton,
+  SlideOverForm,
+} from "@/components/data-display/data-table";
 import { purchaseOrderColumns } from "./columns";
 import {
   useCreatePurchaseOrder,
@@ -9,51 +13,67 @@ import {
   usePurchaseOrders,
   useUpdatePurchaseOrder,
 } from "../hooks/hooks";
-import {
-  PurchaseOrder,
-  PurchaseOrderFormData,
-  UpdatePurchaseOrderDto,
-} from "../types";
+import { PurchaseOrder } from "../types";
 import { useTranslations } from "next-intl";
 import { useDataTableActions } from "@/hooks/useDataTable";
-import { EntityModal } from "@/components/forms/entity-modal";
 import { PurchaseOrderForm } from "./purchase-order-form";
+import { useState } from "react";
 
 export function PurchaseOrdersDataTable() {
-  const t = useTranslations("PurchaseOrderDataTable");
+  const t = useTranslations("PurchaseOrdersDataTable");
   const { data: purchaseOrders = [] } = usePurchaseOrders();
+
+  const [slideOverOpen, setSlideOverOpen] = useState(false);
+  const [selectedPurchaseOrder, setSelectedPurchaseOrder] =
+    useState<PurchaseOrder | null>(null);
+  const [formData, setFormData] = useState<Partial<PurchaseOrder>>({});
 
   const createPurchaseOrder = useCreatePurchaseOrder();
   const updatePurchaseOrder = useUpdatePurchaseOrder();
   const deletePurchaseOrder = useDeletePurchaseOrder();
 
-  const {
-    isCreateModalOpen,
-    isEditModalOpen,
-    selectedEntity,
-    handleAdd,
-    handleEdit,
-    handleDelete,
-    handleExport,
-    closeCreateModal,
-    closeEditModal,
-  } = useDataTableActions<PurchaseOrder>({
-    entityName: "Purchase Orders",
+  const {} = useDataTableActions<PurchaseOrder>({
+    entityName: t("entityName"),
     onDelete: (id) => deletePurchaseOrder.mutateAsync(id),
   });
 
-  const handleCreateSubmit = async (data: PurchaseOrderFormData) => {
-    await createPurchaseOrder.mutateAsync(data);
-    closeCreateModal();
+  const handleEdit = (row: PurchaseOrder) => {
+    setSelectedPurchaseOrder(row);
+    setFormData(row);
+    setSlideOverOpen(true);
   };
 
-  const handleEditSubmit = async (data: UpdatePurchaseOrderDto) => {
-    if (selectedEntity) {
+  const handleAdd = () => {
+    setSelectedPurchaseOrder(null);
+    setFormData({
+      orderNumber: "",
+      supplier: "",
+      items: 0,
+      totalAmount: 0,
+      status: "pending",
+      orderDate: "",
+      deliveryDate: "",
+    });
+    setSlideOverOpen(true);
+  };
+  const handleDelete = (rows: PurchaseOrder[]) => {
+    console.log("Delete Purchase Orders:", rows);
+  };
+
+  const handleExport = (
+    format: "csv" | "excel" | "json" | "pdf",
+    selectedRows: PurchaseOrder[]
+  ) => {
+    console.log("Export Purchase Orders:", selectedRows);
+  };
+
+  const handleSave = async () => {
+    if (selectedPurchaseOrder) {
       await updatePurchaseOrder.mutateAsync({
-        id: selectedEntity.id,
-        purchaseOrderUpdate: data,
+        id: selectedPurchaseOrder.id,
+        purchaseOrderUpdate: formData,
       });
-      closeEditModal();
+      setSlideOverOpen(false);
     }
   };
 
@@ -66,40 +86,41 @@ export function PurchaseOrdersDataTable() {
         description={t("description")}
         searchKey="orderNumber"
         totalCount={purchaseOrders.length}
-        onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        onExport={() => handleExport(purchaseOrders)}
+        onExport={handleExport}
+        onQuickEdit={(purchaseOrder) =>
+          console.log(`Quick edit purchase order: ${purchaseOrder.orderNumber}`)
+        }
       />
 
-      {/* Create Modal */}
-      <EntityModal
-        open={isCreateModalOpen}
-        onOpenChange={closeCreateModal}
-        title={t("createTitle")}
-        description={t("createDescription")}
-      >
-        <PurchaseOrderForm
-          onSubmit={handleCreateSubmit}
-          onCancel={closeCreateModal}
-          isSubmitting={createPurchaseOrder.isPending}
-        />
-      </EntityModal>
+      <FloatingActionButton onClick={handleAdd} label={t("addNew")} />
 
-      {/* Edit Modal */}
-      <EntityModal
-        open={isEditModalOpen}
-        onOpenChange={closeEditModal}
-        title={t("editTitle")}
-        description={t("editDescription")}
+      <SlideOverForm
+        open={slideOverOpen}
+        onOpenChange={setSlideOverOpen}
+        title={
+          selectedPurchaseOrder
+            ? t("editTitle", { orderNumber: selectedPurchaseOrder.orderNumber })
+            : t("createTitle")
+        }
+        description={
+          selectedPurchaseOrder
+            ? t("editDescription", { orderNumber: selectedPurchaseOrder.orderNumber })
+            : t("createDescription")
+        }
+        onSave={handleSave}
+        onCancel={() => setSlideOverOpen(false)}
+        saveLabel={selectedPurchaseOrder ? t("updateButton") : t("createButton")}
       >
-        <PurchaseOrderForm
-          initialData={selectedEntity || undefined}
-          onSubmit={handleEditSubmit}
-          onCancel={closeEditModal}
-          isSubmitting={updatePurchaseOrder.isPending}
-        />
-      </EntityModal>
+        <div className="space-y-2">
+          <PurchaseOrderForm
+            onSubmit={handleSave}
+            onCancel={() => setSlideOverOpen(false)}
+            isSubmitting={createPurchaseOrder.isPending}
+          />
+        </div>
+      </SlideOverForm>
     </>
   );
 }

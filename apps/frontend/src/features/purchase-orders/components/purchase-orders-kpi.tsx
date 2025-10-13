@@ -7,7 +7,7 @@ import { ShoppingCart, Package, Clock, CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 function PurchaseOrderKPIs() {
-  const t = useTranslations("PurchaseOrdersKpi");
+  const t = useTranslations("PurchaseOrderKPIs");
   const { data: purchaseOrders = [] } = usePurchaseOrders();
   const totalOrders = purchaseOrders.length;
   const totalSpend = purchaseOrders.reduce(

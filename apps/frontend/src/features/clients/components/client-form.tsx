@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
 
 import { useTranslations } from "next-intl";
 import {
@@ -30,12 +28,7 @@ interface ClientFormProps {
   isSubmitting?: boolean;
 }
 
-export function ClientForm({
-  initialData,
-  onSubmit,
-  onCancel,
-  isSubmitting = false,
-}: ClientFormProps) {
+export function ClientForm({ initialData, onSubmit }: ClientFormProps) {
   const t = useTranslations("ClientForm");
   const form = useForm<ClientFormData>({
     resolver: zodResolver(clientSchema),
@@ -111,7 +104,6 @@ export function ClientForm({
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="status"
@@ -138,16 +130,6 @@ export function ClientForm({
             </FormItem>
           )}
         />
-
-        <div className="flex justify-end space-x-2">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            {t("cancelButton")}
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? t("updateButton") : t("submitButton")}
-          </Button>
-        </div>
       </form>
     </Form>
   );

@@ -11,6 +11,13 @@
     "createTitle": "Create New Client",
     "createDescription": "Fill in the details below to create a new client.",
     "editTitle": "Edit Client",
-    "editDescription": "Update the details for this client."
+    "editDescription": "Update the details for this client.",
+    "addNew": "Add New",
+    "editClientTitle": "Edit {name}",
+    "createClientTitle": "Create Client",
+    "editClientDescription": "Update the details for {name}.",
+    "createClientDescription": "Fill in the details below to create a new client.",
+    "update": "Update",
+    "create": "Create"
   }
 }

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,10 +10,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Loader2 } from "lucide-react";
+
 import { User, UserFormData, userSchema } from "../types";
 import { useTranslations } from "next-intl";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface UserFormProps {
   initialData?: User;
@@ -23,12 +28,7 @@ interface UserFormProps {
   isSubmitting?: boolean;
 }
 
-export function UserForm({
-  initialData,
-  onSubmit,
-  onCancel,
-  isSubmitting = false,
-}: UserFormProps) {
+export function UserForm({ initialData, onSubmit }: UserFormProps) {
   const t = useTranslations("UserForm");
   const form = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
@@ -112,7 +112,9 @@ export function UserForm({
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="active">{t("activeStatus")}</SelectItem>
-                  <SelectItem value="inactive">{t("inactiveStatus")}</SelectItem>
+                  <SelectItem value="inactive">
+                    {t("inactiveStatus")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -147,16 +149,6 @@ export function UserForm({
             </FormItem>
           )}
         />
-
-        <div className="flex justify-end space-x-2">
-          <Button type="button" variant="outline" onClick={onCancel}>
-            {t("cancelButton")}
-          </Button>
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? t("updateButton") : t("submitButton")}
-          </Button>
-        </div>
       </form>
     </Form>
   );

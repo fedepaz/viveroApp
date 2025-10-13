@@ -24,7 +24,7 @@ interface UpdateInvoiceDto {
   invoiceNumber?: string;
   client?: string;
   amount?: number;
-  status: "draft" | "sent" | "paid" | "overdue" | "cancelled";
+  status?: "draft" | "sent" | "paid" | "overdue" | "cancelled";
   dueDate?: string;
   createdDate?: string;
 }

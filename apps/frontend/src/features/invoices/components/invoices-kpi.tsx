@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 
 function InvoiceKPIs() {
   const { data: mockInvoices = [] } = useInvoices();
-  const t = useTranslations("InvoicesKpi");
+  const t = useTranslations("InvoiceKPIs");
   const totalInvoices = mockInvoices.length;
   const totalRevenue = mockInvoices.reduce((sum, inv) => sum + inv.amount, 0);
   const paidInvoices = mockInvoices.filter(

@@ -7,7 +7,7 @@
     "locationLabel": "Ubicación",
     "locationPlaceholder": "Ingrese la ubicación de la planta",
     "statusLabel": "Estado",
-    "selectStatusPlaceholder": "Seleccione un estado",
+    "statusPlaceholder": "Ingrese el estado de la planta",
     "healthyStatus": "Saludable",
     "warningStatus": "Advertencia",
     "criticalStatus": "Crítico",
@@ -15,7 +15,9 @@
     "growthStageLabel": "Etapa de Crecimiento",
     "growthStagePlaceholder": "Ingrese la etapa de crecimiento",
     "plantedDateLabel": "Fecha de Plantación",
+    "plantedDatePlaceholder": "Ingrese la fecha de plantación",
     "lastWateredLabel": "Último Riego",
+    "lastWateredPlaceholder": "Ingrese la fecha del último riego",
     "cancelButton": "Cancelar",
     "submitButton": "Enviar",
     "updateButton": "Actualizar"

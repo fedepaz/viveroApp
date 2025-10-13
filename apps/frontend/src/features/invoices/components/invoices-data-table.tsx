@@ -1,7 +1,11 @@
 //src/features/invoices/components/invoices-data-table.tsx
 "use client";
 
-import { DataTable } from "@/components/data-display/data-table";
+import {
+  DataTable,
+  FloatingActionButton,
+  SlideOverForm,
+} from "@/components/data-display/data-table";
 import { invoiceColumns } from "./columns";
 import {
   useCreateInvoice,
@@ -9,46 +13,65 @@ import {
   useInvoices,
   useUpdateInvoice,
 } from "../hooks/hooks";
-import { Invoice, InvoiceFormData, UpdateInvoiceDto } from "../types";
+import { Invoice } from "../types";
 import { useDataTableActions } from "@/hooks/useDataTable";
 import { useTranslations } from "next-intl";
-import { EntityModal } from "@/components/forms/entity-modal";
 import { InvoiceForm } from "./invoice-form";
+import { useState } from "react";
 
 export function InvoicesDataTable() {
   const { data: invoices = [] } = useInvoices();
   const t = useTranslations("InvoicesDataTable");
 
+  const [slideOverOpen, setSlideOverOpen] = useState(false);
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+  const [formData, setFormData] = useState<Partial<Invoice>>({});
+
   const createInvoice = useCreateInvoice();
   const updateInvoice = useUpdateInvoice();
   const deleteInvoice = useDeleteInvoice();
-  const {
-    isCreateModalOpen,
-    isEditModalOpen,
-    selectedEntity,
-    handleAdd,
-    handleEdit,
-    handleDelete,
-    handleExport,
-    closeCreateModal,
-    closeEditModal,
-  } = useDataTableActions<Invoice>({
+
+  const {} = useDataTableActions<Invoice>({
     entityName: "Invoices",
     onDelete: (id) => deleteInvoice.mutateAsync(id),
   });
 
-  const handleCreateSubmit = async (data: InvoiceFormData) => {
-    await createInvoice.mutateAsync(data);
-    closeCreateModal();
+  const handleEdit = (row: Invoice) => {
+    setSelectedInvoice(row);
+    setFormData(row);
+    setSlideOverOpen(true);
   };
 
-  const handleEditSubmit = async (data: UpdateInvoiceDto) => {
-    if (selectedEntity) {
+  const handleAdd = () => {
+    setSelectedInvoice(null);
+    setFormData({
+      invoiceNumber: "",
+      client: "",
+      amount: 0,
+      status: "draft",
+      dueDate: "",
+      createdDate: "",
+    });
+    setSlideOverOpen(true);
+  };
+  const handleDelete = (rows: Invoice[]) => {
+    console.log("Delete Invoices:", rows);
+  };
+
+  const handleExport = (
+    format: "csv" | "excel" | "json" | "pdf",
+    selectedRows: Invoice[]
+  ) => {
+    console.log("Export Invoices:", selectedRows);
+  };
+
+  const handleSave = async () => {
+    if (selectedInvoice) {
       await updateInvoice.mutateAsync({
-        id: selectedEntity.id,
-        invoiceUpdate: data,
+        id: selectedInvoice.id,
+        invoiceUpdate: formData,
       });
-      closeEditModal();
+      setSlideOverOpen(false);
     }
   };
 
@@ -61,40 +84,41 @@ export function InvoicesDataTable() {
         description={t("description")}
         searchKey="invoiceNumber"
         totalCount={invoices.length}
-        onAdd={handleAdd}
         onEdit={handleEdit}
         onDelete={handleDelete}
-        onExport={() => handleExport(invoices)}
+        onExport={handleExport}
+        onQuickEdit={(invoice) =>
+          console.log(`Quick edit invoice: ${invoice.invoiceNumber}`)
+        }
       />
 
-      {/* Create Modal */}
-      <EntityModal
-        open={isCreateModalOpen}
-        onOpenChange={closeCreateModal}
-        title={t("createTitle")}
-        description={t("createDescription")}
-      >
-        <InvoiceForm
-          onSubmit={handleCreateSubmit}
-          onCancel={closeCreateModal}
-          isSubmitting={createInvoice.isPending}
-        />
-      </EntityModal>
+      <FloatingActionButton onClick={handleAdd} label={t("addNew")} />
 
-      {/* Edit Modal */}
-      <EntityModal
-        open={isEditModalOpen}
-        onOpenChange={closeEditModal}
-        title={t("editTitle")}
-        description={t("editDescription")}
+      <SlideOverForm
+        open={slideOverOpen}
+        onOpenChange={setSlideOverOpen}
+        title={
+          selectedInvoice
+            ? t("editInvoiceTitle", { invoiceNumber: selectedInvoice.invoiceNumber })
+            : t("createInvoiceTitle")
+        }
+        description={
+          selectedInvoice
+            ? t("editInvoiceDescription", { invoiceNumber: selectedInvoice.invoiceNumber })
+            : t("createInvoiceDescription")
+        }
+        onSave={handleSave}
+        onCancel={() => setSlideOverOpen(false)}
+        saveLabel={selectedInvoice ? t("update") : t("create")}
       >
-        <InvoiceForm
-          initialData={selectedEntity || undefined}
-          onSubmit={handleEditSubmit}
-          onCancel={closeEditModal}
-          isSubmitting={updateInvoice.isPending}
-        />
-      </EntityModal>
+        <div className="space-y-2">
+          <InvoiceForm
+            onSubmit={handleSave}
+            onCancel={() => setSlideOverOpen(false)}
+            isSubmitting={createInvoice.isPending}
+          />
+        </div>
+      </SlideOverForm>
     </>
   );
 }

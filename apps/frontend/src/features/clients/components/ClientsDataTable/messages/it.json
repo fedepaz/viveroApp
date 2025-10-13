@@ -19,6 +19,13 @@
     "createTitle": "Crea Nuovo Cliente",
     "createDescription": "Compila i dettagli qui sotto per creare un nuovo cliente.",
     "editTitle": "Modifica Cliente",
-    "editDescription": "Aggiorna i dettagli per questo cliente."
+    "editDescription": "Aggiorna i dettagli per questo cliente.",
+    "addNew": "Aggiungi Nuovo",
+    "editClientTitle": "Modifica {name}",
+    "createClientTitle": "Crea Cliente",
+    "editClientDescription": "Aggiorna i dettagli per {name}.",
+    "createClientDescription": "Compila i dettagli qui sotto per creare un nuovo cliente.",
+    "update": "Aggiorna",
+    "create": "Crea"
   }
 }

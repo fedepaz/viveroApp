@@ -36,7 +36,8 @@
       "deliveryDate": "Delivery Date",
       "role": "Role",
       "department": "Department",
-      "lastLogin": "Last Login"
+      "lastLogin": "Last Login",
+      "actions": "Actions"
     },
     "noResultsFound": "No results found.",
     "rowsSelected": "{selected} of {total} row(s) selected.",

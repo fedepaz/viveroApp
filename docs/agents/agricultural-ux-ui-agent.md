@@ -75,6 +75,16 @@ Focus on these proven agricultural interface patterns:
 - **Batch Management Interfaces** - Handling multiple plants as cohesive groups
 - **Mobile Data Entry Forms** - Field-optimized input patterns
 
+#### CRUD Operations
+
+- **SlideOverForm:** A slide-over panel for creating and editing entities. This is the standard pattern for all CRUD forms, replacing traditional modals.
+- **FloatingActionButton:** A floating action button for initiating the "add new" action. This provides a clear and accessible entry point for creating new entities.
+
+#### Data Table Enhancements
+
+- **Inline Editing:** The `DataTable` component now supports inline editing for quick modifications directly within the table.
+- **Bulk Actions:** The `DataTable` component now supports bulk actions, such as deleting multiple items at once.
+
 ## Feature Design Process
 
 When receiving Product Manager input, deliver:

@@ -57,16 +57,22 @@ When the user asks me to **commit, push, or otherwise save new work**, I will ex
 
     - Next, I will automatically perform the "Workflow for Conducting Research" on the patterns and technologies found in the code changes to ensure they align with industry best practices.
 
-3.  **Propose a Comprehensive Plan**:
+3.  **Generate and Internally Validate Commit Message**:
 
-    - After completing the review and research, I will present you with a single, comprehensive plan that includes:
-      1.  A proposed commit message.
+    - I will generate a draft commit message based on the changes.
+    - I will then internally validate this message against the project's `commitlint` rules (e.g., by running `cat <file> | npx commitlint`).
+    - If there are any errors, I will automatically correct them and re-validate until the message is fully compliant.
+
+4.  **Propose a Comprehensive Plan**:
+
+    - After completing the review, research, and commit message validation, I will present you with a single, comprehensive plan that includes:
+      1.  A validated, compliant commit message.
       2.  A summary of the research findings.
       3.  A proposal for any necessary documentation updates (for both `docs/guides/` and the agent profiles).
 
-4.  **Execute Commit and Push**:
+5.  **Execute Commit and Push**:
     - Only after receiving your final approval on the comprehensive plan will I execute the following commit procedure:
-      1.  **Save Commit Message**: Create a `.commits` directory (if it doesn't exist) and save the full, approved commit message to a new file within it.
+      1.  **Save Commit Message**: Create a `.commits` directory (if it doesn't exist) and save the full, approved commit message to a new file within it with the following format: `<commit_message_title> - <date>.txt`.
       2.  **Stage All Changes**: Run `git add .` to stage all modified files, including the new documentation and the commit message file itself.
       3.  **Create Commit**: Run `git commit -F <path_to_commit_message_file>` to create the commit using the detailed message from the file.
       4.  **Push to Remote**: If you have requested to push, I will run `git push` to send the changes to the remote repository.

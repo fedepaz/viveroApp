@@ -19,6 +19,7 @@ pids
 **/dist/
 **/build/
 **/.next/
+**/.turbo/
 **/out/
 *.tsbuildinfo
 next-env.d.ts
@@ -43,14 +44,13 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # =========================
 # Environment Variables
 # =========================
-# Ignoring all .env files by default (opt-in to commit if needed)
-.env*
+
 # Alternatively, if you want to ignore specific ones but allow others:
-# .env
-# .env.local
-# .env.development.local
-# .env.test.local
-# .env.production.local
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # =========================
 # Testing & Coverage
@@ -69,6 +69,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 *.launch
 .settings/
 *.sublime-workspace
+**/.clerk
 
 # VSCode (preserve workspace settings)
 .vscode/*

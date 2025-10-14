@@ -13,4 +13,4 @@ async function bootstrap() {
     `🚀 Backend is running hoot Yeah!!! on: http://localhost:${port}`,
   );
 }
-bootstrap();
+void bootstrap();

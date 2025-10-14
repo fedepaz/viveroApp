@@ -43,6 +43,17 @@ Una aplicación de software para gestión agrícola. El código fuente está alm
 | **Node.js** | El "motor" que ejecuta la aplicación | ✅ Usada por millones de desarrolladores mundialmente |
 | **pnpm** | Gestor de componentes de la aplicación | ✅ Herramienta estándar de la industria |
 
+### 🔄 **CI/CD Workflows**
+
+Este proyecto utiliza GitHub Actions para la Integración Continua y el Despliegue Continuo (CI/CD). Los flujos de trabajo se definen en los siguientes archivos:
+
+- `.github/workflows/lint-test.yml`: Realiza el linting y las pruebas unitarias.
+- `.github/workflows/build-artifacts.yml`: Construye los artefactos de la aplicación.
+- `.github/workflows/deploy-production.yml`: Despliega la aplicación a producción.
+- `.github/workflows/e2e-tests.yml`: Ejecuta las pruebas end-to-end.
+- `.github/workflows/post-deploy.yml`: Realiza la verificación post-despliegue.
+- `.github/workflows/scheduled-maintenance.yml`: Ejecuta tareas de mantenimiento programadas.
+
 ---
 
 ## 🚀 **Instalación en 5 Pasos**

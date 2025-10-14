@@ -1,57 +1,65 @@
+//src/app/[locale]/layout.tsx
+
 import type React from "react";
-import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
-import "./globals.css";
+
 import { Suspense } from "react";
 import { LoadingSpinner } from "@/components/common/loading-spinner";
-import { ThemeProvider } from "next-themes";
-import { NextIntlClientProvider } from "next-intl";
-import {
-  generateLocaleStaticParams,
-  getLocaleFromParams,
-} from "@/i18n/routing";
-import { LayoutWrapper } from "@/components/agricultural/layout-wrapper";
+
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { generateLocaleStaticParams, routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
+import getRequestConfig from "../../../src/i18n/request";
+
+import { BottomNavigation } from "@/components/layout/bottom-navigation";
+import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { DashboardHeader } from "@/components/layout/dashboard-header";
+import { ReactClientProvider } from "@/providers/query-client-provider";
+import { notFound } from "next/navigation";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
 }
 
-export const metadata: Metadata = {
-  title: "AgriManage - Agricultural Management System",
-  description: "Professional agricultural plant management dashboard",
-  generator: "v0.app",
-};
-
-interface RootLayoutProps {
+interface DashboardLayoutProps {
   children: React.ReactNode;
   params: Promise<{
     locale: string;
   }>;
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
-  const locale = getLocaleFromParams(params);
+export default async function DashboardLayout({
+  children,
+  params,
+}: DashboardLayoutProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const { messages } = await getRequestConfig({
+    requestLocale: Promise.resolve(locale),
+  });
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
-    <html
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
-      suppressHydrationWarning
-      lang={locale}
-    >
-      <body className="font-sans">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider>
-            <Suspense fallback={<LoadingSpinner />}>
-              <LayoutWrapper>{children}</LayoutWrapper>
-            </Suspense>
-          </NextIntlClientProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ThemeProvider>
+      <NextIntlClientProvider messages={messages}>
+        <ReactClientProvider>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="flex  h-screen overflow-hidden">
+              <DesktopSidebar />
+              <div className="flex flex-1 flex-col overflow-hidden">
+                <DashboardHeader />
+                <main className="flex-1 overflow-auto pb-16 md:pb-0">
+                  {children}
+                </main>
+              </div>
+              <BottomNavigation />
+            </div>
+          </Suspense>
+        </ReactClientProvider>
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }

@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - frontendDev
+      - backendDev
+
+jobs:
+  deploy-staging:
+    if: github.ref == 'refs/heads/frontendDev' || github.ref == 'refs/heads/backendDev'
+    uses: ./.github/workflows/reusable-setup.yml
+    with:
+      environment: staging
+
+  deploy-production:
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/reusable-setup.yml
+    with:
+      environment: production
+
+  build-and-deploy:
+    needs: [deploy-staging, deploy-production]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [frontend, backend]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build application
+        run: turbo run build --filter=${{ matrix.app }}
+      - name: Deploy to Vercel (Frontend)
+        if: matrix.app == 'frontend'
+        run: echo "Deploying to Vercel..."
+      - name: Deploy to Render (Backend)
+        if: matrix.app == 'backend'
+        run: echo "Deploying to Render..."

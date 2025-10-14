@@ -77,6 +77,55 @@ When the user asks me to **commit, push, or otherwise save new work**, I will ex
       3.  **Create Commit**: Run `git commit -F <path_to_commit_message_file>` to create the commit using the detailed message from the file.
       4.  **Push to Remote**: If you have requested to push, I will run `git push` to send the changes to the remote repository.
 
+### Rule: Pull Request Message Generation Workflow
+
+This workflow outlines the steps to effectively draft a comprehensive Pull Request title and description, leveraging the branch's commit history and adhering to project standards. This guide is intended to assist in preparing the content for a Pull Request, which will then be manually created by the developer.
+
+#### Workflow Steps
+
+1.  **Identify the Target Branch**
+
+    -   Determine the `base` branch for your Pull Request (e.g., `frontendDev`, `backendDev`, or `main`). This is crucial for accurately identifying unique commits.
+
+2.  **Review Commits on the Feature Branch**
+
+    -   Use `git log <base_branch>..HEAD --oneline` to list all commits unique to your current feature branch. This provides a concise overview of the work accomplished.
+    -   Analyze these commit messages to understand the full scope of the feature, including:
+        *   New functionalities (`feat:` commits).
+        *   Bug fixes (`fix:` commits).
+        *   Refactorings (`refactor:` commits).
+        *   Tooling or CI/CD updates (`chore:` commits).
+        *   Documentation changes (`docs:` commits).
+
+3.  **Draft the Pull Request Title**
+
+    -   The title should be concise and reflect the primary purpose or the most significant feature introduced by the branch.
+    -   Follow the Conventional Commits specification if applicable (e.g., `feat(scope): Summary of main feature`).
+
+4.  **Draft the Pull Request Description**
+
+    -   The description should provide a comprehensive summary of the *entire feature* being merged, not just the last commit.
+    -   Organize the description into logical sections (e.g., "Key Features", "Architectural Changes", "Testing Setup", "Tooling Updates").
+    -   Elaborate on the "what" and "why" for each major change.
+    -   Include any relevant context, such as:
+        *   How the feature aligns with product goals.
+        *   Specific implementation details.
+        *   Resolution of complex issues (e.g., the PostCSS configuration conflict, `next-intl` mocking).
+        *   References to updated documentation.
+
+5.  **Save the Drafted Pull Request Message**
+
+    -   Save the generated Pull Request title and description to a file within the `.pull_requests/` directory.
+    -   **Naming Convention**: The filename should follow the format: `<pr_title_slug> - <date>.md`.
+        *   `<pr_title_slug>`: A slugified version of the PR title (e.g., `feat-frontend-initial-setup-and-core-features`).
+        *   `<date>`: The current date in `YYYY-MM-DD` format.
+        *   Example: `.pull_requests/feat-frontend-initial-setup-and-core-features - 2025-10-14.md`
+
+6.  **Review and Refine**
+
+    -   Review the drafted message for clarity, completeness, and accuracy.
+    -   Ensure it provides sufficient context for reviewers to understand the scope of the changes.
+
 ## 🎯 Purpose
 
 This file defines how AI agents must operate when generating, reviewing, or refactoring code and documentation for the **Agricultural SaaS Platform**.

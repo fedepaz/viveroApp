@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function KPICardSkeleton() {
   return (
-    <Card>
+    <Card data-testid="kpi-card-skeleton">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">
           <Skeleton className="h-4 w-12 rounded-md" />

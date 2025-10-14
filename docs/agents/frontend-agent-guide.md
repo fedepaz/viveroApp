@@ -1079,151 +1079,114 @@ This automated process catches errors early, enforces consistency, and ensures a
 ## Testing Strategy
 
 ### Collaboration Model
-- **`agricultural-frontend-specialist` (You)**: Responsible for writing **unit and component tests** for all new and modified components. These tests should be colocated with the feature in its `tests/` subdirectory and focus on component logic, props, and states.
+- **`agricultural-frontend-specialist` (You)**: Responsible for writing **unit and component tests** for all new and modified components. These tests should be colocated with the feature in its `__tests__/` subdirectory and focus on component logic, props, and states.
 - **`agricultural-qa-test-automation-engineer`**: Responsible for building and maintaining the comprehensive **E2E test suite** using Playwright. This includes testing critical user journeys, agricultural workflows, and multi-tenant interactions.
 
-### Component Testing Standards
+### Frontend Component Testing Standards
 
 All frontend unit and component tests are written using **Vitest** as the test runner and **@testing-library/react** for rendering and interacting with components.
 
-```typescript
-// Plant component test example
-describe('PlantCard', () => {
-  const mockPlant = {
-    id: "1",
-    name: "Premium Red Tulip",
-    type: "tulip" as const,
-    status: "growing" as const,
-    currentTemperature: 22,
-    healthScore: 85,
-    alerts: [],
-    location: { greenhouse: "A", section: "1", row: 5, position: 10 },
-  };
+#### 1. Testing Next.js App Router Components
 
-  // Global mocks should be handled in vitest.setup.ts, but local mocks use vi.mock
-  // Example of mocking a hook locally if needed, otherwise use global setup
-  // vi.mock('./some-local-hook', () => ({ useSomeLocalHook: () => ({ value: 'mocked' }) }));
+*   **Server Components (`page.tsx`, `layout.tsx`):**
+    *   Next.js App Router `page.tsx` and `layout.tsx` files are often Server Components.
+    *   **Rule:** Do **NOT** directly unit test Server Components in a client-side test environment (like JSDOM). Server Components may use server-only features (e.g., `use(props)`) that will cause errors in client-side tests.
+    *   **Strategy:** Focus unit/component tests on the **Client Components** that these Server Components render. For example, if `page.tsx` renders `<RootDashboard />`, write the test for `<RootDashboard />`.
 
-  it('renders plant information correctly', () => {
-    render(
-      <PlantCard plant={mockPlant} onUpdate={vi.fn()} onViewDetails={vi.fn()} />
-    );
+#### 2. Vitest Configuration (`apps/frontend/vitest.config.mts`)
 
-    expect(screen.getByText("Premium Red Tulip")).toBeInTheDocument();
-    expect(screen.getByText("22°C")).toBeInTheDocument();
-    expect(screen.getByText("85%")).toBeInTheDocument(); // Health score
-  });
+This file configures Vitest for the frontend application.
 
-  it('shows critical temperature alert', () => {
-    const criticalPlant = {
-      ...mockPlant,
-      currentTemperature: 35,
-      alerts: [
-        {
-          type: "temperature" as const,
-          severity: "critical" as const,
-          message: "Temperature exceeds safe limits",
-          timestamp: new Date(),
-        },
+*   **File Extension:** Use `.mts` (Module TypeScript) for the configuration file (`vitest.config.mts`) to ensure proper ESM (ECMAScript Module) resolution, especially when importing ESM-only plugins like `@vitejs/plugin-react`.
+*   **Plugins:**
+    ```typescript
+    import react from "@vitejs/plugin-react";
+    // ...
+    plugins: [react()],
+    ```
+    The `@vitejs/plugin-react` is essential for correctly transforming JSX syntax in your tests.
+*   **`server.deps.inline` for `next-intl`:**
+    ```typescript
+    server: {
+      deps: {
+        inline: ["next-intl"],
+      },
+    },
+    ```
+    This configuration is crucial for resolving module import errors (e.g., `Cannot find module 'next/navigation'`) when `next-intl` is used in tests. It tells Vitest to process `next-intl` through Vite's transform pipeline.
+*   **Test-Specific PostCSS Configuration (`css.postcss`):**
+    ```typescript
+    css: {
+      postcss: {
+        config: "./postcss.config.test.mjs",
+      },
+    },
+    ```
+    This explicitly tells Vitest to use the `postcss.config.test.mjs` file for PostCSS processing during tests. This is vital to prevent conflicts with the main `postcss.config.mjs` (which is optimized for Next.js's build process) and ensures your development environment remains functional.
+
+#### 3. Global Test Setup (`apps/frontend/vitest.setup.ts`)
+
+This file centralizes common test configurations and global mocks.
+
+*   **`next-intl` Global Mock:**
+    ```typescript
+    import { vi } from "vitest";
+    import "@testing-library/jest-dom";
+
+    vi.mock("next-intl", () => ({
+      useTranslations: vi.fn((namespace) => (key) => `${namespace}.${key}`),
+      NextIntlClientProvider: ({ children }) => children, // Mock provider to just render children
+    }));
+    ```
+    This global mock for `next-intl`'s `useTranslations` hook is essential. It prevents `IntlError: MISSING_MESSAGE` errors in tests by providing a predictable string (`namespace.key`) instead of requiring a full `messages` object for every component. It also mocks `NextIntlClientProvider` to simply render its children, simplifying test setup.
+
+#### 4. Test-Specific PostCSS Configuration (`apps/frontend/postcss.config.test.mjs`)
+
+This file provides the PostCSS configuration specifically for the Vitest test environment.
+
+*   **Content:**
+    ```typescript
+    import tailwindcss from "@tailwindcss/postcss";
+
+    const config = {
+      plugins: [
+        tailwindcss(),
       ],
     };
 
+    export default config;
+    ```
+    This ensures that Tailwind CSS is correctly processed during tests in a format compatible with Vitest, without interfering with the main Next.js build process.
+
+#### 5. Component Testing Best Practices
+
+*   **Colocation:** Place test files in a `__tests__/` subdirectory within the feature's component directory (e.g., `src/features/dashboard/components/__tests__/RootDashboard.test.tsx`).
+*   **`data-testid` for Skeletons:** When testing components that render skeletons (or other elements without unique text), use `data-testid` attributes to reliably select them in your tests.
+    *   Example: `<Card data-testid="kpi-card-skeleton">`
+    *   Test assertion: `await screen.findAllByTestId("kpi-card-skeleton");`
+*   **Provider Wrapping:** Ensure your tests wrap the component under test with any necessary React Context Providers (e.g., `QueryClientProvider` for TanStack Query) that the component or its children depend on.
+
+```typescript
+// Example: RootDashboard.test.tsx
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { RootDashboard } from "../RootDashboard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+describe("RootDashboard Component", () => {
+  it("should render KPI skeletons on initial load", async () => {
     render(
-      <PlantCard
-        plant={criticalPlant}
-        onUpdate={vi.fn()}
-        onViewDetails={vi.fn()}
-      />
+      <QueryClientProvider client={queryClient}>
+        {/* NextIntlClientProvider is no longer needed due to global mock */}
+        <RootDashboard />
+      </QueryClientProvider>
     );
 
-    expect(screen.getByRole("alert")).toBeInTheDocument();
-    expect(screen.getByText(/temperature exceeds/i)).toBeInTheDocument();
+    const skeletons = await screen.findAllByTestId("kpi-card-skeleton");
+    expect(skeletons).toHaveLength(4);
   });
-
-  it('handles mobile touch interactions', async () => {
-    const user = userEvent.setup();
-    const onUpdate = vi.fn();
-
-    render(
-      <PlantCard
-        plant={mockPlant}
-        onUpdate={onUpdate}
-        onViewDetails={vi.fn()}
-      />
-    );
-
-    const updateButton = screen.getByRole("button", { name: /update/i });
-    await user.click(updateButton);
-
-    expect(onUpdate).toHaveBeenCalledWith("1");
-  });
-});
-```
-
-### Hooks Testing Standards
-
-For testing custom React hooks, the best practice is to use **`renderHook` from `@testing-library/react`** (or `@testing-library/react-hooks` if explicitly needed for older versions, but `renderHook` is now part of `@testing-library/react` itself). This allows you to test the hook's logic, state management, and side effects in isolation, within a React environment.
-
-```typescript
-// Example: Custom hook test
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
-
-describe('useCounter', () => {
-  it('should increment the counter', () => {
-    const { result } = renderHook(() => useCounter());
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-
-  it('should decrement the counter', () => {
-    const { result } = renderHook(() => useCounter(5));
-
-    act(() => {
-      result.current.decrement();
-    });
-
-    expect(result.current.count).toBe(4);
-  });
-});
-```
-
-### Global Test Setup
-
-To ensure consistency and avoid repetition, global test setups and mocks should be managed through a dedicated setup file configured in `vitest.config.ts`.
-
-*   **Purpose:** Centralize common test configurations, global mocks, and polyfills that need to run before all tests.
-*   **File Location:** Create a `vitest.setup.ts` file (e.g., at `apps/frontend/vitest.setup.ts` or a shared `config/vitest.setup.ts` if applicable).
-*   **Configuration:** Point to this file in your `vitest.config.ts` using the `test.setupFiles` option.
-
-```typescript
-// vitest.setup.ts (Example for mocking useTranslations globally)
-import { vi } from 'vitest';
-import '@testing-library/jest-dom/vitest'; // Import extended matchers
-
-// Global mock for next-intl's useTranslations hook
-vi.mock('next-intl', () => ({
-  useTranslations: vi.fn((namespace) => (key: string) => `${namespace}.${key}`),
-}));
-
-// Add other global setups here (e.g., mocking API services, polyfills)
-```
-
-```typescript
-// vitest.config.ts (Example configuration)
-import { defineConfig } from 'vitest/config';
-
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'], // Path to your global setup file
-    // ... other test configurations
-  },
 });
 ```
 

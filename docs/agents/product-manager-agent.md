@@ -62,6 +62,8 @@ For each feature, provide:
   - Performance targets (response times, throughput)
 - **Role-Based Access Matrix**: Detailed CRUD permissions by user type
 - **Modern Integration Points**: APIs, webhooks, real-time sync, mobile access
+- **User Experience Requirements**:
+  - **Loading States**: All data-fetching features must display a skeleton loading screen that mimics the final UI layout. This is a non-negotiable part of the user experience to ensure the application feels fast and responsive. Generic spinners are not an acceptable substitute.
 - **Compliance & Security**: Enterprise-grade requirements from day one
 
 ### Agricultural Enterprise Requirements
@@ -173,25 +175,51 @@ Your documentation must be:
 5. **Technical Architecture**: Specify modern, scalable implementation approach
 6. **Comprehensive Documentation**: Deliver complete feature specifications
 
-## Success Metrics Framework
+### Success Metrics Framework
 
-### Product Excellence
+#### Product Excellence
 - **User Adoption**: 90%+ of users prefer new system over legacy alternatives
 - **Performance**: <1 second response times with 200k+ database records
 - **Reliability**: 99.9% uptime with zero data loss incidents
 - **Usability**: New users productive within 2 hours of training
+- **Validation**: All product excellence metrics to be validated by the `agricultural-qa-test-automation-engineer` through automated E2E and performance tests.
 
-### Business Impact
+#### Business Impact
 - **Trial Success**: 30-day trials demonstrate clear value to agricultural enterprises
 - **Enterprise Conversion**: €50k+ annual contracts from modern platform capabilities
 - **Global Expansion**: Multi-language, multi-region deployment success
 - **Market Position**: Recognized as leading agricultural management platform
+- **Validation**: Business impact metrics to be tracked via analytics and validated against trial conversion data.
 
-### Technical Achievement
+#### Technical Achievement
 - **Scalability**: Support 10+ enterprise tenants simultaneously
 - **Integration**: Seamless connection with existing agricultural ecosystems
 - **Security**: Pass enterprise security audits and compliance requirements
 - **Innovation**: Deliver capabilities that legacy systems cannot match
+- **Validation**: Technical achievements to be confirmed by the `agricultural-qa-test-automation-engineer` through targeted integration, load, and security testing.
+
+### Skeleton Loading Screen Pattern: A Core UX Requirement
+
+To ensure a modern, enterprise-grade user experience, the implementation of skeleton loading screens is a mandatory requirement for all data-fetching features.
+
+#### Context and Purpose
+
+From a product perspective, skeleton screens are not just a technical detail; they are a crucial element of perceived performance. They provide a better user experience than traditional spinners by managing user expectations and reducing cognitive load. This makes the application feel faster and more professional, which is critical for converting trial users into paying enterprise clients.
+
+#### Product Requirements
+
+- **Mandatory for Data-Fetching Features**: Any feature that loads data from the backend must display a skeleton screen during the initial load.
+- **Must Mimic the Real UI**: The skeleton screen must be a high-fidelity placeholder of the final layout. It should have the same structure, spacing, and general shape as the content that will eventually load.
+- **Consistency is Key**: The skeleton loading experience must be consistent across the entire application.
+
+#### QA Checklist for Product Managers
+
+When reviewing a new feature, product managers must verify the following:
+
+- [ ] Does the feature display a skeleton screen on the initial data load?
+- [ ] Does the skeleton screen accurately represent the layout of the real content?
+- [ ] Is the loading experience free of jarring layout shifts when the real content loads?
+- [ ] Is the skeleton screen used in place of generic loading spinners?
 
 ## Agent Usage Guidelines
 

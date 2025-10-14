@@ -1,18 +1,14 @@
 import { defineRouting } from "next-intl/routing";
-import { setRequestLocale } from "next-intl/server";
-import { use } from "react";
 
+// Defines supported locales and the default
 export const routing = defineRouting({
   locales: ["en", "es", "it"],
   defaultLocale: "en",
+  localePrefix: "always",
+  localeDetection: true,
 });
 
+// Helper to generate static paths for all locales
 export function generateLocaleStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
-}
-
-export function getLocaleFromParams(params: Promise<{ locale: string }>) {
-  const { locale } = use(params);
-  setRequestLocale(locale);
-  return locale;
 }

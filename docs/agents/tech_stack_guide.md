@@ -18,8 +18,10 @@ Framework: Next.js 14+ (App Router)
 ├── Forms: React Hook Form + Zod validation
 ├── Internationalization: next-intl
 ├── Charts: Recharts + Tremor
-├── Authentication UI: Clerk components
+├── Authentication: Clerk (handles sign-in, sign-up, and session management)
 └── Styling: Tailwind CSS + MUI theming
+
+**Architectural Note**: The combination of Next.js 14 (with React Suspense) and TanStack Query is intentionally chosen to facilitate modern data fetching patterns. This stack enables the implementation of sophisticated and user-friendly loading states, such as skeleton screens, which are a core requirement for providing a high-quality, responsive user experience.
 ```
 
 ### Backend Stack
@@ -27,7 +29,7 @@ Framework: Next.js 14+ (App Router)
 Framework: NestJS (TypeScript-first)
 ├── Database ORM: Prisma
 ├── Database: MariaDB 10.9+
-├── Authentication: Clerk (managed) + Keycloak (self-hosted)
+├── Authentication: Validates Clerk-issued JWTs from the frontend
 ├── Caching: Redis 7+
 ├── Queue System: BullMQ (Redis-based)
 ├── File Storage: AWS S3 compatible
@@ -190,6 +192,8 @@ Coverage: Vitest coverage (80%+ required)
     "k6": "^0.48.0",
     "concurrently": "^8.2.0",
     "husky": "^8.0.3",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "lint-staged": "^15.2.0",
     "dotenv-cli": "^7.3.0",
     "tsx": "^4.7.0"
@@ -217,17 +221,15 @@ Rationale:
 
 ### Authentication Strategy
 ```typescript
-Dual Strategy Approach:
+Authentication Workflow:
 
-1. Managed SaaS (Clerk):
-   - Trial users
-   - Small/medium clients
-   - Quick onboarding
+The platform uses a frontend-led authentication model with Clerk.
 
-2. Self-hosted (Keycloak):
-   - Enterprise clients
-   - SSO requirements (SAML/OIDC)
-   - Custom auth flows
+1.  **Frontend (Next.js):** Handles all user-facing authentication (sign-in, sign-up, profile management) using the `@clerk/nextjs` library. After a user is authenticated, the frontend is responsible for retrieving the session JWT from Clerk.
+
+2.  **API Requests:** For every request to the backend, the frontend attaches the Clerk-issued JWT in the `Authorization: Bearer <token>` header.
+
+3.  **Backend (NestJS):** The backend is stateless regarding authentication. It protects its endpoints by validating the JWT from the `Authorization` header on every incoming request using Clerk's backend SDK. It never stores session state. This allows for robust, scalable, and secure authorization.
 ```
 
 ### Caching Strategy

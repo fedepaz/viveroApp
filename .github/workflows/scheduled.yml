@@ -5,11 +5,7 @@ on:
     - cron: '0 2 * * *' # Daily at 2 AM UTC
 
 jobs:
-  security-scan:
-    uses: ./.github/workflows/reusable-setup.yml
-
   scan:
-    needs: security-scan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

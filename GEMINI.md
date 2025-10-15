@@ -85,46 +85,69 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
 
 1.  **Identify the Target Branch**
 
-    -   Determine the `base` branch for your Pull Request (e.g., `frontendDev`, `backendDev`, or `main`). This is crucial for accurately identifying unique commits.
+    - Determine the `base` branch for your Pull Request (e.g., `frontendDev`, `backendDev`, or `main`). This is crucial for accurately identifying unique commits.
 
 2.  **Review Commits on the Feature Branch**
 
-    -   Use `git log <base_branch>..HEAD --oneline` to list all commits unique to your current feature branch. This provides a concise overview of the work accomplished.
-    -   Analyze these commit messages to understand the full scope of the feature, including:
-        *   New functionalities (`feat:` commits).
-        *   Bug fixes (`fix:` commits).
-        *   Refactorings (`refactor:` commits).
-        *   Tooling or CI/CD updates (`chore:` commits).
-        *   Documentation changes (`docs:` commits).
+    - Use `git log <base_branch>..HEAD --oneline` to list all commits unique to your current feature branch. This provides a concise overview of the work accomplished.
+    - Analyze these commit messages to understand the full scope of the feature, including:
+      - New functionalities (`feat:` commits).
+      - Bug fixes (`fix:` commits).
+      - Refactorings (`refactor:` commits).
+      - Tooling or CI/CD updates (`chore:` commits).
+      - Documentation changes (`docs:` commits).
 
 3.  **Draft the Pull Request Title**
 
-    -   The title should be concise and reflect the primary purpose or the most significant feature introduced by the branch.
-    -   Follow the Conventional Commits specification if applicable (e.g., `feat(scope): Summary of main feature`).
+    - The title should be concise and reflect the primary purpose or the most significant feature introduced by the branch.
+    - Follow the Conventional Commits specification if applicable (e.g., `feat(scope): Summary of main feature`).
 
 4.  **Draft the Pull Request Description**
 
-    -   The description should provide a comprehensive summary of the *entire feature* being merged, not just the last commit.
-    -   Organize the description into logical sections (e.g., "Key Features", "Architectural Changes", "Testing Setup", "Tooling Updates").
-    -   Elaborate on the "what" and "why" for each major change.
-    -   Include any relevant context, such as:
-        *   How the feature aligns with product goals.
-        *   Specific implementation details.
-        *   Resolution of complex issues (e.g., the PostCSS configuration conflict, `next-intl` mocking).
-        *   References to updated documentation.
+    - The description should provide a comprehensive summary of the _entire feature_ being merged, not just the last commit.
+    - Organize the description into logical sections (e.g., "Key Features", "Architectural Changes", "Testing Setup", "Tooling Updates").
+    - Elaborate on the "what" and "why" for each major change.
+    - Include any relevant context, such as:
+      - How the feature aligns with product goals.
+      - Specific implementation details.
+      - Resolution of complex issues (e.g., the PostCSS configuration conflict, `next-intl` mocking).
+      - References to updated documentation.
 
 5.  **Save the Drafted Pull Request Message**
 
-    -   Save the generated Pull Request title and description to a file within the `.pull_requests/` directory.
-    -   **Naming Convention**: The filename should follow the format: `<pr_title_slug> - <date>.md`.
-        *   `<pr_title_slug>`: A slugified version of the PR title (e.g., `feat-frontend-initial-setup-and-core-features`).
-        *   `<date>`: The current date in `YYYY-MM-DD` format.
-        *   Example: `.pull_requests/feat-frontend-initial-setup-and-core-features - 2025-10-14.md`
+    - Save the generated Pull Request title and description to a file within the `.pull_requests/` directory.
+    - **Naming Convention**: The filename should follow the format: `<pr_title_slug> - <date>.md`.
+      - `<pr_title_slug>`: A slugified version of the PR title (e.g., `feat-frontend-initial-setup-and-core-features`).
+      - `<date>`: The current date in `YYYY-MM-DD` format.
+      - Example: `.pull_requests/feat-frontend-initial-setup-and-core-features - 2025-10-14.md`
 
 6.  **Review and Refine**
 
-    -   Review the drafted message for clarity, completeness, and accuracy.
-    -   Ensure it provides sufficient context for reviewers to understand the scope of the changes.
+    - Review the drafted message for clarity, completeness, and accuracy.
+    - Ensure it provides sufficient context for reviewers to understand the scope of the changes.
+
+### Rule: General Backend Workflow
+
+#### Workflow Steps
+
+- My standard workflow for creating a new backend feature in the viveroApp project is:
+  1. Scaffold with `nest g resource <name>`.
+  2. Define the entity in `prisma/schema.prisma` and generate the client.
+  3. Implement tenant-aware logic in the service.
+  4. Refine DTOs to be synchronized into the shared package.
+  5. Write unit and integration tests.
+  6. Collaborate with the shared-package-agent.
+
+### Rule: General Frontend Workflow
+
+#### Workflow Steps
+
+- My standard workflow for creating a new frontend feature in the viveroApp project is:
+  1. Manually create the feature-sliced directory structure in `src/features/`.
+  2. Create the page route in `app/[locale]/` which sets the i18n context and renders the main feature component.
+  3. Implement components, hooks, and API logic within the feature directory, using shared types.
+  4. Write tests.
+  5. Curate the feature's public API in its `index.ts` file.
 
 ## 🎯 Purpose
 
@@ -170,7 +193,7 @@ Agents must **always read and apply** the following project guides before respon
 - **Shared Contracts:** All data contracts (types, DTOs, schemas) **must** be synchronized via the `@plant-mgmt/shared` package, following the process in `shared-package-agent.md`, to ensure type safety between applications.
 - **Product requirements** must follow `product-manager-agent.md` (multi-tenant, enterprise workflows).
 - **Testing must follow TDD** as outlined in `tdd_cicd_guide.md` (Vitest, Jest, Playwright, 80%+ coverage).
-- **CI/CD**: Must follow the 4-file structure defined in `docs/agents/cicd_agent.md` and is optimized with Turborepo. All GitHub Actions must be verified using the `resolve_library_id` tool before use.
+- **CI/CD**: Must follow the 3-file structure defined in `docs/agents/cicd_agent.md` and is optimized with Turborepo. All GitHub Actions must be verified using the `resolve_library_id` tool before use.
 - **Enterprise workflows** (multi-tenancy, supply chain, financial ops, compliance) must follow `product-manager-agent.md`.
 
 ---
@@ -190,9 +213,9 @@ Agents must **always read and apply** the following project guides before respon
 ## 🌊 Git Workflow
 
 - **Branching Strategy**: All new features should be developed in a feature branch (e.g., `feat/new-feature`).
-- **Pull Requests**: Pull requests should be made to the `frontendDev` or `backendDev` branches.
-- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are not allowed.
-- **Merging to `main`**: Merges to the `main` branch should only be done through the GitHub UI after a pull request has been reviewed and approved.
+- **Pull Requests**: Pull requests **must** be made to the `frontendDev` or `backendDev` branches. Pull requests **must never** be made directly to the `main` branch.
+- **No Direct Pushes to `main`**: Direct pushes to the `main` branch are **strictly prohibited**.
+- **Merging to `main`**: Merges to the `main` branch **must only** be done through the GitHub UI after a pull request to `frontendDev` or `backendDev` has been reviewed and approved.
 
 ---
 

@@ -14,7 +14,7 @@ Build bulletproof CI/CD pipelines that catch bugs before users do, deploy reliab
 
 ## CI/CD Pipeline Architecture
 
-This project follows a modular, 4-file approach to CI/CD, prioritizing clarity, efficiency, and maintainability. This structure is the single source of truth for all CI/CD operations.
+This project follows a modular, 3-file approach to CI/CD, prioritizing clarity, efficiency, and maintainability. This structure is the single source of truth for all CI/CD operations.
 
 ### Commit Message Convention
 
@@ -43,38 +43,24 @@ The CI/CD agent should leverage this structured history to automate release and 
 
 ### Workflow Structure
 
-#### 1. `reusable-setup.yml` (Reusable Workflow)
-
-- **Purpose**: Provides a centralized set of common steps for setting up the environment.
-- **Trigger**: This workflow is not triggered directly by events. It is **called** by other workflows (`pr-checks.yml`, `deploy.yml`).
-- **Responsibilities**:
-  - Checkout code (`actions/checkout`).
-  - Setup Node.js (`actions/setup-node`).
-  - Setup pnpm (`pnpm/action-setup`).
-  - Install dependencies with caching (`pnpm install`).
-
-#### 2. `pr-checks.yml` (Pull Request Quality Gate)
+#### 1. `pr-checks.yml` (Pull Request Quality Gate)
 
 - **Purpose**: Ensures code quality and correctness before merging.
 - **Trigger**: Runs on every `pull_request` to `main`, `frontendDev`, and `backendDev` branches.
 - **Responsibilities**:
-  - Calls the `reusable-setup.yml` workflow.
-  - Uses path filtering to determine which checks to run (frontend or backend).
   - Runs linting, type-checking, and unit tests for the changed application(s) using `turbo run lint`, `turbo run test`, etc. The test suites executed in this workflow are defined and maintained by the `agricultural-qa-test-automation-engineer`.
 
-#### 3. `deploy.yml` (Deployment Workflow)
+#### 2. `deploy.yml` (Deployment Workflow)
 
 - **Purpose**: Manages deployments to all environments.
 - **Trigger**: Runs on every `push` to `main` (production), `frontendDev` (staging), and `backendDev` (staging).
 - **Responsibilities**:
-  - Calls the `reusable-setup.yml` workflow.
-  - Uses path filtering to determine which application to deploy (frontend or backend).
   - Builds the application artifact using `turbo run build --filter=<app-name>`.
   - Deploys to the target environment (Vercel for frontend, Render for backend).
   - Dispatches an `e2e-tests.yml` run after a successful staging deployment.
   - Runs smoke tests after a successful production deployment.
 
-#### 4. `scheduled.yml` (Scheduled Maintenance)
+#### 3. `scheduled.yml` (Scheduled Maintenance)
 
 - **Purpose**: Performs routine, automated tasks.
 - **Trigger**: Runs on a `schedule` (e.g., daily).

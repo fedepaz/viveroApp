@@ -170,7 +170,7 @@ Agents must **always read and apply** the following project guides before respon
 - **Shared Contracts:** All data contracts (types, DTOs, schemas) **must** be synchronized via the `@plant-mgmt/shared` package, following the process in `shared-package-agent.md`, to ensure type safety between applications.
 - **Product requirements** must follow `product-manager-agent.md` (multi-tenant, enterprise workflows).
 - **Testing must follow TDD** as outlined in `tdd_cicd_guide.md` (Vitest, Jest, Playwright, 80%+ coverage).
-- **CI/CD**: Must follow the 4-file structure defined in `docs/agents/cicd_agent.md` and is optimized with Turborepo. All GitHub Actions must be verified using the `resolve_library_id` tool before use.
+- **CI/CD**: Must follow the 3-file structure defined in `docs/agents/cicd_agent.md` and is optimized with Turborepo. All GitHub Actions must be verified using the `resolve_library_id` tool before use.
 - **Enterprise workflows** (multi-tenancy, supply chain, financial ops, compliance) must follow `product-manager-agent.md`.
 
 ---

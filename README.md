@@ -1,198 +1,219 @@
-# 🌱 AgriManage
-### *Guía de Instalación Completa para Usuarios*
+# AgriManage
 
-<div align="center">
+[![Deploy](https://github.com/fedepaz/viveroApp/workflows/deploy/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
+[![PR Checks](https://github.com/fedepaz/viveroApp/workflows/pr-checks/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
+[![Scheduled](https://github.com/fedepaz/viveroApp/workflows/scheduled/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
 
-![AgriManage Banner](https://via.placeholder.com/800x200/4ade80/ffffff?text=AgriManage+🌾)
+Aplicación de gestión agrícola. Monorepo con Node.js + pnpm.
 
-**Una aplicación completa para la gestión agrícola moderna**
+## Requisitos
 
-[![Licencia](https://img.shields.io/badge/licencia-MIT-green.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D%2016.0.0-brightgreen.svg)](https://nodejs.org/)
-[![pnpm](https://img.shields.io/badge/pnpm-recommended-orange.svg)](https://pnpm.io/)
+- Node.js >= 16.0.0 - [descargar](https://nodejs.org/)
+- pnpm - [instalar](https://pnpm.io/installation)
 
-</div>
+## Instalación inicial
 
----
+### 1. Clonar el repositorio
 
-## 🎯 **¿Qué vas a instalar?**
+```bash
+# HTTPS
+git clone https://github.com/fedepaz/viveroApp.git
+cd viveroApp
 
-> **¡Transparencia ante todo!** Queremos que te sientas 100% seguro con lo que estás instalando.
+# SSH
+git clone git@github.com:fedepaz/viveroApp.git
+cd viveroApp
+```
 
-<table>
-<tr>
-<td width="50%">
+### 2. Instalar pnpm (si no lo tienes)
 
-### 💡 **¿Qué es AgriManage?**
-Una aplicación de software para gestión agrícola. El código fuente está almacenado en este repositorio de GitHub que estás viendo ahora mismo.
+**PowerShell (Windows):**
 
-</td>
-<td width="50%">
+```powershell
+iwr https://get.pnpm.io/install.ps1 -useb | iex
+```
 
-### 🔒 **¿Es seguro?**
-**¡Absolutamente!** Solo descargarás archivos de texto y carpetas. No hay archivos ejecutables (.exe) y el tamaño es muy pequeño.
+**Bash/Zsh (Linux/Mac):**
 
-</td>
-</tr>
-</table>
+```bash
+curl -fsSL https://get.pnpm.io/install.sh | sh -
+```
 
-### 🛠️ **Herramientas que instalaremos**
+**Alternativa con npm:**
 
-| Herramienta | ¿Para qué sirve? | ¿Es segura? |
-|-------------|------------------|-------------|
-| **Node.js** | El "motor" que ejecuta la aplicación | ✅ Usada por millones de desarrolladores mundialmente |
-| **pnpm** | Gestor de componentes de la aplicación | ✅ Herramienta estándar de la industria |
+```bash
+npm install -g pnpm
+```
 
-### 🔄 **CI/CD Workflows**
+### 3. Instalar dependencias
 
-Este proyecto utiliza GitHub Actions para la Integración Continua y el Despliegue Continuo (CI/CD). Los flujos de trabajo se definen en los siguientes archivos:
+```bash
+pnpm install
+```
 
-- `.github/workflows/lint-test.yml`: Realiza el linting y las pruebas unitarias.
-- `.github/workflows/build-artifacts.yml`: Construye los artefactos de la aplicación.
-- `.github/workflows/deploy-production.yml`: Despliega la aplicación a producción.
-- `.github/workflows/e2e-tests.yml`: Ejecuta las pruebas end-to-end.
-- `.github/workflows/post-deploy.yml`: Realiza la verificación post-despliegue.
-- `.github/workflows/scheduled-maintenance.yml`: Ejecuta tareas de mantenimiento programadas.
+### 4. Ejecutar en desarrollo
 
----
+```bash
+pnpm dev
+```
 
-## 🚀 **Instalación en 5 Pasos**
-
-### **Paso 1️⃣** - Obtener el Código Fuente
-
-**📥 Descargar los archivos de la aplicación**
-
-1. **Descarga el ZIP**
-   - Busca el botón verde **`< > Code`** en esta página
-   - Selecciona **`Download ZIP`**
-
-2. **Extrae los archivos**
-   - Ve a tu carpeta `Descargas`
-   - Busca `viveroApp-main.zip`
-   - Click derecho → **`Extraer todo...`**
-
-3. **¡Listo!** 
-   - Tendrás una carpeta `viveroApp-main` con todo el código
-   
-> 📁 **¿Qué hay dentro?** Verás carpetas como `apps`, `docs`, `packages` y archivos como `package.json`. ¡Todo normal!
+La app estará disponible en `http://localhost:3000` (o el puerto indicado en consola).
 
 ---
 
-### **Paso 2️⃣** - Instalar Node.js (El Motor de la Aplicación)
+## Actualizar el proyecto
 
-**⚡ ¿Qué es Node.js?**
+### Opción 1: Con Git (recomendado)
 
-Imagina que el código de la aplicación es una **receta escrita en un idioma especial**. Node.js es el **"chef traductor"** que tu computadora necesita para entender y ejecutar esa receta.
+Si clonaste el repo con git, para traer los últimos cambios:
 
-> 📊 **Datos que te darán confianza:**
-> - Creado en **2009** por Ryan Dahl
-> - Usado por **Netflix, Uber, PayPal, LinkedIn, Walmart**
-> - **Millones** de desarrolladores lo usan diariamente
+```bash
+# Guardar cambios locales (si los hay)
+git stash
 
-**🔗 Proceso de instalación:**
+# Traer últimos cambios
+git pull origin main
 
-1. **[👉 Ir a la página oficial de Node.js](https://nodejs.org/es/download)**
-2. **Descargar** → Busca el logo de Windows → **"Instalador de Windows (.msi)"**
-3. **Instalar** → Doble click → Siguiente en todo → ¡Terminado!
+# Restaurar cambios locales
+git stash pop
 
-> 💡 **Tip:** Elige la versión **LTS** (Soporte a Largo Plazo) - es la más estable.
+# Actualizar dependencias
+pnpm install
 
----
+# Iniciar
+pnpm dev
+```
 
-### **Paso 3️⃣** - Instalar pnpm (Gestor de Componentes)
+**¿Qué hace cada comando?**
 
-**🧩 ¿Qué es un gestor de paquetes?**
+- `git stash` - Guarda temporalmente tus cambios sin hacer commit
+- `git pull` - Descarga los cambios del repositorio remoto
+- `git stash pop` - Restaura tus cambios guardados
+- `pnpm install` - Actualiza las dependencias si cambiaron
 
-Piénsalo como **construir con Legos**:
-- En lugar de fabricar cada pieza, tomas las que ya existen
-- Los "paquetes" son esas piezas prefabricadas
-- **pnpm** es la herramienta que las organiza automáticamente
+### Opción 2: Sin Git (descarga manual)
 
-**¿Por qué pnpm y no otros?**
+Si bajaste el ZIP originalmente:
 
-| Gestor | Características |
-|--------|----------------|
-| `npm` | 📦 El original (viene con Node.js) |
-| `yarn` | 🚀 Creado por Facebook para ser más rápido |
-| `pnpm` | ⚡ **Nuestra elección** - Ultra eficiente con el espacio |
+1. **Respaldar tus cambios**:
 
-**💻 Instalación:**
+   - Copia las carpetas/archivos que modificaste a otro lugar
 
-1. **Abrir terminal:**
-   - Presiona `Windows` → escribe `cmd` → Enter
+2. **Descargar el ZIP actualizado**:
 
-2. **Ejecutar comando:**
+   - Ve a https://github.com/fedepaz/viveroApp
+   - Click en `Code` → `Download ZIP`
+   - Extrae en una carpeta temporal
+
+3. **Reemplazar archivos**:
+
+   - Borra tu carpeta vieja del proyecto
+   - Copia la nueva carpeta descargada
+   - Restaura tus cambios personalizados (si los hay)
+
+4. **Reinstalar dependencias**:
    ```bash
-   npm install -g pnpm
-   ```
-   
-> 🔍 **¿Qué hace este comando?**
-> - `npm` = Node Package Manager
-> - `install` = Instalar algo
-> - `-g` = Global (en toda la computadora)
-> - `pnpm` = La herramienta que queremos
-
----
-
-### **Paso 4️⃣** - Instalar Componentes de AgriManage
-
-**🎯 Objetivo:** Descargar todas las "piezas" que la aplicación necesita.
-
-1. **Navegar a la carpeta:**
-   ```bash
-   cd %USERPROFILE%\Documents\viveroApp-main
-   ```
-
-2. **Instalar dependencias:**
-   ```bash
+   cd viveroApp
    pnpm install
-   ```
-
-> 📋 **¿Qué pasa aquí?** pnpm lee la "lista de compras" (`package.json`) y descarga todo lo necesario de internet.
-
----
-
-### **Paso 5️⃣** - ¡Ejecutar AgriManage!
-
-<div align="center">
-
-### 🎉 **¡El momento que esperabas!**
-
-</div>
-
-1. **Iniciar la aplicación:**
-   ```bash
    pnpm dev
    ```
 
-2. **Abrir en el navegador:**
-   - Espera a ver: `✓ Compiled successfully`
-   - **Ctrl + Click** en el enlace `http://localhost:XXXX`
-   - ¡La aplicación se abrirá automáticamente!
+---
 
-> ⚠️ **Importante:** No cierres la terminal mientras uses la aplicación - ¡es su motor!
+## CI/CD Workflows
+
+El proyecto usa GitHub Actions para automatización. Estos workflows se ejecutan automáticamente:
+
+### deploy.yml
+
+Despliega la aplicación a producción cuando se hace push a la rama main. Compila el código, ejecuta tests y sube los archivos al servidor.
+
+### pr-checks.yml
+
+Se ejecuta cuando abres un Pull Request. Verifica que el código compile, pase los tests y cumpla con las reglas de estilo (linting) antes de permitir el merge.
+
+### scheduled.yml
+
+Tareas programadas que se ejecutan automáticamente (por ejemplo, limpieza de caché, backups, actualizaciones de dependencias). Se ejecuta en horarios predefinidos usando cron.
+
+**Ver estado de los workflows:** [Actions tab](https://github.com/fedepaz/viveroApp/actions)
+
+Los badges en la parte superior muestran si cada workflow está pasando (verde) o fallando (rojo).
 
 ---
 
-## 🎊 **¡Felicidades!**
+## Scripts disponibles
 
-<div align="center">
-
-### Has instalado AgriManage correctamente
-
-**🌱 Tu aplicación está lista para usar 🌱**
-
----
-
-### 📞 **¿Necesitas ayuda?**
-
-Si tienes algún problema, no dudes en:
-- 🐛 [Reportar un bug](https://github.com/tu-usuario/agrimanage/issues)
-- 💬 [Hacer una pregunta](https://github.com/tu-usuario/agrimanage/discussions)
-- 📧 Contactarnos directamente
+```bash
+pnpm dev          # Desarrollo con hot-reload
+pnpm build        # Build para producción
+pnpm test         # Ejecutar tests
+pnpm lint         # Linter
+pnpm format       # Formatear código
+```
 
 ---
 
-**Hecho con 💚 para la comunidad agrícola**
+## Troubleshooting
 
-</div>
+### Error de permisos en Windows PowerShell
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+### Puerto ocupado
+
+**Linux/Mac:**
+
+```bash
+lsof -ti:3000 | xargs kill -9
+```
+
+**Windows PowerShell:**
+
+```powershell
+Get-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess | Stop-Process -Force
+```
+
+### Limpiar caché de pnpm
+
+Si algo no funciona después de actualizar:
+
+```bash
+pnpm store prune
+rm -rf node_modules
+pnpm install
+```
+
+**Windows (PowerShell):**
+
+```powershell
+pnpm store prune
+Remove-Item -Recurse -Force node_modules
+pnpm install
+```
+
+---
+
+## Estructura del proyecto
+
+```
+viveroApp/
+├── apps/           # Aplicaciones del monorepo
+├── packages/       # Paquetes compartidos
+├── .github/        # Configuración de GitHub Actions
+│   └── workflows/  # Archivos de CI/CD
+├── docs/           # Documentación
+└── package.json    # Configuración principal
+```
+
+---
+
+## Licencia
+
+MIT
+
+---
+
+**¿Problemas?** [Abrir un issue](https://github.com/fedepaz/viveroApp/issues)

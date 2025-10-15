@@ -8,20 +8,7 @@ on:
       - backendDev
 
 jobs:
-  deploy-staging:
-    if: github.ref == 'refs/heads/frontendDev' || github.ref == 'refs/heads/backendDev'
-    uses: ./.github/workflows/reusable-setup.yml
-    with:
-      environment: staging
-
-  deploy-production:
-    if: github.ref == 'refs/heads/main'
-    uses: ./.github/workflows/reusable-setup.yml
-    with:
-      environment: production
-
   build-and-deploy:
-    needs: [deploy-staging, deploy-production]
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -1,8 +1,8 @@
 # AgriManage
 
-[![Deploy](https://github.com/fedepaz/viveroApp/workflows/deploy/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
-[![PR Checks](https://github.com/fedepaz/viveroApp/workflows/pr-checks/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
-[![Scheduled](https://github.com/fedepaz/viveroApp/workflows/scheduled/badge.svg)](https://github.com/fedepaz/viveroApp/actions)
+[![Deploy](https://github.com/fedepaz/viveroApp/actions/workflows/deploy.yml/badge.svg)](https://github.com/fedepaz/viveroApp/actions/workflows/deploy.yml)
+[![PR Checks](https://github.com/fedepaz/viveroApp/actions/workflows/pr-checks.yml/badge.svg)](https://github.com/fedepaz/viveroApp/actions/workflows/pr-checks.yml)
+[![Scheduled](https://github.com/fedepaz/viveroApp/actions/workflows/scheduled.yml/badge.svg)](https://github.com/fedepaz/viveroApp/actions/workflows/scheduled.yml)
 
 Aplicación de gestión agrícola. Monorepo con Node.js + pnpm.
 

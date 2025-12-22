@@ -27,6 +27,16 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+
+      - name: Check Frontend Test Coverage
+        if: matrix.app == 'frontend'
+        id: coverage
+        run: |
+          COVERAGE_SUMMARY=$(pnpm --filter frontend test:unit --coverage.reporter=text-summary)
+          echo "$COVERAGE_SUMMARY"
+          COVERAGE_PERCENTAGE=$(echo "$COVERAGE_SUMMARY" | grep 'All files' | awk -F '|' '{print $2}' | xargs)
+          echo "Coverage is ${COVERAGE_PERCENTAGE}% --- Required 80%"
+
       - name: Build application
         run: pnpm build
       - name: Deploy to Vercel (Frontend)

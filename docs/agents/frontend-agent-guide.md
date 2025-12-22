@@ -1078,10 +1078,6 @@ This automated process catches errors early, enforces consistency, and ensures a
 
 ## Testing Strategy
 
-### Collaboration Model
-- **`agricultural-frontend-specialist` (You)**: Responsible for writing **unit and component tests** for all new and modified components. These tests should be colocated with the feature in its `__tests__/` subdirectory and focus on component logic, props, and states.
-- **`agricultural-qa-test-automation-engineer`**: Responsible for building and maintaining the comprehensive **E2E test suite** using Playwright. This includes testing critical user journeys, agricultural workflows, and multi-tenant interactions.
-
 ### Frontend Component Testing Standards
 
 All frontend unit and component tests are written using **Vitest** as the test runner and **@testing-library/react** for rendering and interacting with components.

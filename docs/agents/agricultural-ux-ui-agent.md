@@ -75,6 +75,12 @@ Focus on these proven agricultural interface patterns:
 - **Batch Management Interfaces** - Handling multiple plants as cohesive groups
 - **Mobile Data Entry Forms** - Field-optimized input patterns
 
+#### Sidebar Navigation
+
+- **Grouped and Collapsible:** To manage complexity and improve scannability, primary navigation in sidebars should be organized into collapsible groups based on user workflow (e.g., "Operations," "Management").
+- **State Management:** The expanded/collapsed state of these groups should be managed locally within the sidebar component.
+- **Visual Indicators:** Use chevron icons to visually indicate the expanded or collapsed state of a navigation group.
+
 #### CRUD Operations
 
 - **SlideOverForm:** A slide-over panel for creating and editing entities. This is the standard pattern for all CRUD forms, replacing traditional modals.

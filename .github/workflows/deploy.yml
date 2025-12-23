@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy (Promotion Gate)
 
 on:
   push:
@@ -8,30 +8,60 @@ on:
       - backendDev
 
 jobs:
-  build-and-deploy:
+  frontend:
+    if: github.ref_name == 'frontendDev' || github.ref_name == 'main'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        app: [frontend, backend]
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
         with:
           version: 8.15.0
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install
-      - name: Build application
-        run: pnpm build
-      - name: Deploy to Vercel (Frontend)
-        if: matrix.app == 'frontend'
-        run: echo "Deploying to Vercel..."
-      - name: Deploy to Render (Backend)
-        if: matrix.app == 'backend'
-        run: echo "Deploying to Render..."
+
+      - run: pnpm install
+
+      - name: Build frontend
+        run: pnpm turbo run build --filter=frontend
+
+      - name: Promote frontend
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
+            echo "🚀 Frontend → PRODUCTION"
+          else
+            echo "🧪 Frontend → STAGING"
+          fi
+
+  backend:
+    if: github.ref_name == 'backendDev' || github.ref_name == 'main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - run: pnpm install
+
+      - name: Build backend
+        run: pnpm turbo run build --filter=backend
+
+      - name: Promote backend
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
+            echo "🚀 Backend → PRODUCTION"
+          else
+            echo "🧪 Backend → STAGING"
+          fi

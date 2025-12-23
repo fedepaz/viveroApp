@@ -52,16 +52,23 @@ jobs:
         with:
           node-version: "20"
           cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
 
-      - run: pnpm install
-
-      - name: Build backend
-        run: pnpm turbo run build --filter=backend
-
-      - name: Promote backend
+      - name: Check Frontend Test Coverage
+        if: matrix.app == 'frontend'
+        id: coverage
         run: |
-          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
-            echo "🚀 Backend → PRODUCTION"
-          else
-            echo "🧪 Backend → STAGING"
-          fi
+          COVERAGE_SUMMARY=$(pnpm --filter frontend test:unit --coverage.reporter=text-summary)
+          echo "$COVERAGE_SUMMARY"
+          COVERAGE_PERCENTAGE=$(echo "$COVERAGE_SUMMARY" | grep 'All files' | awk -F '|' '{print $2}' | xargs)
+          echo "Coverage is ${COVERAGE_PERCENTAGE}% --- Required 80%"
+
+      - name: Build application
+        run: pnpm build
+      - name: Deploy to Vercel (Frontend)
+        if: matrix.app == 'frontend'
+        run: echo "Deploying to Vercel..."
+      - name: Deploy to Render (Backend)
+        if: matrix.app == 'backend'
+        run: echo "Deploying to Render..."

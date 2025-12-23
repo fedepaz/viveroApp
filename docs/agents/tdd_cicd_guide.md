@@ -1,26 +1,49 @@
-CLAUDE.md - Enterprise Plant Management System
+Enterprise Plant Management System
 TDD & CI/CD Guide for "Chill Mode" Development 😎
 Philosophy: Write tests so good that you sleep peacefully knowing your 3-4 enterprise clients are happy and your app won't wake you up at 3 AM.
-Test-Driven Development Strategy
-The "Sleep Well" Testing Pyramid
+
+---
+
+## Testing Strategy
+
+### Collaboration Model
+
+- **`agricultural-frontend-specialist`**: Responsible for writing **unit and component tests** for all new and modified components. These tests should be colocated with the feature in its `__tests__/` subdirectory and focus on component logic, props, and states.
+- **`agricultural-qa-test-automation-engineer`**: Responsible for building and maintaining the comprehensive **E2E test suite** using Playwright. This includes testing critical user journeys, agricultural workflows, and multi-tenant interactions.
+
+### Implementation Guides
+
+For technology-specific implementation details, refer to the relevant agent guide:
+
+- **Frontend:** See the [Frontend Component Testing Standards](./frontend-agent-guide.md#frontend-component-testing-standards) in the `frontend-agent-guide.md`.
+- **Backend:** The backend testing stack and patterns are detailed below.
+
+---
+
+## The "Sleep Well" Testing Pyramid
 
 - **E2E (5% - Critical user flows)**: Owned by the `agricultural-qa-test-automation-engineer`. Covers critical paths like trial signup and plant lifecycle management.
 - **Integration (15% - API contracts & component interactions)**: A shared responsibility. The `agricultural-qa-test-automation-engineer` focuses on cross-system API contract tests, while developers test interactions between their components and services.
 - **Unit (80% - Business logic & components)**: Owned by developers. Every piece of business logic and every UI component must have unit tests.
 
-Testing Philosophy
+## Testing Philosophy
+
 Rule #1: If it can break at 3 AM and wake you up, it needs a test.
 Rule #2: If a client can lose money because of it, it needs integration tests, validated by the `agricultural-qa-test-automation-engineer`.
 Rule #3: If it's business logic, it needs unit tests written by the developer.
-Frontend Testing Stack
-Setup
+
+## Frontend Testing Stack
+
+### Setup
 
 # Testing dependencies
 
 pnpm add -D @testing-library/react @testing-library/jest-dom
 pnpm add -D @testing-library/user-event vitest jsdom
 pnpm add -D @playwright/test
-Unit Tests (80% of tests)
+
+### Unit Tests (80% of tests)
+
 // components/**tests**/PlantCard.test.tsx
 import { render, screen } from '@testing-library/react'
 import { PlantCard } from '../PlantCard'
@@ -51,7 +74,9 @@ render(<PlantCard plant={plant} />)
 
 })
 })
-Integration Tests (15% of tests)
+
+### Integration Tests (15% of tests)
+
 // hooks/**tests**/usePlants.test.tsx
 import { renderHook, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -83,7 +108,9 @@ wrapper: createWrapper()
 
 })
 })
-E2E Tests (5% of tests - Critical flows)
+
+### E2E Tests (5% of tests - Critical flows)
+
 // e2e/plant-lifecycle.spec.ts
 import { test, expect } from '@playwright/test'
 
@@ -124,8 +151,11 @@ await page.goto('/plants/critical-temp-plant')
 
 })
 })
-Backend Testing Stack
-NestJS Test Setup
+
+## Backend Testing Stack
+
+### NestJS Test Setup
+
 // test/setup.ts
 import { Test, TestingModule } from '@nestjs/testing'
 import { ConfigModule } from '@nestjs/config'
@@ -153,7 +183,9 @@ afterEach(async () => {
 await prisma.plant.deleteMany()
 await prisma.user.deleteMany()
 })
-Unit Tests - Services
+
+### Unit Tests - Services
+
 // src/plants/plants.service.spec.ts
 describe('PlantsService', () = > {
 let service: PlantsService
@@ -213,7 +245,9 @@ data: [
 
 })
 })
-Integration Tests - Controllers
+
+### Integration Tests - Controllers
+
 // src/plants/plants.controller.spec.ts
 describe('PlantsController (Integration)', () = > {
 let app: INestApplication
@@ -278,6 +312,7 @@ variety: 'red'
 
 })
 })
+
 ## CI/CD Pipeline Configuration
 
 The canonical CI/CD workflow structure is defined in the `docs/agents/cicd_agent.md` document. It outlines the modern, 4-file approach for managing workflows in this project:
@@ -290,10 +325,12 @@ The canonical CI/CD workflow structure is defined in the `docs/agents/cicd_agent
 A critical part of the `pr-checks.yml` workflow is the validation of the `@plant-mgmt/shared` package. Any pull request **must** trigger linting and unit tests on the shared package to prevent breaking changes to the data contracts from being merged. This is managed by the `agricultural-shared-package-engineer`.
 
 Always refer to `cicd_agent.md` for the authoritative implementation details.
-Package.json Scripts
+
+## Package.json Scripts
+
 {
 "scripts ": {
-"dev ": "concurrently \ "pnpm dev:\*\ " ",
+"dev ": "concurrently "pnpm dev:\*" ",
 "dev:frontend ": "next dev ",
 "dev:backend ": "nest start --watch ",
 
@@ -308,7 +345,7 @@ Package.json Scripts
      "test:e2e ":  "playwright test ",
      "test:e2e:staging ":  "playwright test --config playwright.staging.config.ts ",
 
-     "lint ":  "next lint  & & eslint \ "src/**/*.{js,ts}\ " ",
+     "lint ":  "next lint  & & eslint "src/**/*.{js,ts}" ",
      "format ":  "prettier --write . ",
      "format:check ":  "prettier --check . ",
      "type-check ":  "tsc --noEmit ",
@@ -324,8 +361,11 @@ Package.json Scripts
 
 }
 }
-Quality Gates & Metrics
-Code Coverage Requirements
+
+## Quality Gates & Metrics
+
+### Code Coverage Requirements
+
 // vitest.config.ts
 export default defineConfig({
 test: {
@@ -350,7 +390,9 @@ exclude: [
 }
 }
 })
-Performance Budgets
+
+### Performance Budgets
+
 // next.config.js
 module.exports = {
 experimental: {
@@ -367,7 +409,9 @@ config.optimization.splitChunks.cacheGroups.default.maxSize = 244000;
 return config;
 }
 }
-Database Migration Safety
+
+### Database Migration Safety
+
 -- migrations/migration-template.sql
 -- Migration: {{ migration_name }}
 -- Date: {{ date }}
@@ -388,8 +432,11 @@ START TRANSACTION;
 -- Commit
 COMMIT;
 SET foreign_key_checks = 1;
-Monitoring & Alerting Integration
-Health Check Endpoints
+
+## Monitoring & Alerting Integration
+
+### Health Check Endpoints
+
 // src/health/health.controller.ts
 @Controller('health')
 export class HealthController {
@@ -421,7 +468,9 @@ const result = this.getStatus('custom', isHealthy);
 
 }
 }
-Deployment Verification
+
+## Deployment Verification
+
 #!/bin/bash
 
 # scripts/verify-deployment.sh
@@ -449,8 +498,11 @@ echo "🔥 Running smoke tests..."
 pnpm run test:smoke || exit 1
 
 echo "✅ Deployment verification completed successfully!"
-The "Chill Mode" Checklist ✅
-Before you deploy to production:
+
+## The "Chill Mode" Checklist ✅
+
+### Before you deploy to production:
+
 [ ] Unit test coverage > 80%
 [ ] Integration tests cover all API endpoints
 [ ] E2E tests cover critical user journeys
@@ -461,13 +513,17 @@ Before you deploy to production:
 [ ] Monitoring alerts configured
 [ ] Health checks implemented
 [ ] Staging environment tested
-After deployment:
+
+### After deployment:
+
 [ ] Smoke tests pass
 [ ] Monitoring dashboards showing green
 [ ] Error rates < 0.1%
 [ ] Response times < 200ms
 [ ] All services healthy
-For true "chill mode":
+
+### For true "chill mode":
+
 [ ] Automated rollback on failure
 [ ] 24/7 monitoring alerts to phone
 [ ] Backup verification automated

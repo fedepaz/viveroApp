@@ -10,7 +10,6 @@ import { generateLocaleStaticParams, routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import getRequestConfig from "../../../src/i18n/request";
 
-import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import { DesktopSidebar } from "@/components/layout/desktop-sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
@@ -55,7 +54,6 @@ export default async function DashboardLayout({
                   {children}
                 </main>
               </div>
-              <BottomNavigation />
             </div>
           </Suspense>
         </ReactClientProvider>

@@ -1,0 +1,8 @@
+feat(ui): refactor mobile navigation and simplify header
+
+Refactors the mobile navigation to use a collapsible, grouped structure, aligning it with the desktop sidebar's user experience. This change improves organization and scannability on mobile devices.
+
+- Implements a collapsible accordion menu in the mobile navigation sheet.
+- Simplifies the main dashboard header by removing the search bar and settings button for a more minimal design.
+- Deletes the redundant `BottomNavigation` component.
+- Internationalizes navigation group titles ("Operations", "Management", "Administration") across all layout components and translation files.

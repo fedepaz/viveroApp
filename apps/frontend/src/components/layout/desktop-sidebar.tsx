@@ -65,7 +65,7 @@ export function DesktopSidebar() {
   const navigationGroups: NavigationGroup[] = [
     {
       id: "operations",
-      title: "Operations",
+      title: t("groupOperations"),
       icon: Sprout,
       items: [
         {
@@ -93,7 +93,7 @@ export function DesktopSidebar() {
     },
     {
       id: "management",
-      title: "Management",
+      title: t("groupManagement"),
       icon: Building,
       items: [
         { title: t("plants"), href: "/plants", icon: Sprout },
@@ -108,7 +108,7 @@ export function DesktopSidebar() {
     },
     {
       id: "admin",
-      title: "Administration",
+      title: t("groupAdmin"),
       icon: Settings,
       items: [
         { title: t("users"), href: "/users", icon: UserCircle },

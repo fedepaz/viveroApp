@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Search, Settings, User } from "lucide-react";
+import { Bell, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -17,7 +17,6 @@ import { useTranslations } from "next-intl";
 import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
 import { Skeleton } from "../ui/skeleton";
 import { shadcn } from "@clerk/themes";
-import { Input } from "../ui/input";
 
 export function DashboardHeader() {
   const t = useTranslations("DashboardHeader");
@@ -33,21 +32,6 @@ export function DashboardHeader() {
               <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">AG</span>
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-foreground">
-                  {t("title")}
-                </h1>
-              </div>
-            </div>
-          </div>
-          {/* Search Bar - Hidden on mobile */}
-          <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={t("search")}
-                className="pl-10 agricultural-touch-target"
-              />
             </div>
           </div>
 
@@ -69,15 +53,6 @@ export function DashboardHeader() {
               <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-red-500 text-white text-xs">
                 3
               </Badge>
-            </Button>
-
-            {/* Settings */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="agricultural-touch-target"
-            >
-              <Settings className="h-5 w-5" />
             </Button>
 
             {/* User Menu */}

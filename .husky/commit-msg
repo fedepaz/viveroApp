@@ -1,5 +1,4 @@
 #!/bin/bash
-. "$(dirname "$0")/_/husky.sh"
 
 # Ejecutar commitlint y capturar el código de salida
 npx --no -- commitlint --edit "$1"

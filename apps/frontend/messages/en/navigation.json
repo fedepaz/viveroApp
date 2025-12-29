@@ -18,6 +18,9 @@
     "systemConfiguration": "System Configuration",
     "invoices": "Invoices",
     "purchaseOrders": "Purchase Orders",
-    "users": "Users"
+    "users": "Users",
+    "groupOperations": "Operations",
+    "groupManagement": "Management",
+    "groupAdmin": "Administration"
   }
 }

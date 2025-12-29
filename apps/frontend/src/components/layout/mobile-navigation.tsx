@@ -4,20 +4,24 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import {
   Home,
-  Leaf,
   Thermometer,
   Calendar,
   Users,
-  Package,
   BarChart3,
   Settings,
   Menu,
   AlertTriangle,
-  Badge,
+  FileText,
+  ShoppingCart,
+  Sprout,
+  UserCircle,
+  Building,
+  ChevronDown,
 } from "lucide-react";
-import { useTranslations } from "next-intl"; // Import useTranslations
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Sheet,
   SheetTrigger,
@@ -26,65 +30,99 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 
+interface NavigationItem {
+  title: string;
+  href: string;
+  icon: React.ElementType;
+  description?: string;
+  badge?: string;
+  badgeVariant?: "default" | "secondary" | "destructive" | "outline";
+}
+
+interface NavigationGroup {
+  id: string;
+  title: string;
+  icon: React.ElementType;
+  items: NavigationItem[];
+}
+
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const t = useTranslations("navigation"); // Use 'navigation' namespace for menu items
-  const tCommon = useTranslations("common"); // Use 'common' namespace for general terms
-  const tAlerts = useTranslations("alerts"); // Use 'alerts' namespace for alert messages
+  const t = useTranslations("navigation");
+  const tCommon = useTranslations("common");
+  const tAlerts = useTranslations("alerts");
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
+    new Set(["operations"])
+  );
 
-  const navigationItems = [
+  const toggleGroup = (groupId: string) => {
+    const newExpandedGroups = new Set(expandedGroups);
+    if (newExpandedGroups.has(groupId)) {
+      newExpandedGroups.delete(groupId);
+    } else {
+      newExpandedGroups.add(groupId);
+    }
+    setExpandedGroups(newExpandedGroups);
+  };
+
+  const navigationGroups: NavigationGroup[] = [
     {
-      title: t("dashboard"),
-      href: "/",
-      icon: Home,
-      description: t("overviewAndAlerts"),
+      id: "operations",
+      title: t("groupOperations"),
+      icon: Sprout,
+      items: [
+        {
+          title: t("dashboard"),
+          href: "/",
+          icon: Home,
+          description: t("overviewAndAlerts"),
+        },
+        {
+          title: t("environment"),
+          href: "/environment",
+          icon: Thermometer,
+          description: t("climateMonitoring"),
+          badge: "3",
+          badgeVariant: "destructive" as const,
+        },
+        {
+          title: t("tasks"),
+          href: "/tasks",
+          icon: Calendar,
+          description: t("dailyOperations"),
+          badge: "12",
+        },
+      ],
     },
     {
-      title: t("plants"),
-      href: "/plants",
-      icon: Leaf,
-      description: t("plantManagement"),
-      badge: "2.3k",
+      id: "management",
+      title: t("groupManagement"),
+      icon: Building,
+      items: [
+        { title: t("plants"), href: "/plants", icon: Sprout },
+        { title: t("clients"), href: "/clients", icon: Users },
+        { title: t("invoices"), href: "/invoices", icon: FileText },
+        {
+          title: t("purchaseOrders"),
+          href: "/purchase-orders",
+          icon: ShoppingCart,
+        },
+      ],
     },
     {
-      title: t("environment"),
-      href: "/environment",
-      icon: Thermometer,
-      description: t("climateMonitoring"),
-      badge: "3",
-      badgeVariant: "destructive" as const,
-    },
-    {
-      title: t("tasks"),
-      href: "/tasks",
-      icon: Calendar,
-      description: t("dailyOperations"),
-      badge: "12",
-    },
-    {
-      title: t("clients"),
-      href: "/clients",
-      icon: Users,
-      description: t("clientManagement"),
-    },
-    {
-      title: t("inventory"),
-      href: "/inventory",
-      icon: Package,
-      description: t("supplyTracking"),
-    },
-    {
-      title: t("analytics"),
-      href: "/analytics",
-      icon: BarChart3,
-      description: t("performanceMetrics"),
-    },
-    {
-      title: t("settings"),
-      href: "/settings",
+      id: "admin",
+      title: t("groupAdmin"),
       icon: Settings,
-      description: t("systemConfiguration"),
+      items: [
+        { title: t("users"), href: "/users", icon: UserCircle },
+        {
+          title: t("analytics"),
+          href: "/analytics",
+          icon: BarChart3,
+          description: t("analytics"),
+        },
+      ],
     },
   ];
 
@@ -135,34 +173,75 @@ export function MobileNavigation() {
           </div>
 
           {/* Navigation Items */}
-          <nav className="flex-1 p-4 space-y-2">
-            {navigationItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
+          <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+            {navigationGroups.map((group) => {
+              const GroupIcon = group.icon;
+              const isExpanded = expandedGroups.has(group.id);
+
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <div
-                    className={cn(
-                      "flex items-center space-x-3 p-3 rounded-lg transition-colors agricultural-touch-target",
-                      isActive
-                        ? "bg-green-100 text-green-700 border border-green-200"
-                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                    )}
+                <div key={group.id}>
+                  {/* Group Header */}
+                  <Button
+                    variant="ghost"
+                    onClick={() => toggleGroup(group.id)}
+                    className="w-full justify-start gap-2 font-medium text-base p-3 h-auto"
                   >
-                    <Icon className="h-5 w-5" />
-                    <div className="flex-1">
-                      <p className="font-medium text-sm">{item.title}</p>
-                      <p className="text-xs opacity-75">{item.description}</p>
+                    <GroupIcon className="h-5 w-5 shrink-0" />
+                    <span className="flex-1 text-left">{group.title}</span>
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        isExpanded && "rotate-180"
+                      )}
+                    />
+                  </Button>
+
+                  {/* Group Items */}
+                  {isExpanded && (
+                    <div className="space-y-1 ml-4 mt-1">
+                      {group.items.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = pathname === item.href;
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            <div
+                              className={cn(
+                                "flex items-center space-x-3 p-3 rounded-lg transition-colors agricultural-touch-target",
+                                isActive
+                                  ? "bg-green-100 text-green-700 border border-green-200"
+                                  : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                              )}
+                            >
+                              <Icon className="h-5 w-5" />
+                              <div className="flex-1">
+                                <p className="font-medium text-sm">
+                                  {item.title}
+                                </p>
+                                {item.description && (
+                                  <p className="text-xs opacity-75">
+                                    {item.description}
+                                  </p>
+                                )}
+                              </div>
+                              {item.badge && (
+                                <Badge
+                                  variant={item.badgeVariant || "secondary"}
+                                  className="text-xs"
+                                >
+                                  {item.badge}
+                                </Badge>
+                              )}
+                            </div>
+                          </Link>
+                        );
+                      })}
                     </div>
-                    {item.badge && (
-                      <Badge className="text-xs">{item.badge}</Badge>
-                    )}
-                  </div>
-                </Link>
+                  )}
+                </div>
               );
             })}
           </nav>

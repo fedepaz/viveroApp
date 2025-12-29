@@ -43,6 +43,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
       ).default,
       ...(
         await import(
+          `../components/common/ComingSoonPage/messages/${locale}.json`
+        )
+      ).default,
+      ...(
+        await import(
           `../components/data-display/data-table/DataTableFacetedFilter/messages/${locale}.json`
         )
       ).default,

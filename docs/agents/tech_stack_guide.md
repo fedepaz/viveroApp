@@ -30,8 +30,8 @@ Framework: NestJS (TypeScript-first)
 ├── Database ORM: Prisma
 ├── Database: MariaDB 10.9+
 ├── Authentication: Validates Clerk-issued JWTs from the frontend
-├── Caching: Redis 7+
-├── Queue System: BullMQ (Redis-based)
+├── Caching: Valkey (Redis 7+ compatible fork)
+├── Queue System: BullMQ (Valkey/Redis-based)
 ├── File Storage: AWS S3 compatible
 ├── Email: SendGrid / AWS SES
 ├── Background Jobs: Node.js workers
@@ -237,7 +237,7 @@ The platform uses a frontend-led authentication model with Clerk.
 Multi-Level Caching:
 
 L1: React Query (browser cache) - 5 minutes
-L2: Redis (server cache) - 1 hour
+L2: Valkey (server cache) - 1 hour
 L3: Database query optimization - indexes
 L4: CDN (static assets) - 30 days
 ```
@@ -258,7 +258,7 @@ Node.js: 18.18.0+
 pnpm: 8.15.0+
 Docker: 24.0+
 MariaDB: 10.9+
-Redis: 7.0+
+Valkey: 7.2+
 ```
 
 ### Initial Setup Commands
@@ -346,8 +346,8 @@ pnpm dev
 DATABASE_URL="mysql://user:password@localhost:3306/plant_mgmt"
 DATABASE_URL_TEST="mysql://user:password@localhost:3306/plant_mgmt_test"
 
-# Redis
-REDIS_URL="redis://localhost:6379"
+# Valkey
+VALKEY_URL="valkey://localhost:6379"
 
 # Authentication
 JWT_SECRET="your-super-secure-jwt-secret-256-bits"

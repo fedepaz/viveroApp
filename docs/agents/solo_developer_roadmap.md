@@ -21,7 +21,7 @@ Day 1 (8h): Environment & Architecture
 ├── Setup development environment (2h)
 ├── Initialize Next.js + NestJS projects (2h) 
 ├── Configure pnpm workspace (1h)
-├── Setup Docker Compose (database + Redis) (2h)
+├── Setup Docker Compose (database + Valkey) (2h)
 └── Basic project structure + Git setup (1h)
 
 Day 2 (8h): Database & Auth Foundation

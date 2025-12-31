@@ -443,7 +443,7 @@ export class HealthController {
 constructor(
 private health: HealthCheckService,
 private db: TypeOrmHealthIndicator,
-private redis: RedisHealthIndicator,
+private valkey: RedisHealthIndicator,
 ) {}
 
 @Get()
@@ -451,7 +451,7 @@ private redis: RedisHealthIndicator,
 check() {
 return this.health.check([
 () => this.db.pingCheck('database'),
-() => this.redis.isHealthy('redis'),
+() => this.valkey.isHealthy('valkey'),
 () => this.customHealthCheck(),
 ]);
 }
@@ -487,10 +487,10 @@ curl -f https://api.plant-mgmt.com/health || exit 1
 echo "🗄️ Checking database..."
 pnpm run db:health-check || exit 1
 
-# Redis connectivity
+# Valkey connectivity
 
-echo "⚡ Checking Redis..."
-redis-cli ping || exit 1
+echo "⚡ Checking Valkey..."
+valkey-cli ping || exit 1
 
 # Smoke tests
 

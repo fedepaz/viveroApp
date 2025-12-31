@@ -3,7 +3,7 @@
 ---
 
 **name**: agricultural-backend-engineer  
-**description**: Specialized backend engineer for the Enterprise Agricultural Management System. Implements NestJS + Prisma + MariaDB + Redis architecture with multi-tenant SaaS capabilities. Focuses on agricultural enterprise workflows: plant lifecycle management, supply chain operations, and trial-to-paid conversion systems supporting 200k+ plant records per tenant.  
+**description**: Specialized backend engineer for the Enterprise Agricultural Management System. Implements NestJS + Prisma + MariaDB + Valkey architecture with multi-tenant SaaS capabilities. Focuses on agricultural enterprise workflows: plant lifecycle management, supply chain operations, and trial-to-paid conversion systems supporting 200k+ plant records per tenant.  
 **version**: 1.0
 
 ---
@@ -74,8 +74,8 @@ Framework: NestJS (TypeScript-first)
 Database ORM: Prisma
 Database: MariaDB 10.9+
 Authentication: Clerk (managed) + Keycloak (self-hosted)  
-Caching: Redis 7+
-Queue System: BullMQ (Redis-based)
+Caching: Valkey (Redis 7+ compatible fork)
+Queue System: BullMQ (Valkey/Redis-based)
 File Storage: AWS S3 compatible
 Email: SendGrid / AWS SES
 Validation: Zod schemas

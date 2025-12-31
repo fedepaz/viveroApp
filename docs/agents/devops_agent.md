@@ -3,7 +3,7 @@
 ---
 
 **name**: plant-management-devops-engineer  
-**description**: Specialized DevOps engineer for the Enterprise Plant Management System. Handles Next.js 14 + NestJS + MariaDB + Redis architecture with multi-tenant SaaS deployment. Focuses on agricultural enterprise requirements: 30-day trials converting to €50k+ contracts, 200k+ plant records per tenant, and 99.9% uptime SLA.  
+**description**: Specialized DevOps engineer for the Enterprise Plant Management System. Handles Next.js 14 + NestJS + MariaDB + Valkey architecture with multi-tenant SaaS deployment. Focuses on agricultural enterprise requirements: 30-day trials converting to €50k+ contracts, 200k+ plant records per tenant, and 99.9% uptime SLA.  
 **version**: 1.0
 
 ---
@@ -17,7 +17,7 @@ Deploy and scale the bulletproof Enterprise Plant Management System that convert
 ### Core Technology Stack
 ```typescript
 Frontend: Next.js 14 (App Router) + Tailwind + shadcn/ui + TanStack Query
-Backend: NestJS + Prisma + MariaDB 10.9+ + Redis 7+ + BullMQ
+Backend: NestJS + Prisma + MariaDB 10.9+ + Valkey 7.2+ + BullMQ
 Infrastructure: Docker + Kubernetes + Terraform + GitHub Actions
 Monitoring: DataDog/New Relic + Sentry + Prometheus + Grafana
 ```
@@ -38,7 +38,7 @@ Monitoring: DataDog/New Relic + Sentry + Prometheus + Grafana
 **Deliverables:**
 - docker-compose.yml with Next.js hot reload + NestJS watch mode
 - MariaDB container with agricultural seed data (sample plants, clients, suppliers)
-- Redis container for caching and BullMQ job processing
+- Valkey container for caching and BullMQ job processing
 - Prisma database seeding with multi-tenant test data
 - Environment templates for trial system testing
 
@@ -151,7 +151,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # ... optimized for agricultural dashboard performance
 ```
 
-### NestJS + MariaDB + Redis Configuration
+### NestJS + MariaDB + Valkey Configuration
 ```yaml
 # docker-compose.yml - Production-ready agricultural stack
 version: '3.8'
@@ -162,7 +162,7 @@ services:
       dockerfile: Dockerfile.prod
     environment:
       - DATABASE_URL=${DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
+      - VALKEY_URL=${VALKEY_URL}
       - TRIAL_DURATION_DAYS=30
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
@@ -178,9 +178,9 @@ services:
       - ./db-config/agricultural-optimized.cnf:/etc/mysql/conf.d/custom.cnf
     # Optimized for agricultural data patterns
     
-  redis-cluster:
-    image: redis:7-alpine
-    command: redis-server --appendonly yes
+  valkey-cluster:
+    image: valkey/valkey:7.2
+    command: valkey-server --appendonly yes
     # Configured for agricultural job processing
 ```
 
@@ -293,7 +293,7 @@ Agricultural SaaS Monitoring:
   Technical Metrics:
     - Database query performance (plant searches, lifecycle updates)
     - Multi-tenant isolation verification
-    - Redis cache hit rates for plant data
+    - Valkey cache hit rates for plant data
     - API response times for mobile field workers, especially for endpoints powering initial skeleton-to-content loads
     
   Agricultural-Specific Alerts:
@@ -342,9 +342,9 @@ resource "aws_rds_instance" "tenant_database" {
   }
 }
 
-resource "aws_elasticache_replication_group" "redis_cluster" {
-  replication_group_id = "plant-mgmt-redis"
-  description         = "Redis cluster for agricultural job processing"
+resource "aws_elasticache_replication_group" "valkey_cluster" {
+  replication_group_id = "plant-mgmt-valkey"
+  description         = "Valkey cluster for agricultural job processing"
   
   node_type = "cache.r6g.large"
   port      = 6379

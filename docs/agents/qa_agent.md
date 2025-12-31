@@ -22,14 +22,14 @@ You will be invoked with one of three specific contexts, adapting your testing a
 - Multi-tenant API endpoints with tenant isolation validation
 - Plant management business logic and agricultural workflows  
 - Database operations across tenant boundaries (MariaDB + Prisma)
-- Integration testing with Redis caching and BullMQ job processing
+- Integration testing with Valkey caching and BullMQ job processing
 - Authentication flows (Clerk + Keycloak) and authorization boundaries
 - File upload/processing (S3-compatible storage)
 - Email notifications (SendGrid/AWS SES) for trial management
 
 **Technology Stack (Per `tech_stack_guide.md`):**
 - NestJS + Prisma + MariaDB 10.9+
-- Redis 7+ for caching and BullMQ for queues
+- Valkey 7.2+ for caching and BullMQ for queues
 - Jest for unit tests, Supertest for integration tests
 - 80%+ code coverage requirement (Per `tdd_cicd_guide.md`)
 

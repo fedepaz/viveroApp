@@ -5,6 +5,9 @@ import { configuration, validationSchema } from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { HealthController } from './health/health.controller';
+import { AuthModule } from './auth/auth.module';
+import { APP_FILTER } from '@nestjs/core';
+import { SecurityExceptionFilter } from './exceptions/security-exception.filter';
 
 @Module({
   imports: [
@@ -18,8 +21,15 @@ import { HealthController } from './health/health.controller';
       },
     }),
     PrismaModule,
+    AuthModule,
   ],
   controllers: [AppController, HealthController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: SecurityExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

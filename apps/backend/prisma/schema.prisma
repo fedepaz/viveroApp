@@ -7,29 +7,96 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Tenant {
+  id        String     @id @default(cuid())
+  name      String
+  users     User[]
+  auditLogs AuditLog[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("tenants")
+}
+
+model User {
+  id         String          @id @default(cuid())
+  email      String          @unique
+  firstName  String?
+  lastName   String?
+  clerkId    String          @unique
+  isActive   Boolean         @default(true)  
+  tenantId   String
+  tenant     Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  roleId     String
+  role       Role            @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  auditLogs  AuditLog[]
+  preference UserPreference?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([email])
+  @@map("users")
+}
+
+model Role {
+  id    String @id @default(cuid())
+  name  String @unique
+  users User[]
+
+  @@map("roles")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action     String
+  entityType String
+  entityId   String
+  changes    Json
+  timestamp  DateTime @default(now())
+  ipAddress  String?
+  userAgent  String?
+
+  @@index([tenantId, timestamp])
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@map("audit_logs")
+}
+
 model Locale {
-  code        String   @id @unique
-  name        String
-  is_active   Boolean  @default(true)
-  messages    Message[]
+  code             String           @id @unique
+  name             String
+  is_active        Boolean          @default(true)
+  messages         Message[]
   user_preferences UserPreference[]
 
   @@map("locales")
 }
 
 model Message {
-  id          String   @id @unique
+  id          String @id @unique
   locale_code String
   value       String
-  locale      Locale   @relation(fields: [locale_code], references: [code])
+  locale      Locale @relation(fields: [locale_code], references: [code], onDelete: Cascade)
 
+  @@unique([id, locale_code])  //  Ensure message IDs are unique per locale
+  @@index([locale_code])       //  Fast lookups by language
   @@map("messages")
 }
 
 model UserPreference {
-  user_id           String   @id @unique // Assuming user_id is unique and links to an external User entity
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   preferred_locale_code String
-  locale            Locale   @relation(fields: [preferred_locale_code], references: [code])
+  locale              Locale   @relation(fields: [preferred_locale_code], references: [code], onDelete: Restrict)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   @@map("user_preferences")
 }

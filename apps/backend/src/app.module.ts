@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { configuration, validationSchema } from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaModule } from './prisma/prisma.module';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -15,8 +17,9 @@ import { ConfigModule } from '@nestjs/config';
         abortEarly: true,
       },
     }),
+    PrismaModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, HealthController],
   providers: [AppService],
 })
 export class AppModule {}

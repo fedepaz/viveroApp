@@ -14,8 +14,9 @@ export type AppConfig = {
     password: string;
     database: string;
     ssl: boolean;
+    name: string;
   };
-  redis: {
+  valkey: {
     host: string;
     port: number;
     password?: string;
@@ -27,6 +28,7 @@ export type AppConfig = {
   clerk: {
     secretKey: string;
     publishableKey: string;
+    jwtKey: string;
   };
   awsS3: {
     accessKeyId: string;
@@ -47,15 +49,16 @@ const configFactory = (): AppConfig => ({
   database: {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT || '3306', 10),
-    username: process.env.DATABASE_USERNAME || 'root',
+    username: process.env.DATABASE_USERNAME || 'user',
     password: process.env.DATABASE_PASSWORD || 'password',
-    database: process.env.DATABASE_NAME || 'plant_mgmt',
+    database: process.env.DATABASE_NAME || 'vivero_app',
     ssl: process.env.DATABASE_SSL === 'true',
+    name: process.env.DATABASE_NAME || 'vivero_app',
   },
-  redis: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: parseInt(process.env.REDIS_PORT || '6379', 10),
-    password: process.env.REDIS_PASSWORD,
+  valkey: {
+    host: process.env.VALKEY_HOST || 'localhost',
+    port: parseInt(process.env.VALKEY_PORT || '6379', 10),
+    password: process.env.VALKEY_PASSWORD,
   },
   jwt: {
     secret:
@@ -65,6 +68,7 @@ const configFactory = (): AppConfig => ({
   clerk: {
     secretKey: process.env.CLERK_SECRET_KEY || '',
     publishableKey: process.env.CLERK_PUBLISHABLE_KEY || '',
+    jwtKey: process.env.CLERK_JWT_KEY || '',
   },
   awsS3: {
     accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
@@ -95,15 +99,16 @@ export const validationSchema = Joi.object({
   DATABASE_NAME: Joi.string().required(),
   DATABASE_SSL: Joi.boolean().default(false),
 
-  REDIS_HOST: Joi.string().hostname().default('localhost'),
-  REDIS_PORT: Joi.number().port().default(6379),
-  REDIS_PASSWORD: Joi.string().optional().allow(''),
+  VALKEY_HOST: Joi.string().hostname().default('localhost'),
+  VALKEY_PORT: Joi.number().port().default(6379),
+  VALKEY_PASSWORD: Joi.string().optional().allow(''),
 
   JWT_SECRET: Joi.string().min(32).required(),
   JWT_EXPIRES_IN: Joi.string().default('15m'),
 
   CLERK_SECRET_KEY: Joi.string().required(),
   CLERK_PUBLISHABLE_KEY: Joi.string().required(),
+  CLERK_JWT_KEY: Joi.string().optional().allow(''),
 
   AWS_ACCESS_KEY_ID: Joi.string().optional().allow(''),
   AWS_SECRET_ACCESS_KEY: Joi.string().optional().allow(''),

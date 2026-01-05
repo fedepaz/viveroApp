@@ -9,6 +9,7 @@ export class UserService {
   private readonly DEFAULT_ROLE_NAME = 'admin';
   constructor(private prisma: PrismaService) {}
   async findOrCreateUser(input: {
+    tenantId: string;
     clerkId: string;
     email: string;
     password: string;
@@ -29,7 +30,7 @@ export class UserService {
     // check tenant exists
     const tenant = await this.prisma.tenant.findUnique({
       where: {
-        id: input.clerkId,
+        id: input.tenantId,
       },
     });
 

@@ -6,8 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { HealthController } from './health/health.controller';
 import { AuthModule } from './auth/auth.module';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { SecurityExceptionFilter } from './exceptions/security-exception.filter';
+import { GlobalAuthGuard } from './auth/global-auth.guard';
 
 @Module({
   imports: [
@@ -29,6 +30,10 @@ import { SecurityExceptionFilter } from './exceptions/security-exception.filter'
     {
       provide: APP_FILTER,
       useClass: SecurityExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: GlobalAuthGuard,
     },
   ],
 })

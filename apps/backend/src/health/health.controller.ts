@@ -1,14 +1,15 @@
 // src/health/health.controller.ts
 
-import { Controller, Get, Logger, UseGuards } from '@nestjs/common';
-import { DevAuthGuard } from '../auth/dev/dev.guard';
+import { Controller, Get, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { Public } from '../decorators/public.decorator';
 
 @Controller('health')
 export class HealthController {
   private readonly logger = new Logger(HealthController.name);
   constructor(private prisma: PrismaService) {}
   @Get()
+  @Public()
   async healthCheck() {
     try {
       // ACTUAL DATABASE CONNECTIVITY TEST
@@ -42,7 +43,6 @@ export class HealthController {
   }
 
   @Get('auth')
-  @UseGuards(DevAuthGuard)
   authCheck() {
     // This will only execute if DevAuthGuard passes
     try {

@@ -132,7 +132,7 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
 
 - My standard workflow for creating a new backend feature in the viveroApp project is:
   1. Scaffold with `nest g resource <name>`.
-  2. Define the entity in `prisma/schema.prisma` and generate the client.
+  2. Define the entity in `apps/backend/prisma/schema` and generate the client.
   3. Implement tenant-aware logic in the service.
   4. Refine DTOs to be synchronized into the shared package.
   5. Write unit and integration tests.

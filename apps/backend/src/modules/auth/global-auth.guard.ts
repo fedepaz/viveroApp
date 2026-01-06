@@ -7,9 +7,10 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
+
 import { Request } from 'express';
 import { User } from '@prisma/client';
+import { IS_PUBLIC_KEY } from '../../shared/decorators/public.decorator';
 
 @Injectable()
 export class GlobalAuthGuard implements CanActivate {
@@ -49,7 +50,7 @@ export class GlobalAuthGuard implements CanActivate {
       clerkId: 'abc123',
     };
 
-    return true;
+    return Promise.resolve(true);
   }
 
   private clerkAuth(_request: Request): Promise<boolean> {

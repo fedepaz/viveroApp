@@ -1,4 +1,4 @@
-// src/prisma.service.ts
+// src/infra/prisma/prisma.service.ts
 
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

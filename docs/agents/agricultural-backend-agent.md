@@ -37,9 +37,9 @@ This command creates the module, controller, service, basic DTOs, and testing sh
 
 **Step 2: Define the Core Entity in Prisma**
 
-The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema.
+The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema. The schema is split into multiple files inside `apps/backend/prisma/schema`.
 
-1.  **Action:** Open `apps/backend/prisma/schema.prisma` and define the new model (e.g., `Client`).
+1.  **Action:** Create a new file `apps/backend/prisma/schema/<model-name>.prisma` and define the new model (e.g., `Client`).
 2.  **Generate:** From the `apps/backend` directory, run the following command to update the Prisma client:
     ```bash
     pnpm exec prisma generate
@@ -333,7 +333,7 @@ export class PlantController {
 
 To maintain type safety across the entire platform, the data structures defined in the backend serve as the single source of truth.
 
-1.  **Source of Truth:** The Prisma schema (`schema.prisma`) and the Data Transfer Objects (DTOs) defined within the backend modules are considered the canonical definition for all data structures.
+1.  **Source of Truth:** The Prisma schema (located in `apps/backend/prisma/schema`) and the Data Transfer Objects (DTOs) defined within the backend modules are considered the canonical definition for all data structures.
 2.  **Synchronization:** The `agricultural-shared-package-engineer` is responsible for taking these backend definitions and synchronizing them into the `@plant-mgmt/shared` package. This includes creating TypeScript interfaces and Zod validation schemas.
 3.  **Collaboration:** When creating or modifying DTOs or database entities, the backend agent must ensure they are clear and well-documented, as they will be consumed by the shared package agent to create contracts used by the frontend and for API testing.
 
@@ -435,7 +435,7 @@ export class MigrationService {
     
     // Run Prisma migrations for tenant
     await this.prismaService.executeRaw(`
-      npx prisma migrate deploy --schema=./prisma/agricultural-schema.prisma
+      npx prisma migrate deploy --schema=./prisma/schema
     `, { DATABASE_URL: tenantDbUrl });
     
     // Verify agricultural schema integrity

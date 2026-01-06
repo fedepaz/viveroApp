@@ -35,6 +35,16 @@ nest g resource <feature-name>
 
 This command creates the module, controller, service, basic DTOs, and testing shells.
 
+**Step 1.5: Relocate Generated Module**
+
+The `nest g resource` command generates files directly under `apps/backend/src/`. To maintain the modular architecture, **move the generated feature module into the `apps/backend/src/modules/` directory**.
+
+```bash
+# From apps/backend:
+mv src/<feature-name> src/modules/
+```
+
+
 **Step 2: Define the Core Entity in Prisma**
 
 The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema. The schema is split into multiple files inside `apps/backend/prisma/schema`.

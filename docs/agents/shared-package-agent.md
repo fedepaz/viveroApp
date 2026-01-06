@@ -53,7 +53,7 @@ src/features/plant-management/
 └── types.ts      # LOCAL feature types (you extract to shared)
 
 Backend Feature Structure:
-src/modules/plant-management/
+src/modules/<feature-name>/ # Each feature module (e.g., plant-management, auth, health)
 ├── controllers/   # API endpoints defining contracts
 ├── services/     # Business logic using shared types
 ├── dto/         # Data transfer objects (you extract to shared)

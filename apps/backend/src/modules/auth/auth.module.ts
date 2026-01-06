@@ -1,12 +1,12 @@
 // src/auth/auth.module.ts
 
 import { Module } from '@nestjs/common';
-import { UserService } from './user/user.service';
-import { PrismaService } from '../../infra/prisma/prisma.service';
-import { GlobalAuthGuard } from './global-auth.guard';
+import { GlobalAuthGuard } from './guards/global-auth.guard';
+import { AuthService } from './auth.service';
+import { UserRepository } from './repositories/user.repository';
 
 @Module({
-  providers: [GlobalAuthGuard, UserService, PrismaService],
-  exports: [GlobalAuthGuard, UserService],
+  providers: [GlobalAuthGuard, AuthService, UserRepository],
+  exports: [GlobalAuthGuard, AuthService],
 })
 export class AuthModule {}

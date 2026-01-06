@@ -10,7 +10,7 @@ import { Reflector } from '@nestjs/core';
 
 import { Request } from 'express';
 import { User } from '@prisma/client';
-import { IS_PUBLIC_KEY } from '../../shared/decorators/public.decorator';
+import { IS_PUBLIC_KEY } from '../../../shared/decorators/public.decorator';
 
 @Injectable()
 export class GlobalAuthGuard implements CanActivate {

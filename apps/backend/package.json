@@ -22,6 +22,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "prisma": {
+    "schema": "./prisma/schema"
+  },
   "dependencies": {
     "@clerk/express": "^1.7.60",
     "@nestjs/bull": "^11.0.4",

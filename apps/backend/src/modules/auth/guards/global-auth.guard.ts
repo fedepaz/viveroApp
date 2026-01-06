@@ -3,59 +3,71 @@
 import {
   CanActivate,
   ExecutionContext,
-  ForbiddenException,
   Injectable,
+  Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
 import { Request } from 'express';
-import { User } from '@prisma/client';
 import { IS_PUBLIC_KEY } from '../../../shared/decorators/public.decorator';
+import { AuthStrategy } from '../interfaces/auth-strategy.abstract';
 
 @Injectable()
 export class GlobalAuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  private readonly logger = new Logger(GlobalAuthGuard.name);
+
+  constructor(
+    private reflector: Reflector,
+    private authStrategy: AuthStrategy,
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest<Request>();
+
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
 
     if (isPublic) {
-      return true;
+      this.logger.debug(`PUBLIC ENDPOINT ${request.url}`);
+      return true; // Allow public endpoints to pass
     }
 
-    const request = context.switchToHttp().getRequest<Request>();
+    // Authenticate with the strategy
+    this.logger.debug(
+      `🔑 AUTH ATTEMPT | Strategy: ${this.authStrategy.getName()} | ${request.method} ${request.url}`,
+    );
+    try {
+      const isAuthenticated = await this.authStrategy.authenticate(request);
 
-    //for development purposes
-    if (process.env.NODE_ENV === 'development') {
-      return this.devAuthFallback(
-        request as Request & { tenantId?: string; user?: User },
+      if (isAuthenticated) {
+        this.logger.log(
+          `✅ AUTH SUCCESS | Strategy: ${this.authStrategy.getName()} | IP: ${this.getClientIp(request)}`,
+        );
+      } else {
+        this.logger.warn(
+          `❌ AUTH FAILED | Strategy: ${this.authStrategy.getName()} | IP: ${this.getClientIp(request)}`,
+        );
+      }
+
+      return isAuthenticated;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown authentication error';
+
+      this.logger.error(
+        `🔥 AUTH ERROR | Strategy: ${this.authStrategy.getName()} | ${errorMessage}`,
       );
+      throw error; // Let SecurityExceptionFilter handle this
     }
-
-    //for production purposes
-    return this.clerkAuth(request);
   }
 
-  private devAuthFallback(request: Request): Promise<boolean> {
-    //same logic devauthguard but integrated globally
-    request['tenantId'] = '12345678-1234-1234-1234-123456789012';
-    request['user'] = {
-      userId: 'cmk1mgw6i0001j88x5kkx215h',
-      email: 'dev@example.com',
-      tenantId: '12345678-1234-1234-1234-123456789012',
-      roles: ['admin'],
-      clerkId: 'abc123',
-    };
-
-    return Promise.resolve(true);
-  }
-
-  private clerkAuth(_request: Request): Promise<boolean> {
-    // TODO: Integrate with clerk and delete console.log
-    console.log('clerkAuth request', _request);
-    throw new ForbiddenException('Not implemented');
+  private getClientIp(request: Request): string {
+    return (
+      request.headers['x-forwarded-for']?.toString().split(',')[0] ||
+      request.socket?.remoteAddress ||
+      '127.0.0.1'
+    );
   }
 }

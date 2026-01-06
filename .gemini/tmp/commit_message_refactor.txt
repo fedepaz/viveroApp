@@ -1,13 +1,14 @@
-refactor(backend): apply repository pattern to auth module and cleanup
+feat(backend-auth): implement strategy pattern for authentication
 
-This commit refactors the backend application, focusing on the `auth` module
-to introduce a repository pattern for data access. This change improves
-separation of concerns and testability.
+This commit introduces a strategy pattern for authentication in the
+backend's `auth` module. This allows for dynamic selection of
+authentication mechanisms (e.g., development fallback, Clerk) based on the
+environment, improving flexibility and testability.
 
 Key changes:
-- Introduced `UserRepository` to abstract data access logic for users.
-- `AuthService` now uses `UserRepository` instead of `PrismaService` directly.
-- Removed the generic `AppController`, `AppService`, and their tests to
-  streamline the application root.
-- Cleaned up `app.module.ts` by removing unused providers and controllers.
-- Reorganized `auth` module structure, including moving `GlobalAuthGuard`.
+- `AuthModule`: Configured a factory provider to inject either
+  `DevAuthStrategy` or `ClerkAuthStrategy` based on `NODE_ENV`.
+- `GlobalAuthGuard`: Updated to use the injected `AuthStrategy` for
+  authentication validation, centralizing the authentication flow.
+- Added `AuthStrategy` interface and concrete implementations for
+  development and Clerk authentication.

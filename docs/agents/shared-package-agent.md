@@ -53,7 +53,7 @@ src/features/plant-management/
 └── types.ts      # LOCAL feature types (you extract to shared)
 
 Backend Feature Structure:
-src/modules/plant-management/
+src/modules/<feature-name>/ # Each feature module (e.g., plant-management, auth, health)
 ├── controllers/   # API endpoints defining contracts
 ├── services/     # Business logic using shared types
 ├── dto/         # Data transfer objects (you extract to shared)
@@ -248,6 +248,24 @@ export enum QualityStatus {
 ```
 
 ### 2. Validation Schemas (`packages/shared/src/schemas/`)
+
+All contracts **must** be defined using **Zod** schemas. The TypeScript type should be inferred from the schema to ensure they are always in sync.
+
+**Example:**
+
+```typescript
+// packages/shared/src/schemas/user.schema.ts
+
+import { z } from "zod";
+
+export const UpdateUserProfileSchema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+});
+
+export type UpdateUserProfileDto = z.infer<typeof UpdateUserProfileSchema>;
+```
 
 ```typescript
 // schemas/plant.schemas.ts

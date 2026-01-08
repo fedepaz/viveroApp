@@ -3,7 +3,7 @@
 ---
 
 **name**: agricultural-backend-engineer  
-**description**: Specialized backend engineer for the Enterprise Agricultural Management System. Implements NestJS + Prisma + MariaDB + Redis architecture with multi-tenant SaaS capabilities. Focuses on agricultural enterprise workflows: plant lifecycle management, supply chain operations, and trial-to-paid conversion systems supporting 200k+ plant records per tenant.  
+**description**: Specialized backend engineer for the Enterprise Agricultural Management System. Implements NestJS + Prisma + MariaDB + Valkey architecture with multi-tenant SaaS capabilities. Focuses on agricultural enterprise workflows: plant lifecycle management, supply chain operations, and trial-to-paid conversion systems supporting 200k+ plant records per tenant.  
 **version**: 1.0
 
 ---
@@ -35,11 +35,21 @@ nest g resource <feature-name>
 
 This command creates the module, controller, service, basic DTOs, and testing shells.
 
+**Step 1.5: Relocate Generated Module**
+
+The `nest g resource` command generates files directly under `apps/backend/src/`. To maintain the modular architecture, **move the generated feature module into the `apps/backend/src/modules/` directory**.
+
+```bash
+# From apps/backend:
+mv src/<feature-name> src/modules/
+```
+
+
 **Step 2: Define the Core Entity in Prisma**
 
-The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema.
+The CLI generates a generic entity file. **Ignore this file** and define the canonical data model in the Prisma schema. The schema is split into multiple files inside `apps/backend/prisma/schema`.
 
-1.  **Action:** Open `apps/backend/prisma/schema.prisma` and define the new model (e.g., `Client`).
+1.  **Action:** Create a new file `apps/backend/prisma/schema/<model-name>.prisma` and define the new model (e.g., `Client`).
 2.  **Generate:** From the `apps/backend` directory, run the following command to update the Prisma client:
     ```bash
     pnpm exec prisma generate
@@ -74,12 +84,41 @@ Framework: NestJS (TypeScript-first)
 Database ORM: Prisma
 Database: MariaDB 10.9+
 Authentication: Clerk (managed) + Keycloak (self-hosted)  
-Caching: Redis 7+
-Queue System: BullMQ (Redis-based)
+Caching: Valkey (Redis 7+ compatible fork)
+Queue System: BullMQ (Valkey/Redis-based)
 File Storage: AWS S3 compatible
 Email: SendGrid / AWS SES
 Validation: Zod schemas
 Testing: Jest + Supertest + Vitest
+```
+
+### Validation
+
+All incoming data to the API (e.g., request bodies, query parameters) **must** be validated to ensure type safety and correctness.
+
+-   **Library**: Use **Zod** for all schema definitions and validation.
+-   **Implementation**: A custom `ZodValidationPipe` should be used in controllers to validate data against a Zod schema.
+
+**Example:**
+
+```typescript
+// src/modules/users/users.controller.ts
+import { Body, Controller, Patch, Req } from '@nestjs/common';
+import { UpdateUserProfileDto, UpdateUserProfileSchema } from '@vivero/shared';
+import { ZodValidationPipe } from '../../shared/pipes/zod-validation-pipe';
+
+@Controller('users')
+export class UsersController {
+  // ...
+  @Patch('me')
+  updateMe(
+    @Req() req,
+    @Body(new ZodValidationPipe(UpdateUserProfileSchema))
+    body: UpdateUserProfileDto,
+  ) {
+    return this.service.updateProfile(req.user.id, body);
+  }
+}
 ```
 
 ### Agricultural Domain Understanding
@@ -333,7 +372,7 @@ export class PlantController {
 
 To maintain type safety across the entire platform, the data structures defined in the backend serve as the single source of truth.
 
-1.  **Source of Truth:** The Prisma schema (`schema.prisma`) and the Data Transfer Objects (DTOs) defined within the backend modules are considered the canonical definition for all data structures.
+1.  **Source of Truth:** The Prisma schema (located in `apps/backend/prisma/schema`) and the Data Transfer Objects (DTOs) defined within the backend modules are considered the canonical definition for all data structures.
 2.  **Synchronization:** The `agricultural-shared-package-engineer` is responsible for taking these backend definitions and synchronizing them into the `@plant-mgmt/shared` package. This includes creating TypeScript interfaces and Zod validation schemas.
 3.  **Collaboration:** When creating or modifying DTOs or database entities, the backend agent must ensure they are clear and well-documented, as they will be consumed by the shared package agent to create contracts used by the frontend and for API testing.
 
@@ -435,7 +474,7 @@ export class MigrationService {
     
     // Run Prisma migrations for tenant
     await this.prismaService.executeRaw(`
-      npx prisma migrate deploy --schema=./prisma/agricultural-schema.prisma
+      npx prisma migrate deploy --schema=./prisma/schema
     `, { DATABASE_URL: tenantDbUrl });
     
     // Verify agricultural schema integrity

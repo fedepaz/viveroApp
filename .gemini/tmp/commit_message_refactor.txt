@@ -1,0 +1,13 @@
+refactor(backend): use ConfigService for auth strategy and namespace NODE_ENV
+
+Refactored the `AuthModule` to use `ConfigService` for selecting the
+authentication strategy (`DevAuthStrategy` or `ClerkAuthStrategy`) based on the
+environment. This centralizes configuration access and improves testability.
+
+Renamed the environment variable from `NODE_ENV` to `BACKEND_NODE_ENV` in
+`configuration.ts` to prevent conflicts with other applications in the
+monorepo.
+
+The `authStrategyProvider` now correctly injects and uses the `ConfigService`
+to retrieve the environment, making the strategy selection more robust and
+aligned with NestJS best practices.

@@ -159,7 +159,7 @@ await page.goto('/plants/critical-temp-plant')
 // test/setup.ts
 import { Test, TestingModule } from '@nestjs/testing'
 import { ConfigModule } from '@nestjs/config'
-import { PrismaService } from '../src/prisma/prisma.service'
+import { PrismaService } from '../src/infra/prisma/prisma.service'
 
 export const createTestModule = async (providers: any[] = []) => {
 const moduleRef: TestingModule = await Test.createTestingModule({
@@ -186,7 +186,7 @@ await prisma.user.deleteMany()
 
 ### Unit Tests - Services
 
-// src/plants/plants.service.spec.ts
+// src/modules/plants/plants.service.spec.ts
 describe('PlantsService', () = > {
 let service: PlantsService
 let prisma: PrismaService
@@ -248,7 +248,7 @@ data: [
 
 ### Integration Tests - Controllers
 
-// src/plants/plants.controller.spec.ts
+// src/modules/plants/plants.controller.spec.ts
 describe('PlantsController (Integration)', () = > {
 let app: INestApplication
 let prisma: PrismaService
@@ -443,7 +443,7 @@ export class HealthController {
 constructor(
 private health: HealthCheckService,
 private db: TypeOrmHealthIndicator,
-private redis: RedisHealthIndicator,
+private valkey: RedisHealthIndicator,
 ) {}
 
 @Get()
@@ -451,7 +451,7 @@ private redis: RedisHealthIndicator,
 check() {
 return this.health.check([
 () => this.db.pingCheck('database'),
-() => this.redis.isHealthy('redis'),
+() => this.valkey.isHealthy('valkey'),
 () => this.customHealthCheck(),
 ]);
 }
@@ -487,10 +487,10 @@ curl -f https://api.plant-mgmt.com/health || exit 1
 echo "🗄️ Checking database..."
 pnpm run db:health-check || exit 1
 
-# Redis connectivity
+# Valkey connectivity
 
-echo "⚡ Checking Redis..."
-redis-cli ping || exit 1
+echo "⚡ Checking Valkey..."
+valkey-cli ping || exit 1
 
 # Smoke tests
 

@@ -7,6 +7,9 @@ export type AppConfig = {
   environment: string;
   port: number;
   url: string;
+  cors: {
+    origins: string;
+  };
   database: {
     host: string;
     port: number;
@@ -46,6 +49,9 @@ const configFactory = (): AppConfig => ({
   environment: process.env.BACKEND_NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '3001', 10),
   url: process.env.URL || 'http://localhost:3001',
+  cors: {
+    origins: process.env.CORS_ORIGINS || '',
+  },
   database: {
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT || '3306', 10),
@@ -91,6 +97,7 @@ export const validationSchema = Joi.object({
     .default('development'),
   PORT: Joi.number().port().default(3001),
   URL: Joi.string().uri().optional(),
+  CORS_ORIGINS: Joi.string().optional(),
 
   DATABASE_HOST: Joi.string().hostname().required(),
   DATABASE_PORT: Joi.number().port().default(3306),

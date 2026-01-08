@@ -3,16 +3,28 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { AuthStrategy } from '../interfaces/auth-strategy.abstract';
 import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class DevAuthStrategy implements AuthStrategy {
   private readonly logger = new Logger(DevAuthStrategy.name);
+  private readonly config: ConfigService;
 
   getName(): string {
     return 'DevAuthStrategy';
   }
 
   async authenticate(request: Request): Promise<boolean> {
+    const env = this.config.get<string>('config.environment');
+
+    if (env === 'production') {
+      throw new Error('In production environment');
+    }
+
+    if (env !== 'development') {
+      throw new Error('Not in development environment');
+    }
+
     try {
       // Add a microtask to satisfy linting (and prepare for real async ops)
       await Promise.resolve(); // No-op that makes method truly async

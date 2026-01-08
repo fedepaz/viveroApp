@@ -12,12 +12,10 @@ export class ClerkAuthStrategy implements AuthStrategy {
     return 'ClerkAuthStrategy';
   }
 
-  async authenticate(
-    request: Request & { tenantId?: string; user?: any },
-  ): Promise<boolean> {
+  async authenticate(request: Request): Promise<boolean> {
     // TODO: Integrate with clerk and delete console.log
     await Promise.resolve(); // No-op that makes method truly async
-    this.logger.log('clerkAuth request', request);
+    this.logger.log('clerkAuth request', request.hostname);
     throw new ForbiddenException('Not implemented yet');
   }
 }

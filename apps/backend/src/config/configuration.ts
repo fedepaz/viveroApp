@@ -43,7 +43,7 @@ export type AppConfig = {
 
 // Create a typed factory function
 const configFactory = (): AppConfig => ({
-  environment: process.env.NODE_ENV || 'development',
+  environment: process.env.BACKEND_NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '3001', 10),
   url: process.env.URL || 'http://localhost:3001',
   database: {
@@ -86,7 +86,7 @@ export const configuration = registerAs<AppConfig>('config', configFactory);
 
 // Joi validation schema
 export const validationSchema = Joi.object({
-  NODE_ENV: Joi.string()
+  BACKEND_NODE_ENV: Joi.string()
     .valid('development', 'production', 'test', 'staging')
     .default('development'),
   PORT: Joi.number().port().default(3001),

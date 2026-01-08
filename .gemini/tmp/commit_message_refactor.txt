@@ -1,16 +1,13 @@
-refactor(backend): streamline user and auth context handling
+refactor(backend): use ConfigService for auth strategy and namespace NODE_ENV
 
-Removed direct `User` import from `@prisma/client` in `dev-auth.strategy.ts` and
-`users.controller.ts`.
+Refactored the `AuthModule` to use `ConfigService` for selecting the
+authentication strategy (`DevAuthStrategy` or `ClerkAuthStrategy`) based on the
+environment. This centralizes configuration access and improves testability.
 
-Simplified the hardcoded user object in `dev-auth.strategy.ts` to include only
-essential fields, aligning it with the core authenticated user context.
+Renamed the environment variable from `NODE_ENV` to `BACKEND_NODE_ENV` in
+`configuration.ts` to prevent conflicts with other applications in the
+monorepo.
 
-`users.controller.ts` now directly uses `express.Request` and relies on the
-global authentication guard to attach the authenticated user object to `req.user`.
-Renamed `updateMe` to `updateProfile` in `users.controller.ts` for better
-semantics.
-
-These changes enhance modularity, consistency, and reduce direct dependencies
-on Prisma client types in application logic, promoting a more robust
-authentication flow.
+The `authStrategyProvider` now correctly injects and uses the `ConfigService`
+to retrieve the environment, making the strategy selection more robust and
+aligned with NestJS best practices.

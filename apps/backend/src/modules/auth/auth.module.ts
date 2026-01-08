@@ -7,6 +7,7 @@ import { UserAuthRepository } from './repositories/userAuth.repository';
 import { AuthStrategy } from './interfaces/auth-strategy.abstract';
 import { DevAuthStrategy } from './strategies/dev-auth.strategy';
 import { ClerkAuthStrategy } from './strategies/clerk-auth.strategy';
+import { ConfigService } from '@nestjs/config';
 
 // Factory provider to select the correct strategy based on the environment
 const authStrategyProvider: Provider<AuthStrategy> = {
@@ -14,13 +15,19 @@ const authStrategyProvider: Provider<AuthStrategy> = {
   useFactory: (
     devStrategy: DevAuthStrategy,
     clerkStrategy: ClerkAuthStrategy,
+    config: ConfigService,
   ) => {
-    if (process.env.NODE_ENV === 'development') {
+    const env = config.get<string>('config.environment');
+    console.log('🔧 AUTH STRATEGY FACTORY | config.environment =', env);
+
+    if (env === 'development') {
+      console.log('🔧 AUTH STRATEGY FACTORY | Using DevAuthStrategy');
       return devStrategy;
     }
+    console.log('🔧 AUTH STRATEGY FACTORY | Using ClerkAuthStrategy');
     return clerkStrategy;
   },
-  inject: [DevAuthStrategy, ClerkAuthStrategy],
+  inject: [DevAuthStrategy, ClerkAuthStrategy, ConfigService],
 };
 
 @Module({

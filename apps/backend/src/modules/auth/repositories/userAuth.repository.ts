@@ -5,7 +5,7 @@ import { Role, Tenant, User } from '@prisma/client';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()
-export class UserRepository {
+export class UserAuthRepository {
   constructor(private prisma: PrismaService) {}
 
   findByClerkId(clerkId: string): Promise<User | null> {

@@ -1,13 +1,13 @@
 // src/modules/auth/auth.service.ts
 
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from './repositories/user.repository';
+import { UserAuthRepository } from './repositories/userAuth.repository';
 import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
   private readonly DEFAULT_ROLE_NAME = 'guest';
-  constructor(private readonly userRepo: UserRepository) {}
+  constructor(private readonly userRepo: UserAuthRepository) {}
   async findOrCreateUser(input: {
     tenantId: string;
     clerkId: string;

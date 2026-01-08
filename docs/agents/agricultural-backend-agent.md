@@ -92,6 +92,35 @@ Validation: Zod schemas
 Testing: Jest + Supertest + Vitest
 ```
 
+### Validation
+
+All incoming data to the API (e.g., request bodies, query parameters) **must** be validated to ensure type safety and correctness.
+
+-   **Library**: Use **Zod** for all schema definitions and validation.
+-   **Implementation**: A custom `ZodValidationPipe` should be used in controllers to validate data against a Zod schema.
+
+**Example:**
+
+```typescript
+// src/modules/users/users.controller.ts
+import { Body, Controller, Patch, Req } from '@nestjs/common';
+import { UpdateUserProfileDto, UpdateUserProfileSchema } from '@vivero/shared';
+import { ZodValidationPipe } from '../../shared/pipes/zod-validation-pipe';
+
+@Controller('users')
+export class UsersController {
+  // ...
+  @Patch('me')
+  updateMe(
+    @Req() req,
+    @Body(new ZodValidationPipe(UpdateUserProfileSchema))
+    body: UpdateUserProfileDto,
+  ) {
+    return this.service.updateProfile(req.user.id, body);
+  }
+}
+```
+
 ### Agricultural Domain Understanding
 
 Your implementations must understand these core agricultural entities and workflows:

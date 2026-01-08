@@ -3,7 +3,7 @@
 import { Module, Provider } from '@nestjs/common';
 import { GlobalAuthGuard } from './guards/global-auth.guard';
 import { AuthService } from './auth.service';
-import { UserRepository } from './repositories/user.repository';
+import { UserAuthRepository } from './repositories/userAuth.repository';
 import { AuthStrategy } from './interfaces/auth-strategy.abstract';
 import { DevAuthStrategy } from './strategies/dev-auth.strategy';
 import { ClerkAuthStrategy } from './strategies/clerk-auth.strategy';
@@ -27,7 +27,7 @@ const authStrategyProvider: Provider<AuthStrategy> = {
   providers: [
     GlobalAuthGuard,
     AuthService,
-    UserRepository,
+    UserAuthRepository,
     authStrategyProvider,
     DevAuthStrategy,
     ClerkAuthStrategy,

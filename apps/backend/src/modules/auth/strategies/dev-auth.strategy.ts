@@ -8,7 +8,8 @@ import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class DevAuthStrategy implements AuthStrategy {
   private readonly logger = new Logger(DevAuthStrategy.name);
-  private readonly config: ConfigService;
+
+  constructor(private readonly config: ConfigService) {}
 
   getName(): string {
     return 'DevAuthStrategy';

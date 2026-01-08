@@ -415,7 +415,7 @@ migrate_all_agricultural_tenants() {
     # Run Prisma migrations for each tenant
     kubectl exec deployment/plant-mgmt-backend -- \
       npx prisma migrate deploy \
-      --schema=./prisma/agricultural-schema.prisma \
+      --schema=./prisma/schema \
       --database-url="$(kubectl get secret ${tenant}-db -o jsonpath='{.data.url}' | base64 -d)"
       
     # Verify agricultural data integrity

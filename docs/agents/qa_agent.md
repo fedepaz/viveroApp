@@ -164,8 +164,8 @@ You will be invoked with one of three specific contexts, adapting your testing a
 **Unit Tests (80% coverage requirement):**
 
 ```typescript
-// Example: Plant service business logic testing
-describe('PlantService', () => {
+// src/modules/plants/plants.service.spec.ts
+describe('PlantsService', () = > {
   let service: PlantService;
   let prisma: PrismaService;
   
@@ -207,8 +207,8 @@ describe('PlantService', () => {
 **Integration Tests:**
 
 ```typescript
-// Example: Multi-tenant API endpoint testing
-describe('Plants API (Integration)', () => {
+// src/modules/plants/plants.controller.spec.ts
+describe('PlantsController (Integration)', () = > {
   let app: INestApplication;
   
   beforeAll(async () => {

@@ -37,7 +37,7 @@ export class DevAuthStrategy implements AuthStrategy {
         clerkId: 'abc123',
         email: 'dev@example.com',
         tenantId: '12345678-1234-1234-1234-123456789012',
-        role: 'admin',
+        roleId: 'cmk1lzh3y0000j8l5ojy2xon2',
       };
 
       this.logger.log('✅ DEV AUTH SUCCESS | Hardcoded user authenticated');

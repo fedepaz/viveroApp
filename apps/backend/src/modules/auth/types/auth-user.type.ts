@@ -5,5 +5,5 @@ export interface AuthUser {
   clerkId: string;
   email: string;
   tenantId: string;
-  role: string;
+  roleId: string;
 }

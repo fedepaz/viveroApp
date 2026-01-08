@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
-  private readonly DEFAULT_ROLE_NAME = 'guest';
+  private readonly DEFAULT_ROLE_ID = 'cmk1lzh4l0004j8l5pw5jezn5';
   constructor(private readonly userRepo: UserAuthRepository) {}
   async findOrCreateUser(input: {
     tenantId: string;
@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     // get default role
-    const role = await this.userRepo.findRoleByName(this.DEFAULT_ROLE_NAME);
+    const role = await this.userRepo.findRoleById(this.DEFAULT_ROLE_ID);
 
     if (!role) {
       throw new Error('Role not found');

@@ -40,10 +40,10 @@ export class UserAuthRepository {
     });
   }
 
-  findRoleByName(name: string): Promise<Role | null> {
+  findRoleById(id: string): Promise<Role | null> {
     return this.prisma.role.findUnique({
       where: {
-        name,
+        id,
       },
     });
   }

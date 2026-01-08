@@ -1,21 +1,117 @@
 // src/auth/strategies/clerk-auth.strategy.ts
 
-import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import {
+  UnauthorizedException,
+  Injectable,
+  Logger,
+  ForbiddenException,
+} from '@nestjs/common';
 import { AuthStrategy } from '../interfaces/auth-strategy.abstract';
 import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
+import { AuthService } from '../auth.service';
+import { verifyToken } from '@clerk/backend';
+import { ClerkJWTPayload } from '../types/clerk-payload.type';
 
 @Injectable()
 export class ClerkAuthStrategy implements AuthStrategy {
   private readonly logger = new Logger(ClerkAuthStrategy.name);
+  private readonly secretKey: string;
+
+  constructor(
+    private readonly config: ConfigService,
+    private readonly authService: AuthService,
+  ) {
+    const key = this.config.get<string>('config.clerk.secretKey');
+    if (!key) {
+      throw new ForbiddenException('Secret key is not configured');
+    }
+    this.secretKey = key;
+  }
 
   getName(): string {
     return 'ClerkAuthStrategy';
   }
 
   async authenticate(request: Request): Promise<boolean> {
-    // TODO: Integrate with clerk and delete console.log
-    await Promise.resolve(); // No-op that makes method truly async
-    this.logger.log('clerkAuth request', request.hostname);
-    throw new ForbiddenException('Not implemented yet');
+    try {
+      const token = this.extractTokenFromHeader(request);
+
+      if (!token) {
+        throw new UnauthorizedException('No authentication token provided');
+      }
+
+      // ✅ Clerk verifies: "Yes, this is a real user"
+      const payload = await verifyToken(token, {
+        secretKey: this.secretKey,
+      });
+
+      if (!payload || !payload.sub) {
+        throw new UnauthorizedException('Invalid token');
+      }
+
+      this.logger.debug(`🔍 Token verified for clerkId: ${payload.sub}`);
+
+      // ✅ Get tenantId (stored in Clerk during YOUR signup flow)
+      const tenantId = this.extractTenantId(payload);
+
+      // ✅ YOUR database manages the rest (role, permissions, etc.)
+      const user = await this.authService.findOrCreateUser({
+        clerkId: payload.sub,
+        email: (payload.email as string) || '',
+        firstName: (payload.first_name as string) || '',
+        lastName: (payload.last_name as string) || '',
+        tenantId,
+      });
+
+      request.user = {
+        id: user.id,
+        clerkId: user.clerkId,
+        email: user.email,
+        tenantId: user.tenantId,
+        roleId: user.roleId,
+      };
+
+      this.logger.log(
+        `✅ CLERK AUTH SUCCESS | User: ${user.email} | Tenant: ${user.tenantId}`,
+      );
+
+      return true;
+    } catch (error) {
+      this.logger.error(
+        '❌ CLERK AUTH FAILED',
+        error instanceof Error ? error.message : 'Unknown error',
+      );
+
+      if (error instanceof UnauthorizedException) {
+        throw error;
+      }
+
+      throw new UnauthorizedException('Authentication failed');
+    }
+  }
+
+  private extractTokenFromHeader(request: Request): string | null {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) return null;
+
+    const [type, token] = authHeader.split(' ');
+    return type === 'Bearer' ? token : null;
+  }
+
+  private extractTenantId(payload: ClerkJWTPayload): string {
+    // From public metadata (YOU set this during signup)
+    if (payload.public_metadata?.tenantId) {
+      return payload.public_metadata.tenantId;
+    }
+
+    // Or from Clerk Organizations
+    if (payload.org_id) {
+      return payload.org_id;
+    }
+
+    throw new UnauthorizedException(
+      'No tenant assignment found. Please complete onboarding.',
+    );
   }
 }

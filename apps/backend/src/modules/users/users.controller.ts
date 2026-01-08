@@ -4,25 +4,20 @@ import { Body, Controller, Get, Patch, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserProfileDto, UpdateUserProfileSchema } from '@vivero/shared';
 import { ZodValidationPipe } from '../../shared/pipes/zod-validation-pipe';
-import { User } from '@prisma/client';
 import { Request } from 'express';
-
-interface AuthenticatedRequest extends Request {
-  user: User;
-}
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Get('me')
-  getMe(@Req() req: AuthenticatedRequest) {
+  getMe(@Req() req: Request) {
     return this.service.getProfile(req.user.id);
   }
 
   @Patch('me')
-  updateMe(
-    @Req() req: AuthenticatedRequest,
+  updateProfile(
+    @Req() req: Request,
     @Body(new ZodValidationPipe(UpdateUserProfileSchema))
     body: UpdateUserProfileDto,
   ) {

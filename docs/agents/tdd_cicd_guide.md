@@ -159,7 +159,7 @@ await page.goto('/plants/critical-temp-plant')
 // test/setup.ts
 import { Test, TestingModule } from '@nestjs/testing'
 import { ConfigModule } from '@nestjs/config'
-import { PrismaService } from '../src/prisma/prisma.service'
+import { PrismaService } from '../src/infra/prisma/prisma.service'
 
 export const createTestModule = async (providers: any[] = []) => {
 const moduleRef: TestingModule = await Test.createTestingModule({
@@ -186,7 +186,7 @@ await prisma.user.deleteMany()
 
 ### Unit Tests - Services
 
-// src/plants/plants.service.spec.ts
+// src/modules/plants/plants.service.spec.ts
 describe('PlantsService', () = > {
 let service: PlantsService
 let prisma: PrismaService
@@ -248,7 +248,7 @@ data: [
 
 ### Integration Tests - Controllers
 
-// src/plants/plants.controller.spec.ts
+// src/modules/plants/plants.controller.spec.ts
 describe('PlantsController (Integration)', () = > {
 let app: INestApplication
 let prisma: PrismaService

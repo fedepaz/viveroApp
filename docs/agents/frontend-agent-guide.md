@@ -98,7 +98,6 @@ Application Structure:
 messages/               # Internationalization messages
 src/
 ├── app/                     # Next.js 14 App Router
-│   ├── (auth)/              # Authentication routes (e.g., sign-in, sign-up)
 │   ├── [locale]/            # Internationalization Route Segment
 │   │   ├── (dashboard)/     # Protected routes (Dashboard Layout)
 │   │   │   ├── plants/      # Routes for Plant Management Feature

@@ -17,16 +17,24 @@ import { ClerkJWTPayload } from '../types/clerk-payload.type';
 export class ClerkAuthStrategy implements AuthStrategy {
   private readonly logger = new Logger(ClerkAuthStrategy.name);
   private readonly secretKey: string;
+  private readonly defaultTenantId: string;
 
   constructor(
     private readonly config: ConfigService,
     private readonly authService: AuthService,
   ) {
     const key = this.config.get<string>('config.clerk.secretKey');
+    const defaultTenantId = this.config.get<string>('config.defaultTenantId');
     if (!key) {
       throw new ForbiddenException('Secret key is not configured');
     }
+    if (!defaultTenantId) {
+      throw new ForbiddenException('Default tenant ID is not configured');
+    }
+
     this.secretKey = key;
+
+    this.defaultTenantId = defaultTenantId;
   }
 
   getName(): string {
@@ -53,7 +61,7 @@ export class ClerkAuthStrategy implements AuthStrategy {
       this.logger.debug(`🔍 Token verified for clerkId: ${payload.sub}`);
 
       // ✅ Get tenantId (stored in Clerk during YOUR signup flow)
-      const tenantId = this.extractTenantId(payload);
+      //const tenantId = this.extractTenantId(payload);
 
       // ✅ YOUR database manages the rest (role, permissions, etc.)
       const user = await this.authService.findOrCreateUser({
@@ -61,7 +69,7 @@ export class ClerkAuthStrategy implements AuthStrategy {
         email: (payload.email as string) || '',
         firstName: (payload.first_name as string) || '',
         lastName: (payload.last_name as string) || '',
-        tenantId,
+        tenantId: this.defaultTenantId,
       });
 
       request.user = {

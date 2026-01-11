@@ -42,6 +42,7 @@ export type AppConfig = {
   sendgrid: {
     apiKey: string;
   };
+  defaultTenantId: string;
 };
 
 // Create a typed factory function
@@ -85,6 +86,7 @@ const configFactory = (): AppConfig => ({
   sendgrid: {
     apiKey: process.env.SENDGRID_API_KEY || '',
   },
+  defaultTenantId: process.env.DEFAULT_TENANT_ID || '',
 });
 
 // Export the final configuration
@@ -123,4 +125,6 @@ export const validationSchema = Joi.object({
   AWS_S3_BUCKET: Joi.string().optional().allow(''),
 
   SENDGRID_API_KEY: Joi.string().optional().allow(''),
+
+  DEFAULT_TENANT_ID: Joi.string().optional().allow(''),
 });

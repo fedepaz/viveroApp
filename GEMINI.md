@@ -119,11 +119,38 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
 
 - My standard workflow for creating a new backend feature in the viveroApp project is:
   1. Scaffold with `nest g resource <name>`.
-  2. Define the entity in `apps/backend/prisma/schema` in a new `<model-name>.prisma` file and generate the client.
+  2. Follow the **Database Schema Change Workflow** (see below) to add or modify entities.
   3. Implement tenant-aware logic in the service.
   4. Refine DTOs to be synchronized into the shared package.
   5. Write unit and integration tests.
   6. Collaborate with the shared-package-agent.
+
+---
+
+### Rule: Database Schema Change Workflow
+
+To ensure database consistency and prevent data loss, all changes to the Prisma schema **must** follow this exact procedure:
+
+1.  **Check for Drift**: Before making any changes, verify that your local database is in sync with the repository's migration history.
+    ```bash
+    pnpm --filter backend db:status
+    ```
+    If this command reports anything other than "Database schema is up to date!", you must resolve the issues before proceeding. A common cause for drift is making manual changes to the database.
+
+2.  **Modify the Schema**: Make your desired changes to the `.prisma` files in the `apps/backend/prisma/schema` directory.
+
+3.  **Validate the Schema**: After saving your changes, check the schema for any syntax or validation errors.
+    ```bash
+    pnpm --filter backend db:validate
+    ```
+
+4.  **Create the Migration**: Once the schema is valid, create a new migration file. Give it a descriptive name when prompted.
+    ```bash
+    pnpm --filter backend db:migrate:dev
+    ```
+    This command will also apply the migration to your local database and regenerate the Prisma client.
+
+5.  **Commit the Changes**: Commit the new migration file located in `apps/backend/prisma/migrations/` along with your schema changes. The CI/CD pipeline will fail if you commit schema changes without a corresponding migration.
 
 ### Rule: General Frontend Workflow
 

@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@8.6.1",
   "scripts": {
-    "build": "nest build",
+    "build": "prisma generate && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "pnpm run start:dev",
@@ -15,7 +15,6 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
-    "postinstall": "prisma generate",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

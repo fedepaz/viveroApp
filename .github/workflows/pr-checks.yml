@@ -30,7 +30,7 @@ jobs:
           pnpm --filter backend exec prisma migrate dev --name pr-check --create-only
           git diff --exit-code
         env:
-          DATABASE_URL: "sqlite:./dev.db"
+          DATABASE_URL: "mysql://user:password@localhost:3306/testdb"
 
       - name: Run linting
         run: pnpm run lint

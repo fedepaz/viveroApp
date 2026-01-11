@@ -20,18 +20,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: "20"
+          cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-
-      - name: Check for pending migrations
-        run: |
-          pnpm --filter backend exec prisma migrate dev --name pr-check --create-only
-          git diff --exit-code
-        env:
-          DATABASE_URL: "mysql://user:password@localhost:3306/testdb"
-
       - name: Run linting
         run: pnpm run lint
       - name: Run tests

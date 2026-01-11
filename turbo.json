@@ -9,6 +9,18 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {},
+    "db:migrate": {
+      "cache": false
+    },
+    "db:migrate:test": {
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false
+    },
+    "db:status": {
+      "cache": false
+    },
     "test": {
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]

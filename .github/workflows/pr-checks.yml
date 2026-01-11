@@ -24,6 +24,12 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install
+
+      - name: Check for pending migrations
+        run: |
+          pnpm --filter backend exec prisma migrate dev --name pr-check --create-only
+          git diff --exit-code
+
       - name: Run linting
         run: pnpm run lint
       - name: Run tests

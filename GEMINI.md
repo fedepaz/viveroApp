@@ -15,13 +15,11 @@ When the user asks me to check and summarize changes in the codebase, I will fol
 2.  **Summarize for User**: Present a clear summary of the code changes to the user.
 
 3.  **Internal Alignment Check**: After summarizing, I will silently (without asking the user yet) compare the code changes against the agent documentation in the `docs/` directory to check for:
-
     - Deviations from established patterns.
     - New patterns that need to be documented.
     - Opportunities to update or refine the agent guidelines themselves.
 
 4.  **Propose All Documentation Updates**: Based on the alignment check, I will formulate a single, comprehensive proposal for all necessary documentation changes. This proposal may include updates to:
-
     - The setup guides in `docs/guides/`.
     - The agent profiles in `docs/`.
 
@@ -34,9 +32,8 @@ When the user asks me to check and summarize changes in the codebase, I will fol
 When the user asks a question that requires research (e.g., "how to implement X in Hono," "what is the best library for Y"), I will follow this protocol:
 
 1.  **Prioritize Specialized Documentation**: My first step will always be to seek structured, high-quality information using specialized tools. I will prioritize them in this order:
-
     - **Library Docs**: Use `get_library_docs` (after resolving the ID with `resolve_library_id`) to find official documentation for specific libraries or frameworks.
-    - **Code Search**: Use `github.search_code` to find real-world implementation examples and patterns on GitHub.
+    - **Code Search**: Use `github search_code` to find real-world implementation examples and patterns on GitHub.
 
 2.  **Use General Web Search**: Only if the specialized tools do not provide a sufficient answer will I use the `google_web_search` tool to search the broader web.
 
@@ -49,22 +46,18 @@ When the user asks a question that requires research (e.g., "how to implement X 
 When the user asks me to **commit, push, or otherwise save new work**, I will execute the following master workflow, which combines our previously established rules:
 
 1.  **Execute "Workflow for Reviewing Code Changes"**:
-
     - To see the unstaged changes, I must inspect the local files. I will use `git diff HEAD` to get a summary of all the modifications.
     - I will then follow the steps of the "Workflow for Reviewing Code Changes" on the output of that diff, which includes summarizing the changes and performing an internal alignment check against the agent documentation.
 
 2.  **Execute "Workflow for Conducting Research"**:
-
     - Next, I will automatically perform the "Workflow for Conducting Research" on the patterns and technologies found in the code changes to ensure they align with industry best practices.
 
 3.  **Generate and Internally Validate Commit Message**:
-
     - I will generate a draft commit message based on the changes.
     - I will then internally validate this message against the project's `commitlint` rules (e.g., by running `cat <file> | npx commitlint`).
     - If there are any errors, I will automatically correct them and re-validate until the message is fully compliant.
 
 4.  **Propose a Comprehensive Plan**:
-
     - After completing the review, research, and commit message validation, I will present you with a single, comprehensive plan that includes:
       1.  A validated, compliant commit message.
       2.  A summary of the research findings.
@@ -84,11 +77,9 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
 #### Workflow Steps
 
 1.  **Identify the Target Branch**
-
     - Determine the `base` branch for your Pull Request (e.g., `frontendDev`, `backendDev`, or `main`). This is crucial for accurately identifying unique commits.
 
 2.  **Review Commits on the Feature Branch**
-
     - Use `git log <base_branch>..HEAD --oneline` to list all commits unique to your current feature branch. This provides a concise overview of the work accomplished.
     - Analyze these commit messages to understand the full scope of the feature, including:
       - New functionalities (`feat:` commits).
@@ -98,12 +89,10 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
       - Documentation changes (`docs:` commits).
 
 3.  **Draft the Pull Request Title**
-
     - The title should be concise and reflect the primary purpose or the most significant feature introduced by the branch.
     - Follow the Conventional Commits specification if applicable (e.g., `feat(scope): Summary of main feature`).
 
 4.  **Draft the Pull Request Description**
-
     - The description should provide a comprehensive summary of the _entire feature_ being merged, not just the last commit.
     - Organize the description into logical sections (e.g., "Key Features", "Architectural Changes", "Testing Setup", "Tooling Updates").
     - Elaborate on the "what" and "why" for each major change.
@@ -114,7 +103,6 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
       - References to updated documentation.
 
 5.  **Save the Drafted Pull Request Message**
-
     - Save the generated Pull Request title and description to a file within the `.pull_requests/` directory.
     - **Naming Convention**: The filename should follow the format: `<pr_title_slug> - <date>.md`.
       - `<pr_title_slug>`: A slugified version of the PR title (e.g., `feat-frontend-initial-setup-and-core-features`).
@@ -122,7 +110,6 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
       - Example: `.pull_requests/feat-frontend-initial-setup-and-core-features - 2025-10-14.md`
 
 6.  **Review and Refine**
-
     - Review the drafted message for clarity, completeness, and accuracy.
     - Ensure it provides sufficient context for reviewers to understand the scope of the changes.
 
@@ -137,7 +124,6 @@ This workflow outlines the steps to effectively draft a comprehensive Pull Reque
   4. Refine DTOs to be synchronized into the shared package.
   5. Write unit and integration tests.
   6. Collaborate with the shared-package-agent.
-
 
 ### Rule: General Frontend Workflow
 

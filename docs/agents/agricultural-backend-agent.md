@@ -464,6 +464,35 @@ model EnvironmentalData {
 ```
 
 ### Migration Management
+
+### Database Connection Strategy
+
+To ensure optimal performance and compatibility with serverless database environments (e.g., Vercel Postgres, Neon), the backend **must** use a Prisma adapter.
+
+-   **Adapter**: `@prisma/adapter-mariadb`
+-   **Configuration**: The connection is configured via a single `DATABASE_URL` environment variable.
+-   **Implementation**: The `PrismaService` is instantiated with the adapter, which handles connection pooling and management.
+
+This approach is critical for preventing connection exhaustion and ensuring resilient connections to databases that may "sleep".
+
+**Example `PrismaService`:**
+
+```typescript
+// src/infra/prisma/prisma.service.ts
+import { PrismaClient } from '@prisma/client';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+
+@Injectable()
+export class PrismaService extends PrismaClient {
+  constructor(private configService: ConfigService) {
+    const url = configService.get<string>('config.database.databaseUrl');
+    const adapter = new PrismaMariaDb(url);
+    super({ adapter });
+  }
+}
+```
+
+### Migration Management
 ```typescript
 // Migration service for tenant database management
 @Injectable()

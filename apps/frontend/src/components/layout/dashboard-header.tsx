@@ -17,11 +17,9 @@ import { useTranslations } from "next-intl";
 import { SignedIn, UserButton, SignedOut } from "@clerk/nextjs";
 import { Skeleton } from "../ui/skeleton";
 import { shadcn } from "@clerk/themes";
-import { useUserProfile } from "@/features/users/hooks/use-user-profile";
 
 export function DashboardHeader() {
   const t = useTranslations("DashboardHeader");
-  useUserProfile();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

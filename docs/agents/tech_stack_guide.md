@@ -151,6 +151,7 @@ Coverage: Vitest coverage (80%+ required)
     "helmet": "^7.1.0",
     "compression": "^1.7.4",
     "winston": "^3.11.0",
+    "@prisma/adapter-mariadb": "^5.8.0",
     "@sendgrid/mail": "^8.1.0",
     "aws-sdk": "^2.1532.0",
     "date-fns": "^3.0.0",

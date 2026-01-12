@@ -1,8 +1,28 @@
-feat(ui): refactor mobile navigation and simplify header
+feat(auth): implement robust auth state handling and serverless DB adapter
 
-Refactors the mobile navigation to use a collapsible, grouped structure, aligning it with the desktop sidebar's user experience. This change improves organization and scannability on mobile devices.
+Introduces a comprehensive system for managing authentication state
+on the frontend and optimizes the database connection for serverless
+environments on the backend.
 
-- Implements a collapsible accordion menu in the mobile navigation sheet.
-- Simplifies the main dashboard header by removing the search bar and settings button for a more minimal design.
-- Deletes the redundant `BottomNavigation` component.
-- Internationalizes navigation group titles ("Operations", "Management", "Administration") across all layout components and translation files.
+Frontend:
+- A new `AuthUserProfileProvider` and `useAuthUserProfile` hook replace
+  the previous user profile fetching logic.
+- A `DashboardProtectedLayout` is introduced to act as a state machine
+  for the user session, handling multiple states gracefully:
+  - **Loading:** A unified loading state for both Clerk session and
+    backend profile fetching.
+  - **Database Unavailable:** A specific error page is shown if the
+    backend API fails, indicating the database may be asleep.
+  - **Pending Permissions:** A dedicated page for authenticated users
+    whose profiles are not yet fully provisioned.
+- This provides a more resilient and user-friendly experience for
+  edge cases in a serverless architecture.
+
+Backend:
+- The Prisma service is refactored to use `@prisma/adapter-mariadb`.
+- This is essential for managing connections to serverless databases
+  (like Vercel Postgres, Neon, etc.) by enabling connection pooling.
+- The configuration is updated to use a single `DATABASE_URL` for
+  simplicity and compatibility with hosting provider environments.
+- The Clerk auth strategy now correctly parses user names from
+  different JWT claims (`given_name`/`family_name`).

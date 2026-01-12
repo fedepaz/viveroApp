@@ -67,8 +67,14 @@ export class ClerkAuthStrategy implements AuthStrategy {
       const user = await this.authService.findOrCreateUser({
         clerkId: payload.sub,
         email: (payload.email as string) || '',
-        firstName: (payload.first_name as string) || '',
-        lastName: (payload.last_name as string) || '',
+        firstName:
+          (payload.given_name as string) ||
+          (payload.first_name as string) ||
+          '',
+        lastName:
+          (payload.family_name as string) ||
+          (payload.last_name as string) ||
+          '',
         tenantId: this.defaultTenantId,
       });
 

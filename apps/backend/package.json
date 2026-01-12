@@ -26,8 +26,7 @@
     "db:seed": "pnpm ts-node prisma/seed.ts",
     "db:status": "pnpm prisma migrate status",
     "db:validate": "pnpm prisma validate",
-    "db:studio": "pnpm prisma studio",
-    "postinstall": "prisma generate"
+    "db:studio": "pnpm prisma studio"
   },
   "dependencies": {
     "@clerk/backend": "^2.29.2",

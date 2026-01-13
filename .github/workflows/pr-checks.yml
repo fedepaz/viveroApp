@@ -24,6 +24,8 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+        env:
+          DATABASE_URL: mysql://user:password@localhost:3306/vivero_app
       - name: Run linting
         run: pnpm run lint
       - name: Run tests

@@ -55,6 +55,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Run database migrations
+        run: pnpm --filter backend db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+
       - name: Check Frontend Test Coverage
         if: matrix.app == 'frontend'
         id: coverage

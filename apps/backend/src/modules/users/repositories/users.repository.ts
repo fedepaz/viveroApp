@@ -2,7 +2,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { UpdateUserProfileDto } from '@vivero/shared';
-import { User } from 'src/generated/prisma/client';
+import { User } from '../../../generated/prisma/client';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()

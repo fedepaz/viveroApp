@@ -1,7 +1,8 @@
 // src/auth/user/user.repository.ts
 
 import { Injectable } from '@nestjs/common';
-import { Role, Tenant, User } from '@prisma/client';
+import { Role, Tenant, User } from '../../../generated/prisma/client';
+
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()
@@ -61,6 +62,22 @@ export class UserAuthRepository {
         ...data,
         isActive: true,
       },
+    });
+  }
+
+  updateUser(
+    id: string,
+    data: {
+      email?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data,
     });
   }
 }

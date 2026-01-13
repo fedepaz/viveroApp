@@ -2,20 +2,21 @@
 
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PrismaClient } from '@prisma/client';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
+import { PrismaClient } from '../../generated/prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   private readonly logger = new Logger(PrismaService.name);
 
   constructor(private configService: ConfigService) {
-    super({
-      datasources: {
-        db: {
-          url: `mysql://${configService.get<string>('config.database.username')}:${configService.get<string>('config.database.password')}@${configService.get<string>('config.database.host')}:${configService.get<number>('config.database.port')}/${configService.get<string>('config.database.name')}`,
-        },
-      },
-    });
+    const url =
+      configService.get<string>('config.database.databaseUrl') ||
+      'mysql://root:root@localhost:3306/vivero_app';
+
+    const adapter = new PrismaMariaDb(url);
+
+    super({ adapter });
   }
 
   async onModuleInit() {

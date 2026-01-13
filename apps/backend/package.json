@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@8.6.1",
   "scripts": {
-    "build": "prisma generate && nest build",
+    "build": "nest build && prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "pnpm run start:dev",
@@ -40,6 +40,7 @@
     "@nestjs/swagger": "^11.2.3",
     "@nestjs/terminus": "^11.0.0",
     "@nestjs/throttler": "^6.5.0",
+    "@prisma/adapter-mariadb": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@sendgrid/mail": "^8.1.6",
     "@vivero/shared": "workspace:*",

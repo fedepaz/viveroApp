@@ -10,7 +10,7 @@ import { AuthStrategy } from '../interfaces/auth-strategy.abstract';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
-import { verifyToken } from '@clerk/backend';
+import { verifyToken, createClerkClient } from '@clerk/backend';
 import { ClerkJWTPayload } from '../types/clerk-payload.type';
 
 @Injectable()
@@ -18,6 +18,7 @@ export class ClerkAuthStrategy implements AuthStrategy {
   private readonly logger = new Logger(ClerkAuthStrategy.name);
   private readonly secretKey: string;
   private readonly defaultTenantId: string;
+  private readonly clerk: ReturnType<typeof createClerkClient>;
 
   constructor(
     private readonly config: ConfigService,
@@ -35,6 +36,9 @@ export class ClerkAuthStrategy implements AuthStrategy {
     this.secretKey = key;
 
     this.defaultTenantId = defaultTenantId;
+    this.clerk = createClerkClient({
+      secretKey: key,
+    });
   }
 
   getName(): string {
@@ -63,12 +67,26 @@ export class ClerkAuthStrategy implements AuthStrategy {
       // ✅ Get tenantId (stored in Clerk during YOUR signup flow)
       //const tenantId = this.extractTenantId(payload);
 
+      const userInfo = await this.clerk.users.getUser(payload.sub);
+
+      // Extract user details from Clerk's userInfo
+      const primaryEmailAddress = userInfo.emailAddresses.find(
+        (email) => email.id === userInfo.primaryEmailAddressId,
+      );
+      const email = primaryEmailAddress
+        ? primaryEmailAddress.emailAddress
+        : userInfo.emailAddresses[0]?.emailAddress;
+
+      if (!email) {
+        throw new UnauthorizedException('User has no email address.');
+      }
+
       // ✅ YOUR database manages the rest (role, permissions, etc.)
       const user = await this.authService.findOrCreateUser({
         clerkId: payload.sub,
-        email: (payload.email as string) || '',
-        firstName: (payload.first_name as string) || '',
-        lastName: (payload.last_name as string) || '',
+        email,
+        firstName: userInfo.firstName || '',
+        lastName: userInfo.lastName || '',
         tenantId: this.defaultTenantId,
       });
 
@@ -81,8 +99,12 @@ export class ClerkAuthStrategy implements AuthStrategy {
       };
 
       this.logger.log(
-        `✅ CLERK AUTH SUCCESS | User: ${user.email} | Tenant: ${user.tenantId}`,
+        `✅ CLERK AUTH SUCCESS | User: ${user.email} (ID: ${user.id}, ClerkID: ${user.clerkId}) | Tenant: ${user.tenantId}`,
       );
+
+      const allUsers = await this.authService.findAllByTenantId(user.tenantId);
+
+      this.logger.log(`✅ USERS: ${JSON.stringify(allUsers, null, 2)}`);
 
       return true;
     } catch (error) {

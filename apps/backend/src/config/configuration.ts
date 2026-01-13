@@ -11,13 +11,14 @@ export type AppConfig = {
     origins: string;
   };
   database: {
+    name: string;
     host: string;
     port: number;
     username: string;
     password: string;
     database: string;
     ssl: boolean;
-    name: string;
+    databaseUrl: string;
   };
   valkey: {
     host: string;
@@ -54,13 +55,14 @@ const configFactory = (): AppConfig => ({
     origins: process.env.CORS_ORIGINS || '',
   },
   database: {
+    name: process.env.DATABASE_NAME || 'vivero_app',
     host: process.env.DATABASE_HOST || 'localhost',
     port: parseInt(process.env.DATABASE_PORT || '3306', 10),
     username: process.env.DATABASE_USERNAME || 'user',
     password: process.env.DATABASE_PASSWORD || 'password',
     database: process.env.DATABASE_NAME || 'vivero_app',
+    databaseUrl: process.env.DATABASE_URL || '',
     ssl: process.env.DATABASE_SSL === 'true',
-    name: process.env.DATABASE_NAME || 'vivero_app',
   },
   valkey: {
     host: process.env.VALKEY_HOST || 'localhost',
@@ -107,6 +109,7 @@ export const validationSchema = Joi.object({
   DATABASE_PASSWORD: Joi.string().required(),
   DATABASE_NAME: Joi.string().required(),
   DATABASE_SSL: Joi.boolean().default(false),
+  DATABASE_URL: Joi.string().optional(),
 
   VALKEY_HOST: Joi.string().hostname().default('localhost'),
   VALKEY_PORT: Joi.number().port().default(6379),

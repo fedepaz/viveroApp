@@ -9,7 +9,8 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {
-      "dependsOn": ["^build"]
+      "cache": false,
+      "dependsOn": ["prisma:generate"]
     },
     "db:migrate": {
       "cache": false

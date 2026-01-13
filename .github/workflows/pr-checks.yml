@@ -24,6 +24,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Generate prisma client
+        run: cd apps/backend && npx prisma generate
+        env:
+          DATABASE_URL: mysql://user:password@localhost:3306/vivero_app
       - name: Run linting
         run: pnpm run lint --force
       - name: Run tests

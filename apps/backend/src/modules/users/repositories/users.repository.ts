@@ -1,8 +1,8 @@
 // app/modules/users/repositories/users.repository.ts
 
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
 import { UpdateUserProfileDto } from '@vivero/shared';
+import { User } from 'src/generated/prisma/client';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()

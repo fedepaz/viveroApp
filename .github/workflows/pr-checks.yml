@@ -26,7 +26,5 @@ jobs:
         run: pnpm install
       - name: Run linting
         run: pnpm run lint --force
-        env:
-          DATABASE_URL: mysql://user:password@localhost:3306/vivero_app
       - name: Run tests
         run: pnpm run test

@@ -9,23 +9,7 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": {
-      "cache": false,
-      "dependsOn": ["prisma:generate"]
-    },
-    "db:migrate": {
-      "cache": false
-    },
-    "db:migrate:test": {
-      "cache": false
-    },
-    "db:seed": {
-      "cache": false
-    },
-    "db:status": {
-      "cache": false
-    },
-    "db:validate": {
-      "cache": false
+      "dependsOn": ["^build"]
     },
     "test": {
       "dependsOn": ["^build"],

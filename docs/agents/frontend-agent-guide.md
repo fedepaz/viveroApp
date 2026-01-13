@@ -98,7 +98,6 @@ Application Structure:
 messages/               # Internationalization messages
 src/
 ├── app/                     # Next.js 14 App Router
-│   ├── (auth)/              # Authentication routes (e.g., sign-in, sign-up)
 │   ├── [locale]/            # Internationalization Route Segment
 │   │   ├── (dashboard)/     # Protected routes (Dashboard Layout)
 │   │   │   ├── plants/      # Routes for Plant Management Feature
@@ -394,6 +393,27 @@ Tech Stack Configuration:
 ├── Internationalization: next-intl (NL, DE, EN, IT)
 └── Testing: Vitest + Playwright
 ```
+
+### Authentication & Authorization
+
+A robust authentication and authorization layer is critical for the enterprise-grade frontend. The application uses a centralized pattern to manage user sessions, profiles, and UI states based on authentication status.
+
+**Core Components & Hooks:**
+
+1.  **`AuthUserProfileProvider`**: A React context provider that wraps the application and makes the user's authentication status and profile data available globally. It is sourced from the `useAuthUserProfile` hook.
+2.  **`useAuthUserProfile` Hook**: This is the central hook for fetching the authenticated user's profile from the backend (`/api/users/me`). It uses TanStack Query for caching and state management. Crucially, it interprets various states from the API response.
+3.  **`DashboardProtectedLayout`**: A client-side layout component that acts as a state machine. It consumes the `useAuthUserProfile` context and renders the appropriate UI for the user's current state.
+
+**Key UI States Handled:**
+
+The `DashboardProtectedLayout` must handle the following states to provide a resilient user experience:
+
+-   **`isLoading`**: A unified loading state that covers both the initial Clerk session loading and the subsequent backend profile fetch. A full-page spinner (`LoadingSpinner`) should be displayed.
+-   **`isDatabaseUnavailable`**: Triggered if the backend API call fails. This indicates a potential problem with the backend service or database connection (e.g., a serverless database is "asleep"). A dedicated error page (`DatabaseUnavailablePage`) is shown.
+-   **`isPendingPermissions`**: Occurs when a user is successfully authenticated with Clerk and the backend API call succeeds, but the backend returns no user profile. This signifies that the user's account is awaiting approval or setup. A specific page (`PendingPermissionsPage`) is displayed to inform the user.
+-   **Authenticated & Authorized**: If a `userProfile` is present, the main application `children` are rendered.
+
+This pattern ensures that the UI gracefully handles common edge cases in a distributed, serverless architecture. All new authenticated routes should be wrapped in this protective layout.
 
 ### Authentication Workflow
 

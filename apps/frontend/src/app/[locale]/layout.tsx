@@ -13,6 +13,7 @@ import { DashboardHeader } from "@/components/layout/dashboard-header";
 import { ReactClientProvider } from "@/providers/query-client-provider";
 import { notFound } from "next/navigation";
 import ComingSoonPage from "@/components/common/coming-soon";
+import { DashboardProtectedLayout } from "@/components/common/dashboard-protected-layout";
 
 export function generateStaticParams() {
   return generateLocaleStaticParams();
@@ -47,15 +48,17 @@ export default async function DashboardLayout({
         ) : (
           <ReactClientProvider>
             <Suspense fallback={<LoadingSpinner />}>
-              <div className="flex h-screen overflow-hidden">
-                <DesktopSidebar />
-                <div className="flex flex-1 flex-col overflow-hidden">
-                  <DashboardHeader />
-                  <main className="flex-1 overflow-auto pb-16 md:pb-0">
-                    {children}
-                  </main>
+              <DashboardProtectedLayout>
+                <div className="flex h-screen overflow-hidden">
+                  <DesktopSidebar />
+                  <div className="flex flex-1 flex-col overflow-hidden">
+                    <DashboardHeader />
+                    <main className="flex-1 overflow-auto pb-16 md:pb-0">
+                      {children}
+                    </main>
+                  </div>
                 </div>
-              </div>
+              </DashboardProtectedLayout>
             </Suspense>
           </ReactClientProvider>
         )}

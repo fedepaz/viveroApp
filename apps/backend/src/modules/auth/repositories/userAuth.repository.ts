@@ -1,7 +1,8 @@
 // src/auth/user/user.repository.ts
 
 import { Injectable } from '@nestjs/common';
-import { Role, Tenant, User } from '@prisma/client';
+import { Role, Tenant, User } from '../../../generated/prisma/client';
+
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()

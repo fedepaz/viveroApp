@@ -64,4 +64,20 @@ export class UserAuthRepository {
       },
     });
   }
+
+  updateUser(
+    id: string,
+    data: {
+      email?: string;
+      firstName?: string;
+      lastName?: string;
+    },
+  ): Promise<User> {
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
 }

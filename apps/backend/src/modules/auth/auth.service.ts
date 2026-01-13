@@ -19,6 +19,18 @@ export class AuthService {
     const existingUser = await this.userRepo.findByClerkId(input.clerkId);
 
     if (existingUser) {
+      const needsUpdate =
+        existingUser.email !== input.email ||
+        existingUser.firstName !== input.firstName ||
+        existingUser.lastName !== input.lastName;
+
+      if (needsUpdate) {
+        return this.userRepo.updateUser(existingUser.id, {
+          email: input.email,
+          firstName: input.firstName,
+          lastName: input.lastName,
+        });
+      }
       return existingUser;
     }
 
@@ -49,5 +61,9 @@ export class AuthService {
 
   findById(id: string): Promise<User | null> {
     return this.userRepo.findById(id);
+  }
+
+  findAllByTenantId(tenantId: string): Promise<User[]> {
+    return this.userRepo.findAllByTenantId(tenantId);
   }
 }

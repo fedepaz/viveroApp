@@ -1,0 +1,64 @@
+- [x] SAST Recon on `apps/backend/src/modules/users/repositories/users.repository.ts`
+- [x] SAST Recon on `apps/backend/package.json`
+- [x] SAST Recon on `apps/backend/src/modules/auth/auth.service.ts`
+  - [x] Investigate data flow from `DEFAULT_ROLE_ID` on line 10.
+- [x] SAST Recon on `apps/backend/src/modules/auth/repositories/userAuth.repository.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/strategies/clerk-auth.strategy.ts`
+- [ ] SAST Recon on `apps/backend/tsconfig.json`
+- [ ] SAST Recon on `apps/backend/src/modules/health/health.controller.spec.ts`
+- [ ] SAST Recon on `apps/backend/src/infra/prisma/prisma.service.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/UserPreference.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/User.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/Tenant.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/Role.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/Message.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/Locale.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/models/AuditLog.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/internal/prismaNamespaceBrowser.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/internal/prismaNamespace.ts`
+- [ ] SAST Recon on `apps/backend/prisma.config.ts`
+- [ ] SAST Recon on `apps/backend/eslint.config.mjs`
+- [ ] SAST Recon on `apps/backend/prisma/schema.prisma`
+- [ ] SAST Recon on `apps/backend/src/config/configuration.ts`
+- [ ] SAST Recon on `apps/backend/prisma/schema/enums.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/auditLog.prisma`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/enums.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/commonInputTypes.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/client.ts`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/browser.ts`
+- [ ] SAST Recon on `apps/backend/prisma/migrations/20260111141014_add_enums_to_audit_log/migration.sql`
+- [ ] SAST Recon on `apps/backend/src/generated/prisma/internal/class.ts`
+- [ ] SAST Recon on `apps/backend/.env.example`
+- [ ] SAST Recon on `apps/backend/.prettierrc`
+- [ ] SAST Recon on `apps/backend/nest-cli.json`
+- [ ] SAST Recon on `apps/backend/prisma/migrations/20260102154818_init/migration.sql`
+- [ ] SAST Recon on `apps/backend/prisma/migrations/migration_lock.toml`
+- [ ] SAST Recon on `apps/backend/prisma/schema/locale.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/message.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/role.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/tenant.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/user.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/schema/userPreference.prisma`
+- [ ] SAST Recon on `apps/backend/prisma/seed.ts`
+- [ ] SAST Recon on `apps/backend/README.md`
+- [ ] SAST Recon on `apps/backend/src/app.module.ts`
+- [ ] SAST Recon on `apps/backend/src/infra/prisma/prisma.module.ts`
+- [ ] SAST Recon on `apps/backend/src/main.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/auth.module.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/guards/global-auth.guard.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/interfaces/auth-strategy.abstract.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/strategies/dev-auth.strategy.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/types/auth-user.type.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/types/clerk-payload.type.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/auth/types/express.d.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/health/health.controller.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/users/users.controller.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/users/users.module.ts`
+- [ ] SAST Recon on `apps/backend/src/modules/users/users.service.ts`
+- [ ] SAST Recon on `apps/backend/src/shared/decorators/public.decorator.ts`
+- [ ] SAST Recon on `apps/backend/src/shared/exceptions/security-exception.filter.ts`
+- [ ] SAST Recon on `apps/backend/src/shared/pipes/zod-validation-pipe.ts`
+- [ ] SAST Recon on `apps/backend/test/app.e2e-spec.ts`
+- [ ] SAST Recon on `apps/backend/test/jest-e2e.json`
+- [ ] SAST Recon on `apps/backend/tsconfig.build.json`

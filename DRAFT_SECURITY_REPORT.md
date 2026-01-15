@@ -1,0 +1,6 @@
+- **Vulnerability:** Hardcoded Role ID
+- **Severity:** Low
+- **Location:** `apps/backend/src/modules/auth/auth.service.ts`
+- **Line Content:** `private readonly DEFAULT_ROLE_ID = 'cmk1lzh4l0004j8l5pw5jezn5';`
+- **Description:** The `DEFAULT_ROLE_ID` is hardcoded. If the role with this ID is changed or deleted from the database, it will break the user creation flow. This makes the application less robust and harder to maintain.
+- **Recommendation:** Fetch the default role by a stable identifier, such as its name (e.g., 'guest'), or store the default role ID in a configuration file instead of hardcoding it. This will decouple the application logic from specific database IDs.

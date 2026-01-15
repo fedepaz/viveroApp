@@ -3,7 +3,7 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserProfileDto } from '@vivero/shared';
 import { User } from '../../../generated/prisma/client';
-import { PrismaService } from 'src/infra/prisma/prisma.service';
+import { PrismaService } from '../../../infra/prisma/prisma.service';
 
 @Injectable()
 export class UsersRepository {

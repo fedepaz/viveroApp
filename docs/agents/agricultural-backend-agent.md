@@ -92,6 +92,24 @@ Validation: Zod schemas
 Testing: Jest + Supertest + Vitest
 ```
 
+### Recommended Future Modules
+
+While not all of the following modules are in use, they were part of the initial project scaffolding and are recommended for future implementation as the application's needs grow. They are industry-standard solutions for a robust NestJS application.
+
+-   **Security & Performance:**
+    -   `@nestjs/throttler`: For rate-limiting to prevent API abuse.
+    -   `helmet`: To automatically set important security-related HTTP headers.
+    -   `compression`: Middleware to compress response bodies and improve client-side performance.
+
+-   **API Documentation:**
+    -   `@nestjs/swagger`: To generate interactive API documentation (Swagger/OpenAPI), which is invaluable for frontend developers and API consumers.
+
+-   **Asynchronous Processing:**
+    -   `@nestjs/bull` & `bullmq`: For implementing a robust background job processing system with Redis, suitable for handling long-running tasks like report generation or sending emails without blocking the main application thread.
+
+-   **Health Checks:**
+    -   `@nestjs/terminus`: For creating detailed and comprehensive health check endpoints, which can provide granular information about the status of the database, external services, and more.
+
 ### Validation
 
 All incoming data to the API (e.g., request bodies, query parameters) **must** be validated to ensure type safety and correctness.

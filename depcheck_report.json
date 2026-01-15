@@ -1,0 +1,1 @@
+{"dependencies":[],"devDependencies":["@commitlint/cli","@commitlint/config-conventional","@playwright/test","concurrently","zod"],"missing":{},"using":{"husky":["/home/fedepaz/Documents/proyectos/viveroApp/package.json"],"turbo":["/home/fedepaz/Documents/proyectos/viveroApp/package.json"]},"invalidFiles":{},"invalidDirs":{}}

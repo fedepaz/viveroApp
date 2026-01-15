@@ -3,7 +3,7 @@
 import { Injectable } from '@nestjs/common';
 import { Role, Tenant, User } from '../../../generated/prisma/client';
 
-import { PrismaService } from 'src/infra/prisma/prisma.service';
+import { PrismaService } from '../../../infra/prisma/prisma.service';
 
 @Injectable()
 export class UserAuthRepository {

@@ -1,22 +1,14 @@
-fix(auth): synchronize user data on every login
+refactor: improve db seeding and frontend loading
 
-Previously, when a user authenticated via Clerk, their information was only
-fetched and stored upon their initial registration. On subsequent logins,
-the system would find the existing user record but would not update it,
-leading to stale data if the user's profile information (e.g., name, email)
-had changed in Clerk.
+This commit includes two main changes:
 
-This commit addresses the issue by implementing an update mechanism
-within the `findOrCreateUser` service.
+1. Backend (Database):
+The manual prisma seed script (seed.ts) has been removed. This script was
+responsible for creating a hardcoded "Development Tenant" and default user
+roles. This approach is being deprecated in favor of a more dynamic and
+automated tenant provisioning and seeding process.
 
-- A new `updateUser` method has been added to the `UserAuthRepository` to
-  facilitate updating user records.
-- The `AuthService` now compares the incoming user data from Clerk with
-  the existing database record.
-- If there are any discrepancies in the user's `email`, `firstName`, or
-  `lastName`, the `updateUser` method is called to synchronize the data.
-- Enhanced logging in `ClerkAuthStrategy` to provide better visibility
-  into the authentication and user synchronization process.
-
-This ensures that the user's profile in the local database is always
-kept in sync with the information from the authentication provider.
+2. Frontend (Layout):
+The final fallback component in the DashboardProtectedLayout has been
+changed from the ComingSoonPage to a LoadingSpinner. This provides a better
+user experience for any unexpected loading states.

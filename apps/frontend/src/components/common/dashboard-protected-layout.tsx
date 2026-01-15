@@ -5,7 +5,6 @@ import { useAuthUserProfileContext } from "@/features/auth/providers/AuthProvide
 import { LoadingSpinner } from "./loading-spinner";
 import { DatabaseUnavailablePage } from "./database-unavailable";
 import { PendingPermissionsPage } from "./pending-permissions";
-import ComingSoonPage from "./coming-soon";
 
 interface DashboardProtectedLayoutProps {
   children: React.ReactNode;
@@ -45,5 +44,5 @@ export function DashboardProtectedLayout({
   }
 
   // Generic catch-all for any other unforeseen state
-  return <ComingSoonPage />;
+  return <LoadingSpinner />;
 }

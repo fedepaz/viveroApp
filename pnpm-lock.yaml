@@ -40,8 +40,8 @@ importers:
         specifier: ^2.7.2
         version: 2.7.2
       zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+        specifier: ^3.22.0
+        version: 3.22.0
 
   apps/backend:
     dependencies:
@@ -85,8 +85,8 @@ importers:
         specifier: ^7.8.2
         version: 7.8.2
       zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+        specifier: ^3.22.0
+        version: 3.22.0
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.2
@@ -106,6 +106,9 @@ importers:
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
+      '@types/jest':
+        specifier: ^30.0.0
+        version: 30.0.0
       '@types/joi':
         specifier: ^17.2.3
         version: 17.2.3
@@ -329,8 +332,8 @@ importers:
         specifier: ^0.9.9
         version: 0.9.9(@types/react-dom@19.2.3)(@types/react@19.2.7)(react-dom@19.1.0)(react@19.1.0)
       zod:
-        specifier: 4.3.5
-        version: 4.3.5
+        specifier: ^3.22.0
+        version: 3.22.0
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.3
@@ -393,8 +396,8 @@ importers:
   packages/shared:
     dependencies:
       zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+        specifier: ^3.22.0
+        version: 3.22.0
 
 packages:
 
@@ -5882,6 +5885,13 @@ packages:
     resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.3
+    dev: true
+
+  /@types/jest@30.0.0:
+    resolution: {integrity: sha512-XTYugzhuwqWjws0CVz8QpM36+T+Dz5mTEBKhNs/esGLnCIlGdRy+Dq78NRjd7ls7r8BC8ZRMOrKlkO1hU0JOwA==}
+    dependencies:
+      expect: 30.2.0
+      pretty-format: 30.2.0
     dev: true
 
   /@types/joi@17.2.3:
@@ -13992,5 +14002,5 @@ packages:
     dependencies:
       grammex: 3.1.12
 
-  /zod@4.3.5:
-    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
+  /zod@3.22.0:
+    resolution: {integrity: sha512-y5KZY/ssf5n7hCGDGGtcJO/EBJEm5Pa+QQvFBeyMOtnFYOSflalxIFFvdaYevPhePcmcKC4aTbFkCcXN7D0O8Q==}
